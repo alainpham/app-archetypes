@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" name="fuse-standard-archetype"
+    xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <requiredProperties >
+    <requiredProperty key="cxfSupport" >
+      <defaultValue>false</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="camel-3-sbsuffix" >
+      <defaultValue>.springboot</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="camel-version">
+      <defaultValue>3.4.0</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="spring-boot-version">
+      <defaultValue>2.3.1.RELEASE</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="swagger-ui-version">
+      <defaultValue>3.26.1</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="swagger-codegen-version">
+      <defaultValue>2.4.14</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="fmp-version">
+      <defaultValue>4.4.1</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="cxf-codegen-plugin-version">
+      <defaultValue>3.3.6</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="logstash-encoder-version">
+      <defaultValue>6.4</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="webjars-locator-version">
+      <defaultValue>0.40</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="hawtio-springboot-version">
+      <defaultValue>2.10.0</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="jmx-prometheus-javaagent-version">
+      <defaultValue>0.13.0</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="project-reporting-outputEncoding">
+      <defaultValue>UTF-8</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="project-build-sourceEncoding">
+      <defaultValue>UTF-8</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="maven-compiler-target">
+      <defaultValue>1.8</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="maven-compiler-source">
+      <defaultValue>1.8</defaultValue>
+    </requiredProperty>
+  </requiredProperties>
+ <fileSets>
+    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+      <directory>src/main/java</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+    </fileSet>
+     <fileSet filtered="true" encoding="UTF-8">
+         <directory>src/main/fabric8</directory>
+         <includes>
+             <include>**/*</include>
+         </includes>
+     </fileSet>
+     <fileSet filtered="false" encoding="UTF-8">
+      <directory>src/main/prometheus</directory>
+      <includes>
+          <include>**/*</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>src/data</directory>
+      <includes>
+        <include>**/*.xml</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+      <directory>src/test/java</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>src/test/resources</directory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory></directory>
+      <includes>
+        <include>ReadMe.md</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory></directory>
+      <includes>
+        <include>Dockerfile</include>
+      </includes>
+    </fileSet>
+     <fileSet filtered="false" encoding="UTF-8">
+         <directory></directory>
+         <includes>
+             <include>.gitignore</include>
+         </includes>
+     </fileSet>
+  </fileSets>
+</archetype-descriptor>
