@@ -2,6 +2,7 @@
 #https://github.com/fabric8io-images/s2i/blob/master/java/images/centos/prometheus-config.yml
 startDelaySecs: 5
 ssl: false
+whitelistObjectNames: ["org.apache.camel:*","org.apache.cxf:*"]
 blacklistObjectNames: ["java.lang:*"]
 rules:
 # Context level
