@@ -19,9 +19,11 @@ mvn archetype:generate \
 
 The dashboard that you can import can be found [here](camel-monitoring/dashboards-for-import/Camel%20Dashboard%20-%20Context%20View.json)
 
+
 It gives comprehensive metrics for performance monitoring. It focuses on monitoring route execution rate and average executions times that is broken down to processors & routes. You can use it to find your bottlenecks and detect degradations in quality of service.
 
-![Grafana ](assets/grafana-dash-sample.png)
+Videos :
+[![Grafana](assets/grafana-dash-sample.png)](http://www.youtube.com/watch?v=0LDgv1nIk-Y)
 
 ## Install Prometheus and Grafana Kubernetes/Openshift Namespace for monitoring
 
