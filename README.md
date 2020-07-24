@@ -37,7 +37,7 @@ cat camel-monitoring/prometheus-local.yaml | sed -E "s/TARGET_NAMESPACE/###YOUR_
 
 oc create configmap grafana-dashboards --from-file=camel-monitoring/dashboards
 
-oc apply -f monitoring/camel-monitoring/grafana.yaml
+oc apply -f camel-monitoring/grafana.yaml
 ```
 
 ## Install Prometheus & Grafana on local docker engine for testing
