@@ -15,6 +15,17 @@ mvn archetype:generate \
     -DarchetypeVersion=1.0.0
 ```
 
+## Create a Quarkus Camel Project
+
+The following is a Quarkus archetype
+
+```
+mvn archetype:generate \
+    -DarchetypeGroupId=io.github.alainpham \
+    -DarchetypeArtifactId=quarkus-camel \
+    -DarchetypeVersion=1.0.0
+```
+
 ## Grafana Dashboard For Camel Monitoring
 
 The dashboard that you can import can be found [here](camel-monitoring/dashboards-for-import/Camel%20Dashboard%20-%20Context%20View.json)
@@ -48,7 +59,7 @@ https://github.com/alainpham/dev-env-scripts#monitoring
 
 By editing the prometheus config we can set static targets on your local env to emulate the behavior of auto discovered pods on Kubernetes.
 
-## Current versions used
+## Current versions for spring booot used
 
 | Components                 | Version       |
 |----------------------------|---------------|
@@ -62,6 +73,12 @@ By editing the prometheus config we can set static targets on your local env to 
 | webjars-locator-version    | 0.40          |
 | hawtio-springboot-version  | 2.10.0        |
 | jmx_prometheus_javaagent   | 0.13.0        |
+
+## Current versions for quarkus used
+
+| Components                 | Version       |
+|----------------------------|---------------|
+| quarkus-version              | 1.9.2.Final   |
 
 ## Next steps for this small project
 

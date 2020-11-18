@@ -18,7 +18,7 @@
     <requiredProperty key="compiler-plugin-version">
       <defaultValue>3.8.1</defaultValue>
     </requiredProperty>
-    <requiredProperty key="${quarkus-version}">
+    <requiredProperty key="quarkus-version">
       <defaultValue>1.9.2.Final</defaultValue>
     </requiredProperty>
   </requiredProperties>

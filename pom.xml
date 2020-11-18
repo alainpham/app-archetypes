@@ -7,5 +7,6 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>spring-boot-camel</module>
+        <module>quarkus-camel</module>
 	</modules>
 </project>
