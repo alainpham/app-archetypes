@@ -21,6 +21,12 @@
     <requiredProperty key="quarkus-version">
       <defaultValue>1.9.2.Final</defaultValue>
     </requiredProperty>
+    <requiredProperty key="camel-version">
+      <defaultValue>3.6.0</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="surefire-plugin-version">
+      <defaultValue>2.22.1</defaultValue>
+    </requiredProperty>
   </requiredProperties>
  <fileSets>
     <fileSet filtered="true" packaged="true" encoding="UTF-8">
