@@ -1,0 +1,11 @@
+<rests xmlns="http://camel.apache.org/schema/spring" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.5.0.xsd">
+    <rest id="rest-svc" path="/restsvc">
+        <get id="get-ping" uri="/ping" >
+            <route id="get-ping-route">
+                <setBody id="set-body-get-ping-route">
+                    <constant>pong</constant>
+                </setBody>
+            </route>
+        </get>
+    </rest>
+</rests>
