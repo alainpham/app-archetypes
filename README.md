@@ -78,9 +78,9 @@ By editing the prometheus config we can set static targets on your local env to 
 
 | Components                 | Version       |
 |----------------------------|---------------|
-| quarkus-version              | 1.9.2.Final   |
+| quarkus-version            | 1.9.2.Final   |
+| camel-version              | 3.6.0         |
 
 ## Next steps for this small project
 
-* Make an archtype for Camel Quarkus
 * Build a Dashboard for Camel Quarkus with the microprofile metrics componenents. This will be great for SLA management as their are some cool metrics like quantiles on execution time.
