@@ -1,4 +1,4 @@
-package com.itteddy;
+package ${package};
 
 import io.quarkus.test.junit.NativeImageTest;
 
