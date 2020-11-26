@@ -26,6 +26,15 @@ mvn archetype:generate \
     -DarchetypeVersion=1.0.0
 ```
 
+## Create a Plain Java Project
+
+```
+mvn archetype:generate \
+    -DarchetypeGroupId=io.github.alainpham \
+    -DarchetypeArtifactId=plain-java \
+    -DarchetypeVersion=1.0.0
+```
+
 ## Grafana Dashboard For Camel Monitoring
 
 The dashboard that you can import can be found [here](camel-monitoring/dashboards-for-import/Camel%20Dashboard%20-%20Context%20View.json)
