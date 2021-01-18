@@ -30,7 +30,16 @@
         </div>
         <div class="row">
             <div class="col">
+                <input type="text" id="message-input" value="Test message">
+                <button id="send-button" onclick="backEndRequest(null,'/send-msg','post', document.getElementById('message-input').value)">send</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 <p id="content"></p>
+            </div>
+            <div class="col">
+                <p id="messages"></p>
             </div>
         </div>
     </div>

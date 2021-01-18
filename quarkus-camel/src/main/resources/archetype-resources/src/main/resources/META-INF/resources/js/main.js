@@ -27,16 +27,34 @@ function includeHTML() {
     }
 }
 
-function fetchInnerHtml(elementId,path,meth,msg){
+function backEndRequest(elementId,path,meth,msg){
     console.log(window.location.protocol + "//" + window.location.host + path);
+    console.log("sending" + msg);
     fetch(window.location.protocol + "//" + window.location.host + path, {
         method: meth,
         body: msg
       })
         .then(response => response.text())
         .then(function (response) {
-          console.log(response);
-          document.getElementById(elementId).innerHTML =  response;
+            console.log(response);
+            if(elementId!=null){
+                document.getElementById(elementId).innerHTML =  response;
+            }
         })
 }
 
+// receiving functions 
+var server = ((window.location.protocol === 'https:') ? 'wss://' : 'ws://') + window.location.hostname + ":" + window.location.port + "/websocket";
+var receivedMsg = [];
+
+var socket = new WebSocket(server);
+socket.onmessage = function (event) {
+    text = event.data;
+    receivedMsg.unshift(text);
+    console.log("received " + text);
+    if (receivedMsg.length > 5) {
+        receivedMsg.pop();
+    }
+    document.getElementById("messages").innerHTML = receivedMsg.join('<hr>');
+
+};
