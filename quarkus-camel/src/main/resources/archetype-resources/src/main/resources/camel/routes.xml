@@ -9,4 +9,12 @@
             <constant>{"msg" : "HELLO"}</constant>
         </setBody>
     </route>
+
+    <route id="send-socket-msg-to-all">
+        <from id="send-socket-msg-to-all-starter" uri="platform-http:/send-msg"/>
+        <convertBodyTo type="java.lang.String"/>
+        <log message="${body}"/>
+        <to uri="ahc-ws:{{quarkus.http.host}}:{{quarkus.http.port}}/websocket"/>
+    </route>
+
 </routes>
