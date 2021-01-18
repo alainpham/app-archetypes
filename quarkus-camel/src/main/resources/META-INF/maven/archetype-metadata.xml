@@ -53,13 +53,13 @@
         <include>**/*</include>
       </includes>
       <excludes>
-        <exclude>**/framework/*</exclude>
+        <exclude>**/framework/**</exclude>
       </excludes>
     </fileSet>
     <fileSet filtered="false" encoding="UTF-8">
       <directory>src/main/resources</directory>
       <includes>
-        <include>**/framework/*</include>
+        <include>**/framework/**</include>
       </includes>
     </fileSet>
     <fileSet filtered="true" packaged="true" encoding="UTF-8">
