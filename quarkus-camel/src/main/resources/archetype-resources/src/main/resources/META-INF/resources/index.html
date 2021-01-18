@@ -1,14 +1,51 @@
-<html>
+<!doctype html>
+<html lang="en">
 <header>
+    <meta charset="utf-8">
     <title>${artifactId}</title>
+    <meta name="description" content="${artifactId} interface">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/framework/bootstrap.min.css">
+    <link rel="stylesheet" href="css/framework/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/main.css" />
+    
 </header>
 
 <body>
-   <h1>Welcome to the ${artifactId} interface</h1>
-   <p><a href="/ping">Ping</a></p>
-   <p><a href="/openapi">JaxRS Open API definition</a></p>
-   <p><a href="/camel-openapi">Camel Open API definition</a></p>
-   <p><a href="/swagger-ui">Swagger UI - JaxRS</a></p>
+
+    <div w3-include-html="partials/header.html"></div>
+
+    <!-- PUT YOUR CONTENT HERE -->
+    <div class="container-fluid">
+        <div class="row">
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="jumbotron">
+                    <h1 class="display-4">Welcome to the ${artifactId} interface</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p id="content"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- END PUT YOUR CONTENT HERE -->
+
+
+    <script src="js/framework/jquery-3.5.1.slim.min.js"></script>
+    <script src="js/framework/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script type="text/javascript">
+        includeHTML();
+    </script>
+
 </body>
 
 </html>

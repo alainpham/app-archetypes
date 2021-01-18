@@ -3,7 +3,7 @@ package ${package};
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.model.rest.RestBindingMode;
+// import org.apache.camel.model.rest.RestBindingMode;
 
 @ApplicationScoped
 public class Main extends RouteBuilder {

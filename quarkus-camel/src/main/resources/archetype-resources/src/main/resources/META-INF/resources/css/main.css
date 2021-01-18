@@ -1,0 +1,32 @@
+/* Customized bootstrap settings */
+
+.jumbotron {
+	background: #719d7d;
+}
+
+.jumbotron h1 {
+	color: white;
+	letter-spacing: 0.2em;
+	font-size: 3em;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+	text-transform: uppercase;
+	color: white;
+}
+
+.dropdown-menu{
+	color: white;
+	background-color: black;
+}
+
+.dropdown-item {
+	color: white;
+	background-color: black;
+}
+
+.bg-dark {
+	background-color: black!important;
+}
