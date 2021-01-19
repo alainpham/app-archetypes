@@ -6,9 +6,6 @@
     <meta name="description" content="${artifactId} interface">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/framework/bootstrap.min.css">
-    <link rel="stylesheet" href="css/framework/bootstrap-icons.css">
     <link rel="stylesheet" href="css/main.css" />
     
 </header>
@@ -18,37 +15,25 @@
     <div w3-include-html="partials/header.html"></div>
 
     <!-- PUT YOUR CONTENT HERE -->
-    <div class="container-fluid">
-        <div class="row">
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="jumbotron">
-                    <h1 class="display-4">Welcome to the ${artifactId} interface</h1>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <input type="text" id="message-input" value="Test message">
-                <button id="send-button" onclick="backEndRequest(null,'/send-msg','post', document.getElementById('message-input').value)">send</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p id="content"></p>
-            </div>
-            <div class="col">
-                <p id="messages"></p>
-            </div>
+    <div class="jumbotron">
+        <h1>Welcome to the ${artifactId} interface</h1>
+    </div>
+    <div class="flex-container">
+        <div>
+            <input type="text" id="message-input" value="Send your message here">
+            <button id="send-button" onclick="backEndRequest(null,'/send-msg','post', document.getElementById('message-input').value)">send</button>
         </div>
     </div>
-
+    <div class="flex-container">
+        <div>
+            <p id="content"></p>
+        </div>
+        <div>
+            <p id="messages"></p>
+        </div>
+    </div>
     <!-- END PUT YOUR CONTENT HERE -->
 
-
-    <script src="js/framework/jquery-3.5.1.slim.min.js"></script>
-    <script src="js/framework/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
 
     <script type="text/javascript">

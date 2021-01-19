@@ -1,4 +1,11 @@
-/* Customized bootstrap settings */
+@import url("framework/fonts/overpass-webfont/overpass.css");
+@import url("framework/fonts/overpass-mono-webfont/overpass-mono.css");
+
+body {
+	font-family: overpass,sans-serif;
+	margin: 0px;
+	overflow-y:scroll;
+}
 
 .jumbotron {
 	background: #719d7d;
@@ -10,23 +17,40 @@
 	font-size: 3em;
 	text-align: center;
 	text-transform: uppercase;
+	margin-top: 0em ;
+	margin-bottom: 0em;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	font-weight: 500;
 }
 
-.navbar-dark .navbar-nav .nav-link {
+.nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: black;
 	text-transform: uppercase;
+}
+  
+.nav li {
+	float: left;
+}
+  
+.nav li a {
+	display: block;
 	color: white;
+	padding: 14px 14px;
+	text-decoration: none;
 }
 
-.dropdown-menu{
-	color: white;
-	background-color: black;
+.nav li a:hover {
+	background-color: darkslategray;
 }
 
-.dropdown-item {
-	color: white;
-	background-color: black;
-}
-
-.bg-dark {
-	background-color: black!important;
+.flex-container {
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	display: flex;
 }
