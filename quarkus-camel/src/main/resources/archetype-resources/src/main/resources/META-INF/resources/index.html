@@ -7,32 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="css/main.css" />
-    
+    <link rel="stylesheet" href="css/framework/all.css" />
+
 </header>
 
 <body>
 
     <div w3-include-html="partials/header.html"></div>
-
-    <!-- PUT YOUR CONTENT HERE -->
-    <div class="jumbotron">
-        <h1>Welcome to the ${artifactId} interface</h1>
-    </div>
-    <div class="flex-container">
-        <div>
-            <input type="text" id="message-input" value="Send your message here">
-            <button id="send-button" onclick="backEndRequest(null,'/send-msg','post', document.getElementById('message-input').value)">send</button>
+    <div class="content-body">
+        <!-- PUT YOUR CONTENT HERE -->
+        <div class="jumbotron">
+            <h1>Welcome to the ${artifactId} interface</h1>
         </div>
-    </div>
-    <div class="flex-container">
-        <div>
-            <p id="content"></p>
-        </div>
-        <div>
-            <p id="messages"></p>
+        <div class="flex-container">
+            <div class="flex-item flex-container-col" >
+                <input  type="text" id="message-input" value="" placeholder="Your message">
+                <textarea  id="text-area"></textarea>
+                <button  id="send-button"
+                    onclick="backEndRequest(null,'${svc-send-msg-path}','post', document.getElementById('message-input').value)">send</button>
+            </div>
+            <div class="flex-item flex-grow">
+                <strong>Log Messages</strong>
+                <div id="messages">messages messages messages messages messages messages</div>
+            </div>
         </div>
     </div>
     <!-- END PUT YOUR CONTENT HERE -->
+
+
 
     <script src="js/main.js"></script>
 

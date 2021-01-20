@@ -43,6 +43,15 @@ function backEndRequest(elementId,path,meth,msg){
         })
 }
 
+function toggleResponsiveMenu(){
+    var x = document.getElementById("nav");
+    if (x.className === "nav") {
+      x.className += " responsive";
+    } else {
+      x.className = "nav";
+    }
+}
+
 // receiving functions 
 var server = ((window.location.protocol === 'https:') ? 'wss://' : 'ws://') + window.location.hostname + ":" + window.location.port + "/websocket";
 var receivedMsg = [];

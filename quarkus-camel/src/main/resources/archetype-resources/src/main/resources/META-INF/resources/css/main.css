@@ -1,20 +1,105 @@
 @import url("framework/fonts/overpass-webfont/overpass.css");
 @import url("framework/fonts/overpass-mono-webfont/overpass-mono.css");
 
-body {
+* {
 	font-family: overpass,sans-serif;
+	box-sizing: border-box;
+	color: white;
+	transition: all 0.3s ease 0s;
+	font-size: 1em;
+}
+
+body {
 	margin: 0px;
 	overflow-y:scroll;
+	background-color: black;
 }
+
+
+/* NAVIGATION MENU STYLE */
+
+
+.nav {
+	display: flex;
+	position: fixed;
+	width: 100%;
+	background-color: #191c23;
+}
+
+
+.logo{
+	font-weight: bold;
+	padding: 1em 1em;
+	text-decoration: none;
+}
+
+.nav a {
+	padding: 1em 1em;
+	display: block;
+	text-decoration: none;
+	font-weight: 500;
+}
+
+
+@media (hover: hover) {
+	.nav a:hover{
+		background-color: darkslategray;
+		transform: translateY(0.3em);
+	}
+}
+
+
+.nav .action-btn {
+	display: none;
+	
+}
+
+@media screen and (max-width: 900px) {
+	.nav a:not(:first-child) {display: none;}
+	.nav{
+		justify-content: space-between;
+	}
+	.nav a.action-btn {
+		display: block;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+
+	.nav.responsive {
+		flex-direction: column;
+	}
+	
+	.nav.responsive a{
+		display: block;
+		animation-duration: 0.4s;
+		animation-name: fadein;
+	}
+
+}
+
+@keyframes fadein {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+/* END NAVIGATION MENU STYLE */
+
+
+/* JUMBOTRON */
+
 
 .jumbotron {
 	background: #719d7d;
 }
 
 .jumbotron h1 {
-	color: white;
 	letter-spacing: 0.2em;
-	font-size: 3em;
+	font-size: 2.1em;
 	text-align: center;
 	text-transform: uppercase;
 	margin-top: 0em ;
@@ -24,33 +109,82 @@ body {
 	font-weight: 500;
 }
 
-.nav ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background-color: black;
-	text-transform: uppercase;
-}
-  
-.nav li {
-	float: left;
-}
-  
-.nav li a {
-	display: block;
-	color: white;
-	padding: 14px 14px;
-	text-decoration: none;
-}
+/* END JUMBOTRON */
 
-.nav li a:hover {
-	background-color: darkslategray;
+
+/* CONTENT STRUCTURE*/
+
+
+.content-body{
+	padding-top: 3em;
+	background-color: #000;
+	height: 100vh;
 }
 
 .flex-container {
-	margin-top: 10px;
-	margin-left: 10px;
-	margin-right: 10px;
+
 	display: flex;
+	flex-wrap: wrap;
+}
+
+.flex-container-col{
+	display: flex;
+	flex-direction: column;
+}
+
+.flex-item{
+	margin : 0.8em;
+	padding: 1.5em;
+	border-radius: 0.4em;
+	background-color: #191c23;
+}
+
+@media screen and (max-width: 900px) {
+	.flex-item{
+		flex-grow: 1;
+	}
+}
+
+.flex-grow{
+	flex-grow: 1;
+}
+
+
+
+/* FORMS */
+
+
+button {
+	background-color: #3b6547;
+	border-style: solid;
+	border-width: 0px;
+	margin : 0.5em;
+	padding: 0.3em 1em 0.3em 1em;
+	outline-style: none;
+}
+
+button:active,button:target {
+	background-color: #8fbc9b;
+}
+
+@media (hover: hover) {
+    button:hover{
+		transform: scale(1.05);
+		cursor: pointer;
+	}
+
+}
+
+input,textarea {
+	background-color: #383b44;
+	border-color: #3b6547;
+	border-width: 1px;
+	border-style: solid;
+	margin: 0.5em;
+	padding: 0.3em 1em 0.3em 1em;
+}
+
+input:focus, textarea:focus{
+	transform: scale(1.05);
+	outline-style: none;
 }

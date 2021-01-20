@@ -33,6 +33,23 @@
     <requiredProperty key="surefire-plugin-version">
       <defaultValue>2.22.1</defaultValue>
     </requiredProperty>
+    <!-- app vars -->
+    <requiredProperty key="svc-ping-path">
+      <defaultValue>/ping</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="svc-definition-path">
+      <defaultValue>/openapi</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="svc-camel-definition-path">
+      <defaultValue>/camel-openapi</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="svc-send-msg-path">
+      <defaultValue>/send-msg</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="swagger-ui-path">
+      <defaultValue>/swagger-ui</defaultValue>
+    </requiredProperty>
+    
   </requiredProperties>
  <fileSets>
     <fileSet filtered="true" packaged="true" encoding="UTF-8">
