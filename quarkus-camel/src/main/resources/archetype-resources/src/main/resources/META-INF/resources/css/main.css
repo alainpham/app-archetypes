@@ -1,18 +1,31 @@
 @import url("framework/fonts/overpass-webfont/overpass.css");
 @import url("framework/fonts/overpass-mono-webfont/overpass-mono.css");
 
+:root {
+	--tmpl-main-color: #719d7d;
+	--tmpl-main-color-dark: #3b6547;
+	--tmpl-main-color-light: #8fbc9b;
+	--tmpl-main-color-darker: #2f4f4f;
+	--tmpl-back-color:black;
+	--tmpl-back-color-light: #191c23;
+	--tmpl-text-color: white;
+
+	--tmpl-responsive-size: 900px;
+}	
+
 * {
 	font-family: overpass,sans-serif;
 	box-sizing: border-box;
-	color: white;
-	transition: all 0.3s ease 0s;
+	color: var(--tmpl-text-color);
+	transition: all 0.2s ease 0s;
 	font-size: 1em;
 }
 
 body {
 	margin: 0px;
 	overflow-y:scroll;
-	background-color: black;
+	scrollbar-width: 15px;
+	background-color: var(--tmpl-back-color);
 }
 
 
@@ -23,7 +36,7 @@ body {
 	display: flex;
 	position: fixed;
 	width: 100%;
-	background-color: #191c23;
+	background-color: var(--tmpl-back-color-light);
 }
 
 
@@ -43,7 +56,7 @@ body {
 
 @media (hover: hover) {
 	.nav a:hover{
-		background-color: darkslategray;
+		background-color: var(--tmpl-main-color-darker);
 		transform: translateY(0.3em);
 	}
 }
@@ -78,6 +91,26 @@ body {
 
 }
 
+.flash-animation{
+	animation-name: flash;
+	animation-duration: 0.2s;
+}
+
+@keyframes flash {
+	0%{
+		background-color: initial;
+		transform: initial;
+	}
+	50%{
+		background-color: var(--tmpl-main-color-light);
+		transform: translateY(0.5em);
+	}
+	100%{
+		background-color: initial;
+		transform: initial;
+	}
+}
+
 @keyframes fadein {
 	from {
 		opacity: 0;
@@ -94,7 +127,7 @@ body {
 
 
 .jumbotron {
-	background: #719d7d;
+	background: var(--tmpl-main-color);
 }
 
 .jumbotron h1 {
@@ -103,7 +136,7 @@ body {
 	text-align: center;
 	text-transform: uppercase;
 	margin-top: 0em ;
-	margin-bottom: 0em;
+	margin-bottom: 12px;
 	padding-top: 1em;
 	padding-bottom: 1em;
 	font-weight: 500;
@@ -117,12 +150,10 @@ body {
 
 .content-body{
 	padding-top: 3em;
-	background-color: #000;
-	height: 100vh;
+	height: 100%;
 }
 
 .flex-container {
-
 	display: flex;
 	flex-wrap: wrap;
 }
@@ -133,29 +164,39 @@ body {
 }
 
 .flex-item{
-	margin : 0.8em;
-	padding: 1.5em;
-	border-radius: 0.4em;
-	background-color: #191c23;
+	margin : 12px;
+	padding: 24px;
+	border-radius: 5px;
+	background-color: var(--tmpl-back-color-light);
 }
 
 @media screen and (max-width: 900px) {
 	.flex-item{
 		flex-grow: 1;
 	}
+	.flex-container {
+		display: flex;
+		flex-direction: column;
+	}
 }
 
-.flex-grow{
+.flex-grow {
 	flex-grow: 1;
+	flex-basis: 488px;
+	overflow-x: auto;
+	overflow-y: hidden;
 }
 
+.flex-shrink {
+	flex-shrink: 1;
+}
 
 
 /* FORMS */
 
 
 button {
-	background-color: #3b6547;
+	background-color: var(--tmpl-main-color-dark);
 	border-style: solid;
 	border-width: 0px;
 	margin : 0.5em;
@@ -164,20 +205,29 @@ button {
 }
 
 button:active,button:target {
-	background-color: #8fbc9b;
+	color: var(--tmpl-back-color);
+	transform: translateY(0.5em);
+	background-color: var(--tmpl-main-color-light);
 }
 
 @media (hover: hover) {
     button:hover{
 		transform: scale(1.05);
+		background-color: var(--tmpl-main-color);
 		cursor: pointer;
+	}
+
+	button:active,button:target {
+		color: var(--tmpl-back-color);
+		transform: scale(1.05) translateY(0.5em);
+		background-color: var(--tmpl-main-color-light);
 	}
 
 }
 
 input,textarea {
 	background-color: #383b44;
-	border-color: #3b6547;
+	border-color: var(--tmpl-main-color-dark);
 	border-width: 1px;
 	border-style: solid;
 	margin: 0.5em;
@@ -187,4 +237,23 @@ input,textarea {
 input:focus, textarea:focus{
 	transform: scale(1.05);
 	outline-style: none;
+}
+
+/* tables */
+table{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th,td{
+	border-color: var(--tmpl-main-color-dark);
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	text-align: left;
+	padding: 0.5em;
+}
+
+pre {
+	font-family: overpass-mono,mono;
+	font-size: 0.8em;
 }

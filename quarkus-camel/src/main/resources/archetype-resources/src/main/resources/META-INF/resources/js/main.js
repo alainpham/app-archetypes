@@ -52,18 +52,111 @@ function toggleResponsiveMenu(){
     }
 }
 
-// receiving functions 
-var server = ((window.location.protocol === 'https:') ? 'wss://' : 'ws://') + window.location.hostname + ":" + window.location.port + "/websocket";
+// global app vars
+var server;
+var socket;
 var receivedMsg = [];
 
-var socket = new WebSocket(server);
-socket.onmessage = function (event) {
-    text = event.data;
-    receivedMsg.unshift(text);
-    console.log("received " + text);
-    if (receivedMsg.length > 5) {
-        receivedMsg.pop();
-    }
-    document.getElementById("messages").innerHTML = receivedMsg.join('<hr>');
+function connectSocket(){
+    // receiving functions 
+    server = ((window.location.protocol === 'https:') ? 'wss://' : 'ws://') + window.location.hostname + ":" + window.location.port + "/websocket";
+    socket = new WebSocket(server);
 
+    socket.onmessage = processSocketMsg;
+
+}
+
+function processSocketMsg(event) {
+    text = event.data;
+    var jsonMsg;
+    try {
+        jsonMsg = JSON.parse(text);
+    } catch(e) {
+        console.log("considered using text message..");
+        jsonMsg = {
+            actions: "preview",
+            data: text
+        }
+    }
+
+    if (jsonMsg.actions.includes("preview")){
+        logMessage(JSON.stringify(jsonMsg,undefined,2));
+    }
+
+    if (jsonMsg.actions.includes("update-header")){
+        updateTableHeaders(jsonMsg);
+    }
+    if (jsonMsg.actions.includes("append-data")){
+        appendToTableBody(jsonMsg);
+    }
 };
+
+function flashAnimate(elementId){
+    element = document.getElementById(elementId);
+    element.classList.remove("flash-animation");
+    void element.offsetWidth;
+    element.classList.add("flash-animation");
+}
+
+function logMessage(msg){
+    const currentDate = new Date();
+    msg = currentDate + "\n" + msg;
+    document.getElementById("messages").innerHTML = msg
+    flashAnimate("messages");
+}
+
+// expects array of elements with flat key value
+function updateTableHeaders(rawData){
+    line = "<th>"+Object.keys(rawData.data[0]).join("</th><th>")+"</th>";
+    console.log(line);
+    row = document.getElementById(rawData.elementId + "-header");
+    // header does not exist
+    if (row == null){
+        row = document.getElementById(rawData.elementId).insertRow(0);
+        row.id = rawData.elementId + "-header";
+    }
+    row.innerHTML=line;
+}
+
+function appendToTableBody(rawData){
+    for (var i = 0; i < rawData.data.length; i++) {
+        line = "<td>"+Object.values(rawData.data[i]).join("</td><td>")+"</td>";
+        row = document.getElementById(rawData.elementId).insertRow(-1);
+        row.innerHTML=line;
+    }
+
+}
+
+function clearTable(tableId){
+    document.getElementById(tableId).innerHTML="";
+}
+
+// Initial steps on page load
+includeHTML();
+connectSocket();
+
+
+// testing
+var exampleData = {};
+exampleData =
+{
+    elementId: "log-table",
+    actions: ["preview","update-header", "append-data"],
+    data:
+        [
+            {
+                dateTime: "2021-01-01 11:30:21",
+                header: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+                body: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout"
+            },
+            {
+                dateTime: "2021-01-01 11:31:21",
+                header: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+                body: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout"
+            }
+        ]
+}
+
+var exampleEvent ={} 
+exampleEvent.data = JSON.stringify(exampleData);
+
