@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.enterprise.context.ApplicationScoped;
-
+import javax.inject.Named
 
 @ApplicationScoped
 @Named("socketData")
