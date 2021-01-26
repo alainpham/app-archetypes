@@ -20,20 +20,24 @@
             <h1>Welcome to the ${artifactId} interface</h1>
         </div>
         <div class="flex-container">
-            <div class="flex-item flex-container-col" >
-                <input  type="text" id="message-input" value="" placeholder="Your message">
-                <textarea  id="text-area"></textarea>
+            <div class="flex-item" >
+                <form id="data-form" class="flex-container-col">
+                    <label>Message header</label>
+                    <input  type="text" id="message-input" value="" placeholder="Your message">
+                    <label>Message content</label>
+                    <textarea  id="text-area"></textarea>
+                </form>
                 <button  id="send-button"
-                    onclick="backEndRequest('messages','${svc-send-msg-path}','post', document.getElementById('message-input').value)">send</button>
+                    onclick="backEndRequest('messages','${svc-send-msg-path}','post', formDataToJson('data-form'))">send</button>
             </div>
             <div class="flex-item flex-grow">
-                <h2>Log Messages</h2>
+                <h2>Last message</h2>
                 <pre id="messages">Basic Messages Will show here</pre>
             </div>
         </div>
         <div class="flex-container">
             <div class="flex-item flex-grow flex-container-col">
-                <h2>Data Table</h2>
+                <h2>Log messages</h2>
                 <div class="flex-container">
                     <button onclick="clearTable('log-table')">clear</button>
                     <button onclick="processSocketMsg(exampleEvent)">populate example</button>

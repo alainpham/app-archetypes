@@ -43,6 +43,16 @@ function backEndRequest(elementId,path,meth,msg){
         })
 }
 
+function formDataToJson(formId){
+    var jsonData={};
+    var form = document.getElementById(formId)
+    for (var i = 0; i < form.elements.length; i++) {
+            var e = form.elements[i];
+            jsonData[e.id] = e.value;
+    }
+    return JSON.stringify(jsonData);
+}
+
 function toggleResponsiveMenu(){
     var x = document.getElementById("nav");
     if (x.className === "nav") {
@@ -64,6 +74,17 @@ function connectSocket(){
 
     socket.onmessage = processSocketMsg;
 
+    socket.onclose = function (e) {
+        console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+        setTimeout(function () {
+            connect();
+        }, 1000);
+    };
+
+    socket.onerror = function (err) {
+        console.error('Socket encountered error: ', err.message, 'Closing socket');
+        socket.close();
+    };
 }
 
 function processSocketMsg(event) {
@@ -74,12 +95,12 @@ function processSocketMsg(event) {
     } catch(e) {
         console.log("considered using text message..");
         jsonMsg = {
-            actions: "preview",
+            actions: "notify",
             data: text
         }
     }
 
-    if (jsonMsg.actions.includes("preview")){
+    if (jsonMsg.actions.includes("notify")){
         logMessage(JSON.stringify(jsonMsg,undefined,2));
     }
 
@@ -141,7 +162,7 @@ var exampleData = {};
 exampleData =
 {
     elementId: "log-table",
-    actions: ["preview","update-header", "append-data"],
+    actions: ["notify","update-header", "append-data"],
     data:
         [
             {

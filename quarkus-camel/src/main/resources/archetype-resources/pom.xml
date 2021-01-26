@@ -110,6 +110,7 @@
     </dependency>
   </dependencies>
   <build>
+    <defaultGoal>quarkus:dev</defaultGoal>
     <plugins>
       <plugin>
         <groupId>io.quarkus</groupId>

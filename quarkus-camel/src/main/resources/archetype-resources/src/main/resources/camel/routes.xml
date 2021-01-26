@@ -14,7 +14,19 @@
         <from id="send-socket-msg-to-all-starter" uri="platform-http:/send-msg"/>
         <convertBodyTo type="java.lang.String"/>
         <log message="${body}"/>
-        <to uri="ahc-ws:{{quarkus.http.host}}:{{quarkus.http.port}}/websocket"/>
+        
+    </route>
+
+    <route id="publish-to-ui-socket">
+        <from uri="seda:publish-to-ui-socket"/>
+        <setBody>
+            <method ref="socketData" method="defaultSocketData(${body})"/>        </setBody>
+        <marshal>
+            <json library="Jackson"/>
+        </marshal>
+        <convertBodyTo type="java.lang.String"></convertBodyTo>
+        <log message="${body}"/>
+        <to uri="ahc-ws:{{server.address}}:{{server.port}}/websocket" />
     </route>
 
 </routes>
