@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<routes xmlns="http://camel.apache.org/schema/spring" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-${camel-version}.xsd">
+<routes xmlns="http://camel.apache.org/schema/spring" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-3.6.0.xsd">
     <route id="http-receiver">
         <from id="http-receiver-starter" uri="platform-http:/ping" />
         <setHeader id="set-header-http-receiver" name="Content-Type">
@@ -13,21 +13,18 @@
     <route id="send-msg">
         <from id="send-socket-msg-to-all-starter" uri="platform-http:/send-msg"/>
         <convertBodyTo type="java.lang.String"/>
+        <unmarshal>
+            <json library="Jackson"/>
+        </unmarshal>
         <log message="${body}"/>
-        <to uri="seda:publish-to-ui-socket"/>
-    </route>
 
-    <route id="publish-to-ui-socket">
-        <from uri="seda:publish-to-ui-socket"/>
-        <setBody>
-            <method ref="socketData" method="defaultSocketData(${body})"/>
-        </setBody>
+        <bean ref="viewUpdate" method="update(${body}, person, true, true, true, upsert-data, state-table)"/>
+        <bean ref="viewUpdate" method="update(${body}, person, true, true, true, append-data, log-table)"/>
+
         <marshal>
             <json library="Jackson"/>
         </marshal>
-        <convertBodyTo type="java.lang.String"></convertBodyTo>
-        <log message="${body}"/>
-        <to uri="ahc-ws:{{quarkus.http.host}}:{{quarkus.http.port}}/websocket"/>
     </route>
+
 
 </routes>

@@ -9,7 +9,10 @@
 	--tmpl-back-color:black;
 	--tmpl-back-color-light: #191c23;
 	--tmpl-text-color: white;
-
+	--tmpl-alert-color-darker: hsl(359, 94%, 10%);;
+	--tmpl-alert-color-dark: #F94144;;
+	--tmpl-alert-color: #F3722C;
+	--tmpl-alert-color-light: #F8961E;
 	--tmpl-responsive-size: 900px;
 }	
 
@@ -44,6 +47,14 @@ body {
 	font-weight: bold;
 	padding: 1em 1em;
 	text-decoration: none;
+}
+
+.alert-darker {
+	background-color:var(--tmpl-alert-color-darker);
+}
+
+.alert {
+	background-color:var(--tmpl-alert-color);
 }
 
 .nav a {

@@ -77,8 +77,8 @@ function connectSocket(){
     socket.onclose = function (e) {
         console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
         setTimeout(function () {
-            connect();
-        }, 1000);
+            connectSocket();
+        }, 2000);
     };
 
     socket.onerror = function (err) {
@@ -110,10 +110,29 @@ function processSocketMsg(event) {
     if (jsonMsg.actions.includes("append-data")){
         appendToTableBody(jsonMsg);
     }
+    if (jsonMsg.data != null){
+        functionalProcessing(jsonMsg)
+    }
 };
+
+function functionalProcessing(jsonMsg){
+    data = jsonMsg.data[0];
+    // do you custom functional stuff here
+    switch (data.source) {
+        case "here":
+            break;
+        default:
+          console.log("nothing todo");
+      }
+
+}
 
 function flashAnimate(elementId){
     element = document.getElementById(elementId);
+    flashAnimateRef(element);
+}
+
+function flashAnimateRef(element){
     element.classList.remove("flash-animation");
     void element.offsetWidth;
     element.classList.add("flash-animation");
@@ -126,6 +145,49 @@ function logMessage(msg){
     flashAnimate("messages");
 }
 
+
+function insertOrUpdateTable(rawData){
+    var table = document.getElementById(rawData.elementId);
+    console.log("updating: " + table.id);
+    // loop through the data
+    for (var i = 0; i < rawData.data.length; i++) {
+
+        row = table.rows.namedItem(rawData.data[i].id);
+        if (row == null) {
+            row = table.insertRow(-1);
+            row.id =rawData.data[i].id;
+        }
+        
+
+        for (const key in rawData.data[i]) {
+
+
+            if (rawData.data[i].hasOwnProperty(key)) {
+
+                const element = rawData.data[i][key];
+                console.log(key +" "+ element);
+                cell = row.cells.namedItem(key);
+                if (cell == null){
+                    cell = row.insertCell(-1);
+                    cell.id = key;
+                }
+                
+                if (element!=null){
+                    if(typeof element == "object"){
+                        cell.innerHTML=JSON.stringify(element,undefined,2);
+                    }else{
+                        cell.innerHTML=element;
+                    }
+                    if (cell.cellIndex >0 ){
+                        flashAnimateRef(cell);
+                    }
+                }
+            }
+        }
+        
+    }
+}
+
 // expects array of elements with flat key value
 function updateTableHeaders(rawData){
     line = "<th>"+Object.keys(rawData.data[0]).join("</th><th>")+"</th>";
@@ -136,7 +198,9 @@ function updateTableHeaders(rawData){
         row = document.getElementById(rawData.elementId).insertRow(0);
         row.id = rawData.elementId + "-header";
     }
+    
     row.innerHTML=line;
+    flashAnimateRef(row);
 }
 
 function appendToTableBody(rawData){
@@ -144,6 +208,7 @@ function appendToTableBody(rawData){
         line = "<td>"+Object.values(rawData.data[i]).join("</td><td>")+"</td>";
         row = document.getElementById(rawData.elementId).insertRow(-1);
         row.innerHTML=line;
+        flashAnimateRef(row);
     }
 
 }
@@ -166,14 +231,23 @@ exampleData =
     data:
         [
             {
+                id:"el1",
                 dateTime: "2021-01-01 11:30:21",
                 header: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-                body: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout"
+                body: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout",
+                complexData :{
+                    test:"abc",
+                    test2:"xyz"
+                }
             },
-            {
+            {   id:"el2",
                 dateTime: "2021-01-01 11:31:21",
                 header: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-                body: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout"
+                body: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout",
+                complexData :{
+                    test:"abc",
+                    test2:"xyz"
+                }
             }
         ]
 }
