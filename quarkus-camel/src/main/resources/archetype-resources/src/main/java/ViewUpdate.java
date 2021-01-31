@@ -16,9 +16,9 @@ import org.apache.camel.ProducerTemplate;
 public class ViewUpdate {
 
     @Inject
-    ProducerTemplate producer;
+    private ProducerTemplate producer;
 
-    void update(Serializable data,String type, Boolean notify, Boolean updateHeader, Boolean changeData,
+    public void update(Serializable data,String type, Boolean notify, Boolean updateHeader, Boolean changeData,
             String dataOperationType, String targetTableId) throws JsonProcessingException {
         
         ObjectMapper objectMapper = new ObjectMapper();
@@ -27,15 +27,15 @@ public class ViewUpdate {
 
     }
 
-    void updateHeader(Serializable data,String type, String targetTableId) throws JsonProcessingException {
+    public void updateHeader(Serializable data,String type, String targetTableId) throws JsonProcessingException {
         update(data, type, true, true, false, null, targetTableId);
     }
 
-    void appendData(Serializable data,String type, String targetTableId) throws JsonProcessingException {
+    public void appendData(Serializable data,String type, String targetTableId) throws JsonProcessingException {
         update(data, type, true, true, true, SocketData.APPEND_DATA, targetTableId);
     }
 
-    void upsertData(Serializable data,String type, String targetTableId) throws JsonProcessingException{
+    public void upsertData(Serializable data,String type, String targetTableId) throws JsonProcessingException{
         update(data, type, true, true, true, SocketData.UPSERT_DATA, targetTableId);
     }
 
