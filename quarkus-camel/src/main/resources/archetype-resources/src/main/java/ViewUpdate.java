@@ -39,4 +39,11 @@ public class ViewUpdate {
         update(data, type, true, true, true, SocketData.UPSERT_DATA, targetTableId);
     }
 
+    public void refreshData(Serializable data,String type, String targetTableId) throws JsonProcessingException{
+        update(data, type, true, true, true, SocketData.REFRESH_DATA, targetTableId);
+    }
+    public void clearData(String type, String targetTableId) throws JsonProcessingException {
+        update(null, type, false, false, true, SocketData.CLEAR_DATA, targetTableId);
+    }
+
 }

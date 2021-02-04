@@ -105,17 +105,24 @@ function processSocketMsg(event) {
         }
     }
     
+    if (jsonMsg.type != null){
+        // we might do some additionall processing
+        functionalProcessing(jsonMsg)
+    }
 
+    if (jsonMsg.actions.includes("clear-data")){
+        for (var j = 0; j < jsonMsg.elementIds.length; j++) {
+            tableId = jsonMsg.elementIds[j];
+            clearTable(tableId);
+            console.log(tableId + " has been cleared");
+        }
+    }
+    
 
     if (jsonMsg.actions.includes("notify")){
         logMessage(JSON.stringify(jsonMsg,undefined,2));
     }
 
-    if (jsonMsg.type != null){
-        // we might do some additionall processing
-        functionalProcessing(jsonMsg)
-    }
-    
     if (jsonMsg.actions.includes("update-header")){
         updateTableHeaders(jsonMsg);
     }
@@ -125,7 +132,9 @@ function processSocketMsg(event) {
     if (jsonMsg.actions.includes("upsert-data")){
         insertOrUpdateTable(jsonMsg);
     }
-
+    if (jsonMsg.actions.includes("refresh-data")){
+        refreshTable(jsonMsg);
+    }
 };
 
 function functionalProcessing(jsonMsg){
@@ -168,6 +177,21 @@ function logMessage(msg){
     flashAnimate("messages");
 }
 
+// upserts data in the list and removes lines that are not existing anymore.
+function refreshTable(rawData){
+    insertOrUpdateTable(rawData);
+    var idarray = rawData.data.map(x => x.id);
+    for (var j = 0; j < rawData.elementIds.length; j++) {
+        tableId = rawData.elementIds[j];
+        var table = document.getElementById(tableId);
+        for (var i = 1, row; row = table.rows[i]; i++) {
+            if (!idarray.includes(row.id)){
+                table.deleteRow(row.rowIndex);
+            }
+        }
+    }
+}
+
 
 function insertOrUpdateTable(rawData){
 
@@ -204,11 +228,11 @@ function insertOrUpdateTable(rawData){
                             if(cell.innerHTML != element) {
                                  cell.innerHTML=element;
                                  
-                                 //  conditional formatting
-                                 if (rawData.formatting[key] != null){
-                                     cell.className = "";
-                                     cell.classList.add(rawData.formatting[key](element));
-                                    }
+                            //  conditional formatting
+                             if ( rawData.formatting !== undefined && rawData.formatting.hasOwnProperty(key) )  {
+                                 cell.className = "";
+                                 cell.classList.add(rawData.formatting[key](element));
+                                }
                                     
                                 flashAnimateRef(cell);
                             }

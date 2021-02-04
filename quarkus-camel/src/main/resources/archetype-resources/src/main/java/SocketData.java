@@ -14,6 +14,8 @@ public class SocketData implements Serializable{
 
     public static final String APPEND_DATA = "append-data";
     public static final String UPSERT_DATA = "upsert-data";
+    public static final String CLEAR_DATA = "clear-data";
+    public static final String REFRESH_DATA = "refresh-data";
     public static final String NOTIFY = "notify";
     public static final String UPDATE_HEADER = "update-header";
 
