@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>${artifactId}</title>
+    <meta name="description" content="${artifactId} interface">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/framework/all.css" />
+
+    <script src="js/main.js"></script>
+    <script src="js/head.js"></script>
+
+</head>
+
+<body>
+
+    <div w3-include-html="partials/header.html"></div>
+    <div class="content-body">
+        <!-- PUT YOUR CONTENT HERE -->
+        <div class="jumbotron"  >
+            <h1>${artifactId} interface</h1>
+        </div>
+        <div class="flex-container">
+            <div class="flex-item " >
+                <form id="data-form" class="flex-container-col">
+                    <label>Id</label>
+                    <input type="text" id="id" value="xx" placeholder="Id">
+                    <label>Name</label>
+                    <input type="text" id="name" value="John" placeholder="Your name">
+                    <label>First Name</label>
+                    <input type="text" id="firstName" value="Doe" placeholder="Your first name">
+                    <label>Your vote</label>
+                    <select id="vote">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                    <label>Message content</label>
+                    <textarea id="text-area"></textarea>
+                </form>
+                <button  id="send-button"
+                    onclick="backEndRequest(null,'${svc-send-msg-path}','post', formDataToJson('data-form'))">send</button>
+            </div>
+            <div class="flex-item flex-grow">
+                <div   class="flex-container">
+                    <h2  >State Table</h2>
+                    <button onclick="clearTable('state-table')">clear</button>
+                    <button onclick="processSocketMsg(exampleStateEvent)">populate state example</button>
+                </div>
+                <table id="state-table"></table>
+            </div>
+        </div>
+        <div class="flex-container">
+            <div class="flex-item flex-grow flex-container-col">
+                <div class="flex-container">
+                    <h2>Log messages</h2>
+                    <button onclick="clearTable('log-table')">clear</button>
+                    <button onclick="processSocketMsg(exampleEvent)">populate example</button>
+                </div>
+                <table id="log-table">
+                </table>
+            </div>
+            <div class="flex-item flex-grow">
+                <h2>Last message</h2>
+                <pre id="messages">Basic Messages Will show here</pre>
+            </div>
+        </div>
+        <div class="flex-container">
+ 
+        </div>
+
+    </div>
+    <!-- END PUT YOUR CONTENT HERE -->
+
+    <script src="js/render.js"></script>
+
+</body>
+
+</html>

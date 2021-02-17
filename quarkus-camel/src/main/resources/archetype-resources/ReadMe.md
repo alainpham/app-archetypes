@@ -90,3 +90,12 @@ do
 done
 
 ```
+
+
+#[[## Push on dockerhub]]#
+
+```
+docker login
+docker build -t ${artifactId} -f src/main/docker/Dockerfile.jvm .
+docker tag ${artifactId}:latest YOUR_REPO/${artifactId}:latest
+```
