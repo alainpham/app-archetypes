@@ -71,12 +71,14 @@
       </includes>
       <excludes>
         <exclude>**/framework/**</exclude>
+        <exclude>**/favicon.ico</exclude>
       </excludes>
     </fileSet>
     <fileSet filtered="false" encoding="UTF-8">
       <directory>src/main/resources</directory>
       <includes>
         <include>**/framework/**</include>
+        <include>**/favicon.ico</include>
       </includes>
     </fileSet>
     <fileSet filtered="true" packaged="true" encoding="UTF-8">

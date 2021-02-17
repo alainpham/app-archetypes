@@ -1,4 +1,3 @@
-
 function includeHTML() {
     var z, i, elmnt, file, xhttp;
     /* Loop through a collection of all HTML elements: */
@@ -27,7 +26,30 @@ function includeHTML() {
     }
 }
 
+async function loadConfig(){
+    response = await fetch(window.location.protocol + "//" + window.location.host + '/uiconfig', {
+        method: 'get',
+        credentials: 'include'
+      });
+    loadTheme(await response.json());
+}
+
+function loadTheme(config){
+
+    var head = document.getElementsByTagName('HEAD')[0];  
+    var link = document.createElement('link'); 
+    link.rel = 'stylesheet';  
+    link.type = 'text/css'; 
+    link.href = 'css/'+config.theme+'.css';  
+    head.appendChild(link); 
+}
+
 function backEndRequest(elementId,path,meth,msg){
+
+    if(path.startsWith("${")){
+        path = "/"+path;
+    }
+
     fetch(window.location.protocol + "//" + window.location.host + path, {
         method: meth,
         credentials: 'include',
@@ -62,10 +84,6 @@ function toggleResponsiveMenu(){
     }
 }
 
-// global app vars
-var server;
-var socket;
-var receivedMsg = [];
 
 function connectSocket(){
     // receiving functions 
@@ -75,13 +93,20 @@ function connectSocket(){
     
     
     socket.onopen = function(){
-        document.getElementById("logo").classList.remove("negative");
-        document.getElementById("status").innerHTML="";
+
+        logo = document.getElementById("logo");
+        if (logo!=null){
+            logo.classList.remove("negative");
+            document.getElementById("status").classList.add("hidden");
+        }
     }
     socket.onclose = function (e) {
         console.log('Socket is closed. Reconnect will be attempted in 2 second.', e.reason);
-        document.getElementById("logo").classList.add("negative");
-        document.getElementById("status").innerHTML="Server offline";
+        logo = document.getElementById("logo");
+        if (logo!=null){
+            logo.classList.add("negative");
+            document.getElementById("status").classList.remove("hidden");
+        }
         setTimeout(function () {
             connectSocket();
         }, 2000);
@@ -127,7 +152,7 @@ function processSocketMsg(event) {
         updateTableHeaders(jsonMsg);
     }
     if (jsonMsg.actions.includes("append-data")){
-        appendToTableBody(jsonMsg);
+        appendToTableBody(jsonMsg,1);
     }
     if (jsonMsg.actions.includes("upsert-data")){
         insertOrUpdateTable(jsonMsg);
@@ -139,7 +164,7 @@ function processSocketMsg(event) {
 
 function functionalProcessing(jsonMsg){
     data = jsonMsg.data;
-    type = jsonMsg.type
+    type = jsonMsg.type;
     // do you custom functional stuff here
     switch (type) {
         case "person":
@@ -269,14 +294,14 @@ function updateTableHeaders(rawData){
 
 }
 
-function appendToTableBody(rawData){
+function appendToTableBody(rawData,position=-1){
 
     for (var j = 0; j < rawData.elementIds.length;j++) {
         tableId = rawData.elementIds[j];
 
         for (var i = 0; i < rawData.data.length; i++) {
             currentDataObject=rawData.data[i];
-            row = document.getElementById(tableId).insertRow(-1);
+            row = document.getElementById(tableId).insertRow(position);
 
             for (const key in currentDataObject) {
 
@@ -290,6 +315,13 @@ function appendToTableBody(rawData){
                             cell.innerHTML=JSON.stringify(element,undefined,2);
                         }else{
                             cell.innerHTML=element;
+
+                            //  conditional formatting
+                            if ( rawData.formatting !== undefined && rawData.formatting.hasOwnProperty(key) )  {
+                                cell.className = "";
+                                cell.classList.add(rawData.formatting[key](element));
+                            }
+
                         }
                     }
                 }
@@ -304,9 +336,8 @@ function clearTable(tableId){
     document.getElementById(tableId).innerHTML="";
 }
 
-// Initial steps on page load
-includeHTML();
-connectSocket();
+// global app vars
+
 
 
 // testing

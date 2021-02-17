@@ -1,5 +1,6 @@
 <nav class="nav" role="navigation" id="nav">
-    <div id="logo" class="logo" href="/"><i class="fas fa-box-open"></i><span id="status">Offline</span></div>
+    <div id="logo" class="logo" href="/"><img style="height: 2em" src="img/logo-and-text.svg"></div>
+    <div class="hidden status negative" id="status">Server Offline</div>
     <a href="/">Home</a>
     <a onclick="backEndRequest('messages','${svc-ping-path}','get',null)" href="javascript:void(0);">Quick Ping</a>
     <a href="${svc-ping-path}">Ping</a>
