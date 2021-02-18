@@ -1,3 +1,24 @@
+
+// GLOBAL VARS with objservers
+var globalVar = {
+        listeners:{  //map of list of listener functions on change
+            uiconfig: [
+                async function(uiconfig){
+                    loadTheme(uiconfig);
+                },
+            ]
+        } 
+    }
+
+var global = new Proxy(globalVar,{
+    set: function(target, key, value){
+        if (key!=='listeners'){
+            target[key]=value;
+            target.listeners[key].forEach(fn => fn(target[key])); //executing list of functions
+        }
+    }
+});
+
 function includeHTML() {
     var z, i, elmnt, file, xhttp;
     /* Loop through a collection of all HTML elements: */
@@ -30,12 +51,11 @@ async function loadConfig(){
     response = await fetch(window.location.protocol + "//" + window.location.host + '/uiconfig', {
         method: 'get',
         credentials: 'include'
-      });
-    loadTheme(await response.json());
+    });
+    global.uiconfig = await response.json();
 }
 
 function loadTheme(config){
-
     var head = document.getElementsByTagName('HEAD')[0];  
     var link = document.createElement('link'); 
     link.rel = 'stylesheet';  
@@ -161,28 +181,6 @@ function processSocketMsg(event) {
         refreshTable(jsonMsg);
     }
 };
-
-function functionalProcessing(jsonMsg){
-    data = jsonMsg.data;
-    type = jsonMsg.type;
-    // do you custom functional stuff here
-    switch (type) {
-        case "person":
-            jsonMsg.formatting = {
-                vote: function (value){
-                    if (value=="yes"){
-                        return "positive";
-                    }else{
-                        return "negative";
-                    }
-                }
-            }
-            break;
-        default:
-          console.log("no specific functional processing for type " + type);
-      }
-
-}
 
 function flashAnimate(elementId){
     element = document.getElementById(elementId);
@@ -336,14 +334,9 @@ function clearTable(tableId){
     document.getElementById(tableId).innerHTML="";
 }
 
-// global app vars
-
-
 
 // testing
 var exampleData = {};
-
-
 
 var exampleFunctionalData=
     [
