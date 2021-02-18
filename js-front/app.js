@@ -23,7 +23,7 @@ httpServer.listen(port, function(){
 app.get(encodeURI('/uiconfig').replace('$','\\$'), (request, response) => {
 
     config = {
-        theme: 'main-light-green'
+        theme: 'main-light-yellow'
     };
 
     response.send(config);

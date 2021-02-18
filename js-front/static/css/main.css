@@ -1,7 +1,7 @@
 @import url("framework/fonts/overpass-webfont/overpass.css");
 @import url("framework/fonts/overpass-mono-webfont/overpass-mono.css");
 
-@import 'main-dark-green.css';
+@import 'main-light-yellow.css';
 
 * {
 	font-family: overpass,sans-serif;
@@ -221,7 +221,7 @@ button {
 }
 
 button:active,button:target {
-	color: var(--tmpl-back-color);
+	color: var(--tmpl-main-color-darker);
 	background-color: var(--tmpl-main-color-light);
 }
 
@@ -233,7 +233,7 @@ button:active,button:target {
 	}
 
 	button:active,button:target {
-		color: var(--tmpl-back-color);
+		color: var(--tmpl-main-color-darker);
 		transform: scale(1.05);
 		background-color: var(--tmpl-main-color-light);
 	}
