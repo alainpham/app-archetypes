@@ -21,4 +21,7 @@
 	--tmpl-positive-color-light: #d7f2df;
 
 	--tmpl-responsive-size: 900px;
+
+	--tmpl-logo: url("./../img/logo-black.svg");
+	--tmpl-logo-text: url("./../img/logo-and-text-black.svg");
 }	

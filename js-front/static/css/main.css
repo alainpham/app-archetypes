@@ -34,9 +34,13 @@ body {
 
 .logo{
 	font-weight: bold;
-	padding : 0.5em 0.5em;
+	width: 8em;
+	display: block;
 	text-decoration: none;
-
+	background-image: var(--tmpl-logo-text);
+	background-size: auto 2em;
+	background-repeat: no-repeat;
+	background-position: top 0.5em left 0.5em;
 }
 
 
@@ -137,7 +141,7 @@ body {
 .jumbotron {
 	background: var(--tmpl-main-color);
 
-	background-image: url("./../img/logo-and-text.svg");
+	background-image: var(--tmpl-logo-text);
 	background-repeat: no-repeat;
 	background-position: bottom 0.5em right 50%;
 	background-size: 5.5em;
