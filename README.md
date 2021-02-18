@@ -72,7 +72,7 @@ By editing the prometheus config we can set static targets on your local env to 
 
 | Components                 | Version       |
 |----------------------------|---------------|
-| camel-version              | 3.8.0         |
+| camel-version              | 3.7.2         |
 | spring-boot-version        | 2.4.2         |
 | swagger-ui-version         | 3.43.0        |
 | swagger-codegen-version    | 2.4.18        |

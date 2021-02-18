@@ -10,7 +10,7 @@
       <defaultValue>.springboot</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>3.8.0</defaultValue>
+      <defaultValue>3.7.2</defaultValue>
     </requiredProperty>
     <requiredProperty key="spring-boot-version">
       <defaultValue>2.4.2</defaultValue>
@@ -118,11 +118,11 @@
          </includes>
      </fileSet>
      <fileSet filtered="false" encoding="UTF-8">
-      <directory>src/main/prometheus</directory>
+      <directory>src/main/fabric8-includes</directory>
       <includes>
           <include>**/*</include>
       </includes>
-    </fileSet>
+  </fileSet>
     <fileSet filtered="true" encoding="UTF-8">
       <directory>src/data</directory>
       <includes>

@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.3
+FROM registry.access.redhat.com/ubi8/ubi-minimal:${ubi-image-version}
 
 ARG JAVA_PACKAGE=${jdk-version}
 ARG RUN_JAVA_VERSION=${run-java-version}
@@ -7,7 +7,7 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 
 # Install java and the run-java script
 # Also set up permissions for user `1001`
-RUN microdnf install curl vi ca-certificates ${JAVA_PACKAGE} \
+RUN microdnf install ps curl vi ca-certificates ${JAVA_PACKAGE} \
     && microdnf update \
     && microdnf clean all \
     && mkdir /deployments \
