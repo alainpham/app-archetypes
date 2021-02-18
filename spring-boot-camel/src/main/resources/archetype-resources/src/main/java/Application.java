@@ -12,8 +12,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.apache.camel.component.hystrix.metrics.servlet.HystrixEventStreamServlet;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+
 @SpringBootApplication
-public class Application {
+@EnableWebSocket
+public class Application implements WebSocketConfigurer{
 
 #if (${cxfSupport} == 'true')
 
@@ -41,5 +46,11 @@ public class Application {
         return mapping;
     }
 
-
+    @Override
+	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+		
+		// Expose endpoint and add Handler. Wildcard allowed origins to support COORS
+		// registry.addHandler(new WebsocketTextHandler(), "/websocket").setAllowedOrigins("*");
+		registry.addHandler(new WebSocketTextHandler(), "/websocket");
+	}
 }
