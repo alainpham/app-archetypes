@@ -42,7 +42,9 @@ The dashboard that you can import can be found [here](camel-monitoring/dashboard
 
 It gives comprehensive metrics for performance monitoring. It focuses on monitoring route execution rate and average executions times that is broken down to processors & routes. You can use it to find your bottlenecks and detect degradations in quality of service.
 
-Videos : http://www.youtube.com/watch?v=0LDgv1nIk-Y
+Videos : 
+Here : http://www.youtube.com/watch?v=0LDgv1nIk-Y
+or here : https://odysee.com/@alainpham:8/apache-camel-monitoring-prometheus-grafana:c 
 
 [![Grafana](assets/grafana-dash-sample.png)](http://www.youtube.com/watch?v=0LDgv1nIk-Y)
 
