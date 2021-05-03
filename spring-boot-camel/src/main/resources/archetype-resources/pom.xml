@@ -272,7 +272,7 @@
                                 </goals>
                                 <configuration>
                                     <inputSpec>src/main/resources/api-definitions/basic-api.yaml</inputSpec>
-                                    <language>jaxrs-cxf</language>
+                                    <language>jaxrs-resteasy-eap</language>
                                     <generateApis>false</generateApis>
                                     <generateSupportingFiles>false</generateSupportingFiles>
                                     <modelPackage>restsvc.model</modelPackage>

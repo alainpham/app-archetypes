@@ -89,8 +89,8 @@ By editing the prometheus config we can set static targets on your local env to 
 
 | Components                 | Version       |
 |----------------------------|---------------|
-| quarkus-version            | 1.11.1.Final  |
-| camel-version              | 3.7.0         |
+| quarkus-version            | 1.13.3.Final  |
+| camel-version              | 3.9.0         |
 
 ## Next steps for this small project
 
