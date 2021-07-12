@@ -51,8 +51,8 @@ public class Application implements WebSocketConfigurer{
 		CxfEndpoint cxf = new CxfEndpoint();
 		cxf.setAddress("/soappayload");
 		cxf.setWsdlURL("api-definitions/contract.wsdl");
-		cxf.setServiceName(new QName("http://www.demo.com/businessService", "personSoapHttpService"));
-		cxf.setEndpointName(new QName("http://www.demo.com/businessService","personSoapHttpPort"));
+		cxf.setServiceNameAsQName(new QName("http://www.demo.com/businessService", "personSoapHttpService"));
+		cxf.setEndpointNameAsQName(new QName("http://www.demo.com/businessService","personSoapHttpPort"));
 		Map<String,Object> props = new HashMap<String,Object>();
 		props.put("dataFormat", "PAYLOAD");
 		cxf.setProperties(props);
