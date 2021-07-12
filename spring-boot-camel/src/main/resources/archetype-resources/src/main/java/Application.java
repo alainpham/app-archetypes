@@ -1,6 +1,12 @@
 package ${package};
 #if (${cxfSupport} == 'true')
 import org.apache.cxf.transport.servlet.CXFServlet;
+import org.apache.cxf.bus.spring.SpringBus;
+import org.apache.camel.component.cxf.CxfEndpoint;
+import java.util.Map;
+import javax.xml.namespace.QName;
+import java.util.HashMap;
+import java.util.Map;
 #end
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,9 +32,44 @@ public class Application implements WebSocketConfigurer{
     private String cxfPath;
 
     @Bean
-    public ServletRegistrationBean dispatcherServlet() {
-        return new ServletRegistrationBean(new CXFServlet(), cxfPath+"/*");
+    public ServletRegistrationBean cxfServletRegistrationBean() {
+        ServletRegistrationBean mapping = new ServletRegistrationBean();
+        mapping.setServlet(new CXFServlet());
+        mapping.addUrlMappings(cxfPath+"/*");
+        mapping.setName("cxfServlet");
+        return mapping;
     }
+
+    @Bean
+    public SpringBus cxf() {        
+        return new SpringBus();
+    }
+
+    @Bean(name = "cxfPayload")
+    public CxfEndpoint configurePayloadCxf(){
+        		// SOAP endpoint
+		CxfEndpoint cxf = new CxfEndpoint();
+		cxf.setAddress("/soappayload");
+		cxf.setWsdlURL("api-definitions/contract.wsdl");
+		cxf.setServiceName(new QName("http://www.demo.com/businessService", "personSoapHttpService"));
+		cxf.setEndpointName(new QName("http://www.demo.com/businessService","personSoapHttpPort"));
+		Map<String,Object> props = new HashMap<String,Object>();
+		props.put("dataFormat", "PAYLOAD");
+		cxf.setProperties(props);
+        return cxf;
+    }
+
+    // @Bean(name = "cxfPojo")
+    // public CxfEndpoint configurePojoCxf(){
+    //     		// SOAP endpoint
+	// 	CxfEndpoint cxf = new CxfEndpoint();
+	// 	cxf.setAddress("/soappojo");
+    //     cxf.setServiceClass(PersonPortType.class);
+	// 	Map<String,Object> props = new HashMap<String,Object>();
+	// 	props.put("dataFormat", "POJO");
+	// 	cxf.setProperties(props);
+    //     return cxf;
+    // }
 
 #end
     // must have a main method spring-boot can run

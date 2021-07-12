@@ -37,4 +37,13 @@
         </marshal>
     </route>
 
+#if (${cxfSupport} == 'true')
+    <route>
+        <from uri="cxf:bean:cxfPayload"/>
+        <convertBodyTo type="java.lang.String"/>
+        <log message="${body}"/>
+    </route>
+
+#end
+
 </routes>
