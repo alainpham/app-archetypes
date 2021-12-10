@@ -104,7 +104,7 @@ spec:
     app: "${artifactId}"
     group: "${groupId}"
 ---
-apiVersion: "v1"
+apiVersion: "route.openshift.io/v1"
 kind: "Route"
 metadata:
   annotations:
