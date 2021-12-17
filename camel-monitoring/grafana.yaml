@@ -15,7 +15,7 @@ spec:
       containers:
       - name: grafana
         #image: grafana/grafana:5.4.3
-        image: grafana/grafana:5.4.3
+        image: grafana/grafana:8.2.6
         imagePullPolicy: IfNotPresent
         ports:
         - name: grafana
@@ -57,7 +57,7 @@ spec:
   type: ClusterIP
 
 ---
-apiVersion: v1
+apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: "grafana"

@@ -15,12 +15,12 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 2,
-  "iteration": 1615290536085,
+  "iteration": 1631080210073,
   "links": [],
   "panels": [
     {
       "collapsed": false,
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -41,7 +41,14 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
+      "datasource": null,
       "decimals": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -52,7 +59,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 6,
+        "w": 24,
         "x": 0,
         "y": 1
       },
@@ -71,7 +78,6 @@
         }
       ],
       "maxDataPoints": 100,
-      "minSpan": null,
       "nullPointMode": "connected",
       "nullText": null,
       "postfix": "",
@@ -90,8 +96,8 @@
       "scopedVars": {
         "brokerinstance": {
           "selected": false,
-          "text": "amq-broker-b-ss-1",
-          "value": "amq-broker-b-ss-1"
+          "text": "amq-broker-local",
+          "value": "amq-broker-local"
         }
       },
       "sparkline": {
@@ -113,7 +119,6 @@
       ],
       "thresholds": "50,80",
       "title": "Address Memory Usage $brokerinstance",
-      "transparent": false,
       "type": "singlestat",
       "valueFontSize": "80%",
       "valueMaps": [
@@ -134,102 +139,14 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
+      "datasource": null,
       "decimals": null,
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": true,
-        "thresholdLabels": true,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 6,
-        "y": 1
-      },
-      "id": 31,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
         },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "minSpan": null,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1615290536085,
-      "repeatPanelId": 29,
-      "scopedVars": {
-        "brokerinstance": {
-          "selected": false,
-          "text": "amq-broker-a-ss-0",
-          "value": "amq-broker-a-ss-0"
-        }
+        "overrides": []
       },
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "Value",
-      "targets": [
-        {
-          "expr": "artemis_address_memory_usage_percentage{kubernetes_namespace=\"$namespace\",broker=~\"$brokercluster\",statefulset_kubernetes_io_pod_name=~\"$brokerinstance\"}",
-          "format": "table",
-          "instant": true,
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": "50,80",
-      "title": "Address Memory Usage $brokerinstance",
-      "transparent": false,
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "avg"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "decimals": null,
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -240,199 +157,9 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 6,
-        "x": 12,
-        "y": 1
-      },
-      "id": 32,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "minSpan": null,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1615290536085,
-      "repeatPanelId": 29,
-      "scopedVars": {
-        "brokerinstance": {
-          "selected": false,
-          "text": "amq-broker-b-ss-0",
-          "value": "amq-broker-b-ss-0"
-        }
-      },
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "Value",
-      "targets": [
-        {
-          "expr": "artemis_address_memory_usage_percentage{kubernetes_namespace=\"$namespace\",broker=~\"$brokercluster\",statefulset_kubernetes_io_pod_name=~\"$brokerinstance\"}",
-          "format": "table",
-          "instant": true,
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": "50,80",
-      "title": "Address Memory Usage $brokerinstance",
-      "transparent": false,
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "avg"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "decimals": null,
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": true,
-        "thresholdLabels": true,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 18,
-        "y": 1
-      },
-      "id": 33,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "minSpan": null,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1615290536085,
-      "repeatPanelId": 29,
-      "scopedVars": {
-        "brokerinstance": {
-          "selected": false,
-          "text": "amq-broker-a-ss-1",
-          "value": "amq-broker-a-ss-1"
-        }
-      },
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "Value",
-      "targets": [
-        {
-          "expr": "artemis_address_memory_usage_percentage{kubernetes_namespace=\"$namespace\",broker=~\"$brokercluster\",statefulset_kubernetes_io_pod_name=~\"$brokerinstance\"}",
-          "format": "table",
-          "instant": true,
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": "50,80",
-      "title": "Address Memory Usage $brokerinstance",
-      "transparent": false,
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "avg"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "decimals": null,
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": true,
-        "thresholdLabels": true,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
+        "w": 24,
         "x": 0,
-        "y": 6
+        "y": 16
       },
       "id": 30,
       "interval": null,
@@ -449,7 +176,6 @@
         }
       ],
       "maxDataPoints": 100,
-      "minSpan": null,
       "nullPointMode": "connected",
       "nullText": null,
       "postfix": "",
@@ -470,8 +196,8 @@
       "scopedVars": {
         "brokerinstance": {
           "selected": false,
-          "text": "amq-broker-b-ss-1",
-          "value": "amq-broker-b-ss-1"
+          "text": "amq-broker-local",
+          "value": "amq-broker-local"
         }
       },
       "sparkline": {
@@ -493,292 +219,6 @@
       ],
       "thresholds": "50,80",
       "title": "Diskstore Usage $brokerinstance",
-      "transparent": false,
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "avg"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "decimals": null,
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": true,
-        "thresholdLabels": true,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 6,
-        "y": 6
-      },
-      "id": 34,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "minSpan": null,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1615290536085,
-      "repeatPanelId": 30,
-      "scopedVars": {
-        "brokerinstance": {
-          "selected": false,
-          "text": "amq-broker-a-ss-0",
-          "value": "amq-broker-a-ss-0"
-        }
-      },
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "Value",
-      "targets": [
-        {
-          "expr": "artemis_disk_store_usage{kubernetes_namespace=\"$namespace\",broker=~\"$brokercluster\",statefulset_kubernetes_io_pod_name=~\"$brokerinstance\"}",
-          "format": "table",
-          "instant": true,
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": "50,80",
-      "title": "Diskstore Usage $brokerinstance",
-      "transparent": false,
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "avg"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "decimals": null,
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": true,
-        "thresholdLabels": true,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 12,
-        "y": 6
-      },
-      "id": 35,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "minSpan": null,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1615290536085,
-      "repeatPanelId": 30,
-      "scopedVars": {
-        "brokerinstance": {
-          "selected": false,
-          "text": "amq-broker-b-ss-0",
-          "value": "amq-broker-b-ss-0"
-        }
-      },
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "Value",
-      "targets": [
-        {
-          "expr": "artemis_disk_store_usage{kubernetes_namespace=\"$namespace\",broker=~\"$brokercluster\",statefulset_kubernetes_io_pod_name=~\"$brokerinstance\"}",
-          "format": "table",
-          "instant": true,
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": "50,80",
-      "title": "Diskstore Usage $brokerinstance",
-      "transparent": false,
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "avg"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "decimals": null,
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": true,
-        "thresholdLabels": true,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 18,
-        "y": 6
-      },
-      "id": 36,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "minSpan": null,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1615290536085,
-      "repeatPanelId": 30,
-      "scopedVars": {
-        "brokerinstance": {
-          "selected": false,
-          "text": "amq-broker-a-ss-1",
-          "value": "amq-broker-a-ss-1"
-        }
-      },
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "Value",
-      "targets": [
-        {
-          "expr": "artemis_disk_store_usage{kubernetes_namespace=\"$namespace\",broker=~\"$brokercluster\",statefulset_kubernetes_io_pod_name=~\"$brokerinstance\"}",
-          "format": "table",
-          "instant": true,
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": "50,80",
-      "title": "Diskstore Usage $brokerinstance",
-      "transparent": false,
       "type": "singlestat",
       "valueFontSize": "80%",
       "valueMaps": [
@@ -792,11 +232,12 @@
     },
     {
       "collapsed": false,
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 31
       },
       "id": 23,
       "panels": [],
@@ -808,14 +249,23 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 5,
         "w": 11,
         "x": 0,
-        "y": 12
+        "y": 32
       },
+      "hiddenSeries": false,
       "id": 4,
       "legend": {
         "alignAsTable": false,
@@ -833,9 +283,10 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.7",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -898,12 +349,19 @@
     },
     {
       "columns": [],
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fontSize": "100%",
       "gridPos": {
         "h": 5,
         "w": 13,
         "x": 11,
-        "y": 12
+        "y": 32
       },
       "id": 25,
       "links": [],
@@ -916,7 +374,9 @@
       },
       "styles": [
         {
+          "$$hashKey": "object:956",
           "alias": "Address",
+          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -932,7 +392,9 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:957",
           "alias": "Added",
+          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -948,7 +410,9 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:958",
           "alias": "Acknowledged",
+          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -964,7 +428,9 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:959",
           "alias": "Expired",
+          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -980,7 +446,9 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:960",
           "alias": "Killed",
+          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -996,7 +464,9 @@
           "unit": "short"
         },
         {
+          "$$hashKey": "object:961",
           "alias": "",
+          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1050,21 +520,30 @@
       ],
       "title": "Address Summary",
       "transform": "table",
-      "type": "table"
+      "type": "table-old"
     },
     {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 5,
         "w": 11,
         "x": 0,
-        "y": 17
+        "y": 37
       },
+      "hiddenSeries": false,
       "id": 19,
       "legend": {
         "alignAsTable": false,
@@ -1082,9 +561,10 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.7",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1150,14 +630,23 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 5,
         "w": 13,
         "x": 11,
-        "y": 17
+        "y": 37
       },
+      "hiddenSeries": false,
       "id": 16,
       "legend": {
         "alignAsTable": false,
@@ -1175,9 +664,10 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.7",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1240,7 +730,7 @@
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 16,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1248,27 +738,21 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
-          "tags": [],
-          "text": "appdev-amq-interconnect",
-          "value": "appdev-amq-interconnect"
+          "selected": false,
+          "text": "amq",
+          "value": "amq"
         },
         "datasource": "Prometheus",
         "definition": "label_values(artemis_connection_count,kubernetes_namespace)",
+        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Namespace",
         "multi": false,
         "name": "namespace",
-        "options": [
-          {
-            "selected": true,
-            "text": "appdev-amq-interconnect",
-            "value": "appdev-amq-interconnect"
-          }
-        ],
+        "options": [],
         "query": "label_values(artemis_connection_count,kubernetes_namespace)",
-        "refresh": 0,
+        "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -1282,38 +766,24 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "tags": [],
-          "text": "All",
+          "text": [
+            "amq-broker-local"
+          ],
           "value": [
-            "$__all"
+            "amq-broker-local"
           ]
         },
         "datasource": "Prometheus",
         "definition": "label_values(artemis_connection_count{kubernetes_namespace=\"$namespace\"},broker)",
+        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Broker Cluster",
         "multi": true,
         "name": "brokercluster",
-        "options": [
-          {
-            "selected": true,
-            "text": "All",
-            "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "amq-broker-b",
-            "value": "amq-broker-b"
-          },
-          {
-            "selected": false,
-            "text": "amq-broker-a",
-            "value": "amq-broker-a"
-          }
-        ],
+        "options": [],
         "query": "label_values(artemis_connection_count{kubernetes_namespace=\"$namespace\"},broker)",
-        "refresh": 0,
+        "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -1326,45 +796,25 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "Prometheus",
         "definition": "label_values(artemis_connection_count{kubernetes_namespace=\"$namespace\",broker=~\"$brokercluster\"},statefulset_kubernetes_io_pod_name)",
+        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Broker Instance",
         "multi": true,
         "name": "brokerinstance",
-        "options": [
-          {
-            "selected": true,
-            "text": "All",
-            "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "amq-broker-b-ss-1",
-            "value": "amq-broker-b-ss-1"
-          },
-          {
-            "selected": false,
-            "text": "amq-broker-a-ss-0",
-            "value": "amq-broker-a-ss-0"
-          },
-          {
-            "selected": false,
-            "text": "amq-broker-b-ss-0",
-            "value": "amq-broker-b-ss-0"
-          },
-          {
-            "selected": false,
-            "text": "amq-broker-a-ss-1",
-            "value": "amq-broker-a-ss-1"
-          }
-        ],
+        "options": [],
         "query": "label_values(artemis_connection_count{kubernetes_namespace=\"$namespace\",broker=~\"$brokercluster\"},statefulset_kubernetes_io_pod_name)",
-        "refresh": 0,
+        "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -1377,85 +827,25 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "Prometheus",
         "definition": "label_values(artemis_message_count{kubernetes_namespace=\"$namespace\",broker=~\"$brokercluster\",statefulset_kubernetes_io_pod_name=~\"$brokerinstance\"},address)",
+        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Address",
         "multi": true,
         "name": "address",
-        "options": [
-          {
-            "selected": true,
-            "text": "All",
-            "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "app.queue.perf",
-            "value": "app.queue.perf"
-          },
-          {
-            "selected": false,
-            "text": "app.queue.federation.test",
-            "value": "app.queue.federation.test"
-          },
-          {
-            "selected": false,
-            "text": "app.queue.b",
-            "value": "app.queue.b"
-          },
-          {
-            "selected": false,
-            "text": "app.queue.a",
-            "value": "app.queue.a"
-          },
-          {
-            "selected": false,
-            "text": "app.queue",
-            "value": "app.queue"
-          },
-          {
-            "selected": false,
-            "text": "activemq.notifications",
-            "value": "activemq.notifications"
-          },
-          {
-            "selected": false,
-            "text": "ExpiryQueue",
-            "value": "ExpiryQueue"
-          },
-          {
-            "selected": false,
-            "text": "DLQ",
-            "value": "DLQ"
-          },
-          {
-            "selected": false,
-            "text": "$.artemis.internal.sf.amq-broker-b-cluster.23f59ea1-8015-11eb-a933-0a580a820011",
-            "value": "$.artemis.internal.sf.amq-broker-b-cluster.23f59ea1-8015-11eb-a933-0a580a820011"
-          },
-          {
-            "selected": false,
-            "text": "$.artemis.internal.sf.amq-broker-b-cluster.0b900b64-8015-11eb-a203-0a580a81024d",
-            "value": "$.artemis.internal.sf.amq-broker-b-cluster.0b900b64-8015-11eb-a203-0a580a81024d"
-          },
-          {
-            "selected": false,
-            "text": "$.artemis.internal.sf.amq-broker-a-cluster.f67a8d2e-8014-11eb-96c0-0a580a820010",
-            "value": "$.artemis.internal.sf.amq-broker-a-cluster.f67a8d2e-8014-11eb-96c0-0a580a820010"
-          },
-          {
-            "selected": false,
-            "text": "$.artemis.internal.sf.amq-broker-a-cluster.de8d5eb2-8014-11eb-83e7-0a580a81024b",
-            "value": "$.artemis.internal.sf.amq-broker-a-cluster.de8d5eb2-8014-11eb-83e7-0a580a81024b"
-          }
-        ],
+        "options": [],
         "query": "label_values(artemis_message_count{kubernetes_namespace=\"$namespace\",broker=~\"$brokercluster\",statefulset_kubernetes_io_pod_name=~\"$brokerinstance\"},address)",
-        "refresh": 0,
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 2,
@@ -1499,5 +889,5 @@
   "timezone": "",
   "title": "Artemis Dashboard",
   "uid": "CLYrrRTWx",
-  "version": 19
+  "version": 1
 }
