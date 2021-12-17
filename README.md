@@ -74,18 +74,20 @@ By editing the prometheus config we can set static targets on your local env to 
 
 | Components                 | Version       |
 |----------------------------|---------------|
-| camel-version              | 3.7.2         |
-| spring-boot-version        | 2.4.2         |
-| swagger-ui-version         | 3.43.0        |
-| swagger-codegen-version    | 2.4.18        |
+| camel-version              | 3.13.0        |
+| spring-boot-version        | 2.6.1         |
+| swagger-ui-version         | 4.1.3         |
+| swagger-codegen-version    | 2.4.24        |
 | fmp-version                | 4.4.1         |
-| cxf-codegen-plugin-version | 3.4.2         |
-| logstash-encoder-version   | 6.6           |
-| webjars-locator-version    | 0.40          |
-| hawtio-springboot-version  | 2.10.0        |
-| jmx_prometheus_javaagent   | 0.15.0        |
+| cxf-codegen-plugin-version | 3.4.5         |
+| logstash-encoder-version   | 7.0.1         |
+| webjars-locator-version    | 0.42          |
+| hawtio-springboot-version  | 2.14.2        |
+| jmx_prometheus_javaagent   | 0.16.1        |
 
 ## Current versions for quarkus used
+
+(To be updated to quarlus 2.x)
 
 | Components                 | Version       |
 |----------------------------|---------------|

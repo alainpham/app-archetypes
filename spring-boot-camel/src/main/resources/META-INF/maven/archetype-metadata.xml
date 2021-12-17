@@ -10,34 +10,34 @@
       <defaultValue>.springboot</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>3.7.2</defaultValue>
+      <defaultValue>3.13.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="spring-boot-version">
-      <defaultValue>2.4.2</defaultValue>
+      <defaultValue>2.6.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-ui-version">
-      <defaultValue>3.43.0</defaultValue>
+      <defaultValue>4.1.3</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-codegen-version">
-      <defaultValue>2.4.18</defaultValue>
+      <defaultValue>2.4.24</defaultValue>
     </requiredProperty>
     <requiredProperty key="fmp-version">
       <defaultValue>4.4.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="cxf-codegen-plugin-version">
-      <defaultValue>3.4.2</defaultValue>
+      <defaultValue>3.4.5</defaultValue>
     </requiredProperty>
     <requiredProperty key="logstash-encoder-version">
-      <defaultValue>6.6</defaultValue>
+      <defaultValue>7.0.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="webjars-locator-version">
-      <defaultValue>0.40</defaultValue>
+      <defaultValue>0.42</defaultValue>
     </requiredProperty>
     <requiredProperty key="hawtio-springboot-version">
-      <defaultValue>2.10.0</defaultValue>
+      <defaultValue>2.14.2</defaultValue>
     </requiredProperty>
     <requiredProperty key="jmx-prometheus-javaagent-version">
-      <defaultValue>0.15.0</defaultValue>
+      <defaultValue>0.16.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="project-reporting-outputEncoding">
       <defaultValue>UTF-8</defaultValue>
@@ -46,10 +46,10 @@
       <defaultValue>UTF-8</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-compiler-target">
-      <defaultValue>1.8</defaultValue>
+      <defaultValue>11</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-compiler-source">
-      <defaultValue>1.8</defaultValue>
+      <defaultValue>11</defaultValue>
     </requiredProperty>
 
     <requiredProperty key="jdk-version">
@@ -59,7 +59,7 @@
       <defaultValue>1.3.8</defaultValue>
     </requiredProperty>
     <requiredProperty key="ubi-image-version">
-      <defaultValue>8.3</defaultValue>
+      <defaultValue>8.5</defaultValue>
     </requiredProperty>
 
 
