@@ -53,13 +53,28 @@ or here : https://odysee.com/@alainpham:8/apache-camel-monitoring-prometheus-gra
 Use these commands if you want to quickly test the archetype out including some monitoring
 
 ```
-oc project ###YOUR_TARGET_NAMESPACE_HERE###
+export TARGET_NS=YOUR_TARGET_NAMESPACE_HERE
 
-cat camel-monitoring/prometheus-local.yaml | sed -E "s/TARGET_NAMESPACE/###YOUR_TARGET_NAMESPACE_HERE###/"| oc apply -f -
+oc project ${TARGET_NS}
+
+cat camel-monitoring/prometheus-local.yaml | sed -E "s/TARGET_NAMESPACE/${TARGET_NS}/"| oc apply -f -
 
 oc create configmap grafana-dashboards --from-file=camel-monitoring/dashboards
 
 oc apply -f camel-monitoring/grafana.yaml
+```
+
+alternative : prometheus with the operator
+
+```
+export TARGET_NS=YOUR_TARGET_NAMESPACE_HERE
+
+cat prometheus-with-operator/operator-group.yml | sed -E "s/TARGET_NAMESPACE/${TARGET_NS}/"| oc apply -f -
+cat prometheus-with-operator/prom-sub.yml | sed -E "s/TARGET_NAMESPACE/${TARGET_NS}/"| oc apply -f -
+cat prometheus-with-operator/prom.yml | sed -E "s/TARGET_NAMESPACE/${TARGET_NS}/"| oc apply -f -
+cat prometheus-with-operator/strimzi-pod-monitor.yaml | sed -E "s/TARGET_NAMESPACE/${TARGET_NS}/"| oc apply -f -
+cat prometheus-with-operator/camel-pod-monitor.yml | sed -E "s/TARGET_NAMESPACE/${TARGET_NS}/"| oc apply -f -
+
 ```
 
 ## Install Prometheus & Grafana on local docker engine for testing

@@ -1,0 +1,11 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: prometheus
+  namespace: TARGET_NAMESPACE
+spec:
+  channel: beta
+  name: prometheus
+  installPlanApproval: Automatic
+  source: community-operators
+  sourceNamespace: openshift-marketplace 
