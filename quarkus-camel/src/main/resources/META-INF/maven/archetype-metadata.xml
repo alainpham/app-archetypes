@@ -9,20 +9,17 @@
     <requiredProperty key="project-build-sourceEncoding">
       <defaultValue>UTF-8</defaultValue>
     </requiredProperty>
-    <requiredProperty key="maven-compiler-target">
-      <defaultValue>11</defaultValue>
-    </requiredProperty>
-    <requiredProperty key="maven-compiler-source">
+    <requiredProperty key="maven-compiler-release">
       <defaultValue>11</defaultValue>
     </requiredProperty>
     <requiredProperty key="compiler-plugin-version">
       <defaultValue>3.8.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="quarkus-version">
-      <defaultValue>1.13.3.Final</defaultValue>
+      <defaultValue>2.6.3.Final</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>3.8.0</defaultValue>
+      <defaultValue>3.14.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="ubi-image-version">
       <defaultValue>8.3</defaultValue>
@@ -31,7 +28,7 @@
       <defaultValue>1.3.8</defaultValue>
     </requiredProperty>
     <requiredProperty key="surefire-plugin-version">
-      <defaultValue>2.22.2</defaultValue>
+      <defaultValue>3.0.0-M5</defaultValue>
     </requiredProperty>
     <!-- app vars -->
     <requiredProperty key="svc-ping-path">
