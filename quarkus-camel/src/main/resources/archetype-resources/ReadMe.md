@@ -99,3 +99,49 @@ docker login
 docker build -t ${artifactId} -f src/main/docker/Dockerfile.jvm .
 docker tag ${artifactId}:latest YOUR_REPO/${artifactId}:latest
 ```
+
+#[[##Dealing with SSL/TLS]]#
+
+Generate some private keys and truststores
+
+```
+keytool -genkey \
+    -alias ${artifactId}  \
+    -storepass password \
+    -keyalg RSA \
+    -storetype PKCS12 \
+    -dname "cn=${artifactId}" \
+    -validity 365000 \
+    -keystore tls/keystore.p12
+
+keytool -export \
+    -alias ${artifactId} \
+    -rfc \
+    -storepass password \
+    -keystore tls/broker-keystore.p12 \
+    -file tls/${artifactId}.pem
+
+FILES=tls/trusted-certs/*
+for f in $FILES
+do
+#[[    full="${f##*/}"]]#
+#[[    extension="${full##*.}"]]#
+#[[    filename="${full%.*}"]]#
+    echo "importing $full in alias $filename"
+
+    keytool -import \
+        -alias $filename \
+        -storepass password\
+        -storetype PKCS12 \
+        -noprompt \
+        -keystore tls/truststore.p12 \
+        -file $f
+done
+
+keytool -list -storepass password -keystore tls/keystore.p12 -v
+keytool -list -storepass password -keystore tls/truststore.p12 -v
+
+base64 tls/truststore.p12>tls/truststore.base64
+base64 tls/keystore.p12>tls/keystore.base64
+
+```

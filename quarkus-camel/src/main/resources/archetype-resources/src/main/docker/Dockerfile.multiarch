@@ -1,14 +1,8 @@
-FROM eclipse-temurin:11
-
-RUN useradd -u 1000 appuser
+FROM eclipse-temurin:11.0.14_9-jre
 
 USER root
 
-RUN apt-get update && apt-get install -y \
-    curl \
-    procps \
-    openjdk-11-jdk \
-    && rm -rf /var/lib/apt/lists/*
+RUN useradd -u 1000 appuser
 
 # Configure the JAVA_OPTIONS, you can add -XshowSettings:vm to also display the heap size.
 ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"

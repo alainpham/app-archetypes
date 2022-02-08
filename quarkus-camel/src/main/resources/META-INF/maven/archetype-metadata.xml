@@ -104,5 +104,11 @@
              <include>.gitignore</include>
          </includes>
      </fileSet>
+     <fileSet filtered="false" encoding="UTF-8">
+      <directory>tls</directory>
+      <includes>
+        <include>**/**</include>
+      </includes>
+    </fileSet>
   </fileSets>
 </archetype-descriptor>
