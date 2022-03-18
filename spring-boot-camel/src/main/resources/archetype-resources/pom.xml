@@ -13,7 +13,6 @@
         <spring.boot.version>${spring-boot-version}</spring.boot.version>
         <swagger.ui.version>${swagger-ui-version}</swagger.ui.version>
         <swagger.codegen.version>${swagger-codegen-version}</swagger.codegen.version>
-        <fmp.version>${fmp-version}</fmp.version>
         <cxf.codegen.plugin.version>${cxf-codegen-plugin-version}</cxf.codegen.plugin.version>
         <logstash.encoder.version>${logstash-encoder-version}</logstash.encoder.version>
         <webjars.locator.version>${webjars-locator-version}</webjars.locator.version>
@@ -220,23 +219,7 @@
     <profiles>
         <profile>
             <id>k8s</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>fabric8-maven-plugin</artifactId>
-                        <version>${fmp.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>resource</goal>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
+            <!-- TO BE DONE -->
         </profile>
         <!-- generate code from swagger -->
         <profile>
