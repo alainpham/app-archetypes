@@ -122,7 +122,7 @@
         <!-- Swagger support for restdsl -->
         <dependency>
             <groupId>org.apache.camel${camel-3-sbsuffix}</groupId>
-            <artifactId>camel-swagger-java-starter</artifactId>
+            <artifactId>camel-openapi-java-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
