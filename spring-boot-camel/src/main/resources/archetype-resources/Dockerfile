@@ -7,7 +7,7 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 # Configure the JAVA_OPTIONS, you can add -XshowSettings:vm to also display the heap size.
 
 user root
-RUN curl https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.16.1/jmx_prometheus_javaagent-0.16.1.jar -o /opt/jmx_prometheus_javaagent.jar \
+RUN curl https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/${jmx-prometheus-javaagent-version}/jmx_prometheus_javaagent-${jmx-prometheus-javaagent-version}.jar -o /opt/jmx_prometheus_javaagent.jar \
     && curl https://repo1.maven.org/maven2/io/fabric8/run-java-sh/${RUN_JAVA_VERSION}/run-java-sh-${RUN_JAVA_VERSION}-sh.sh -o /deployments/run-java.sh \
     && chmod 755 /deployments/run-java.sh
 

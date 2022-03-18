@@ -21,15 +21,18 @@
     <requiredProperty key="camel-version">
       <defaultValue>3.14.0</defaultValue>
     </requiredProperty>
-    <requiredProperty key="ubi-image-version">
-      <defaultValue>8.3</defaultValue>
-    </requiredProperty>
-    <requiredProperty key="run-java-version">
-      <defaultValue>1.3.8</defaultValue>
-    </requiredProperty>
+    
     <requiredProperty key="surefire-plugin-version">
       <defaultValue>3.0.0-M5</defaultValue>
     </requiredProperty>
+    
+    <requiredProperty key="ubi-image-version">
+      <defaultValue>1.10</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="temurin-image-version">
+      <defaultValue>11.0.14.1_1-jre</defaultValue>
+    </requiredProperty>
+
     <!-- app vars -->
     <requiredProperty key="svc-ping-path">
       <defaultValue>/ping</defaultValue>
