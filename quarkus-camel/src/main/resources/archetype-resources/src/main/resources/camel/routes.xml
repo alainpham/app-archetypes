@@ -26,4 +26,10 @@
         </marshal>
     </route>
 
+    <route id="get-ping-route">
+        <from uri="direct:get-ping"/>
+        <setBody>
+            <constant>pong</constant>
+        </setBody>
+    </route>
 </routes>

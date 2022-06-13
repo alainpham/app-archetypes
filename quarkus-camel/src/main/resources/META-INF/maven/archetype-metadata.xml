@@ -16,10 +16,10 @@
       <defaultValue>3.8.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="quarkus-version">
-      <defaultValue>2.7.0.Final</defaultValue>
+      <defaultValue>2.9.2.Final</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>3.14.0</defaultValue>
+      <defaultValue>3.16.0</defaultValue>
     </requiredProperty>
     
     <requiredProperty key="surefire-plugin-version">
@@ -27,10 +27,10 @@
     </requiredProperty>
     
     <requiredProperty key="ubi-image-version">
-      <defaultValue>1.10</defaultValue>
+      <defaultValue>1.11</defaultValue>
     </requiredProperty>
     <requiredProperty key="temurin-image-version">
-      <defaultValue>11.0.14.1_1-jre</defaultValue>
+      <defaultValue>11.0.15_10-jre</defaultValue>
     </requiredProperty>
 
     <!-- app vars -->
@@ -38,7 +38,7 @@
       <defaultValue>/ping</defaultValue>
     </requiredProperty>
     <requiredProperty key="svc-definition-path">
-      <defaultValue>/openapi</defaultValue>
+      <defaultValue>/q/openapi</defaultValue>
     </requiredProperty>
     <requiredProperty key="svc-camel-definition-path">
       <defaultValue>/camel-openapi</defaultValue>
@@ -47,7 +47,7 @@
       <defaultValue>/send-msg</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-ui-path">
-      <defaultValue>/swagger-ui</defaultValue>
+      <defaultValue>/q/swagger-ui</defaultValue>
     </requiredProperty>
     
   </requiredProperties>

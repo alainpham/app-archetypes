@@ -58,6 +58,10 @@
     </dependency>
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>
+      <artifactId>camel-quarkus-direct</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-timer</artifactId>
     </dependency>
     <dependency>
@@ -90,7 +94,7 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-undertow-websockets</artifactId>
+      <artifactId>quarkus-websockets</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
