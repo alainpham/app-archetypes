@@ -23,7 +23,7 @@ public class ViewUpdate {
         
         ObjectMapper objectMapper = new ObjectMapper();
         String value = objectMapper.writeValueAsString(SocketData.defaultSocketData(data, type, notify, updateHeader, changeData, dataOperationType, targetTableId));
-        producer.sendBody("ahc-ws:{{quarkus.http.host}}:{{quarkus.http.port}}/websocket",value);
+        producer.sendBody("vertx-websocket:{{quarkus.http.host}}:{{quarkus.http.port}}/websocket",value);
 
     }
 

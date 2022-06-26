@@ -16,14 +16,14 @@
       <defaultValue>3.8.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="quarkus-version">
-      <defaultValue>2.9.2.Final</defaultValue>
+      <defaultValue>2.10.0.Final</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>3.16.0</defaultValue>
+      <defaultValue>3.17.0</defaultValue>
     </requiredProperty>
     
     <requiredProperty key="surefire-plugin-version">
-      <defaultValue>3.0.0-M5</defaultValue>
+      <defaultValue>3.0.0-M7</defaultValue>
     </requiredProperty>
     
     <requiredProperty key="ubi-image-version">
