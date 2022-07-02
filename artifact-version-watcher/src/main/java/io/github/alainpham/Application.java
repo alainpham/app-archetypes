@@ -1,4 +1,4 @@
-package ${package};
+package io.github.alainpham;
 
 import org.apache.camel.main.Main;
 

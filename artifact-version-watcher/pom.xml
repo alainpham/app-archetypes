@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>${groupId}</groupId>
-    <artifactId>${artifactId}</artifactId>
-    <version>${version}</version>
+    <parent>
+    <artifactId>app-archetypes</artifactId>
+    <groupId>io.github.alainpham</groupId>
+    <version>1.0.0</version>
+  </parent>
+    <groupId>io.github.alainpham</groupId>
+    <artifactId>artifact-version-watcher</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>${artifactId}</name>
-    <description>${artifactId}</description>
+    <name>artifact-version-watcher</name>
+    <description>artifact-version-watcher</description>
 
     <properties>
-        <project.reporting.outputEncoding>${project-reporting-outputEncoding}</project.reporting.outputEncoding>
-        <project.build.sourceEncoding>${project-build-sourceEncoding}</project.build.sourceEncoding>
-        <maven.compiler.target>${maven-compiler-target}</maven.compiler.target>
-        <maven.compiler.source>${maven-compiler-source}</maven.compiler.source>
-        <maven-compiler-plugin.version>${maven-compiler-plugin-version}</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>${maven-dependency-plugin-version}</maven-dependency-plugin.version>
-        <maven-jar-plugin.version>${maven-jar-plugin-version}</maven-jar-plugin.version>
-        <camel.version>${camel-version}</camel.version>
-        <logback.version>${logback-version}</logback.version>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.3.0</maven-dependency-plugin.version>
+        <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
+        <camel.version>3.17.0</camel.version>
     </properties>
     
     <dependencyManagement>
@@ -53,7 +57,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
+            <version>1.2.9</version>
         </dependency>
 
     </dependencies>
@@ -93,7 +97,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>${package}.Application</mainClass>
+                            <mainClass>io.github.alainpham.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -105,7 +109,7 @@
                 <version>${camel.version}</version>
                 <configuration>
                     <logClasspath>false</logClasspath>
-                    <mainClass>${package}.Application</mainClass>
+                    <mainClass>io.github.alainpham.Application</mainClass>
                 </configuration>
             </plugin>
         </plugins>

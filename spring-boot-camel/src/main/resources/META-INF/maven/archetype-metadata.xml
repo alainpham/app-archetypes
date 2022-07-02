@@ -10,31 +10,31 @@
       <defaultValue>.springboot</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>3.15.0</defaultValue>
+      <defaultValue>3.17.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="spring-boot-version">
-      <defaultValue>2.6.4</defaultValue>
+      <defaultValue>2.6.7</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-ui-version">
       <defaultValue>3.52.5</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-codegen-version">
-      <defaultValue>3.0.33</defaultValue>
+      <defaultValue>3.0.34</defaultValue>
     </requiredProperty>
     <requiredProperty key="cxf-codegen-plugin-version">
-      <defaultValue>3.5.1</defaultValue>
+      <defaultValue>3.5.2</defaultValue>
     </requiredProperty>
     <requiredProperty key="logstash-encoder-version">
-      <defaultValue>7.0.1</defaultValue>
+      <defaultValue>7.2</defaultValue>
     </requiredProperty>
     <requiredProperty key="webjars-locator-version">
       <defaultValue>0.45</defaultValue>
     </requiredProperty>
     <requiredProperty key="hawtio-springboot-version">
-      <defaultValue>2.14.5</defaultValue>
+      <defaultValue>2.15.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="jmx-prometheus-javaagent-version">
-      <defaultValue>0.16.1</defaultValue>
+      <defaultValue>0.17.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="project-reporting-outputEncoding">
       <defaultValue>UTF-8</defaultValue>
@@ -53,10 +53,10 @@
       <defaultValue>1.3.8</defaultValue>
     </requiredProperty>
     <requiredProperty key="ubi-image-version">
-      <defaultValue>1.10</defaultValue>
+      <defaultValue>1.11</defaultValue>
     </requiredProperty>
     <requiredProperty key="temurin-image-version">
-      <defaultValue>11.0.14.1_1-jre</defaultValue>
+      <defaultValue>11.0.15_10-jre</defaultValue>
     </requiredProperty>
 
     <!-- app vars -->

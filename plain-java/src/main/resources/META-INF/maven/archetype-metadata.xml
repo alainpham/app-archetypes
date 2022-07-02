@@ -10,20 +10,27 @@
       <defaultValue>UTF-8</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-compiler-target">
-      <defaultValue>1.8</defaultValue>
+      <defaultValue>11</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-compiler-source">
-      <defaultValue>1.8</defaultValue>
+      <defaultValue>11</defaultValue>
     </requiredProperty>
-    <requiredProperty key="compiler-plugin-version">
-      <defaultValue>3.8.1</defaultValue>
+    <requiredProperty key="maven-compiler-plugin-version">
+      <defaultValue>3.10.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-dependency-plugin-version">
-      <defaultValue>3.1.2</defaultValue>
+      <defaultValue>3.3.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-jar-plugin-version">
-      <defaultValue>3.2.0</defaultValue>
+      <defaultValue>3.2.2</defaultValue>
     </requiredProperty>
+    <requiredProperty key="camel-version">
+      <defaultValue>3.17.0</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="logback-version">
+      <defaultValue>1.2.9</defaultValue>
+    </requiredProperty>
+    
   </requiredProperties>
  <fileSets>
     <fileSet filtered="true" packaged="true" encoding="UTF-8">
@@ -36,6 +43,15 @@
       <directory>src/main/resources</directory>
       <includes>
         <include>**/*</include>
+      </includes>
+      <excludes>
+        <exclude>**/camel-spring.xsd</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet filtered="false" encoding="UTF-8">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/camel-spring.xsd</include>
       </includes>
     </fileSet>
     <fileSet filtered="true" packaged="true" encoding="UTF-8">

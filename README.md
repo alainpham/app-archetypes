@@ -12,6 +12,7 @@ The following is a Spring Boot archetype
 mvn archetype:generate \
     -DarchetypeGroupId=io.github.alainpham \
     -DarchetypeArtifactId=spring-boot-camel \
+    -DarchetypeCatalog=local \
     -DarchetypeVersion=1.0.0
 ```
 
@@ -23,6 +24,7 @@ The following is a Quarkus archetype
 mvn archetype:generate \
     -DarchetypeGroupId=io.github.alainpham \
     -DarchetypeArtifactId=quarkus-camel \
+    -DarchetypeCatalog=local \
     -DarchetypeVersion=1.0.0
 ```
 
@@ -32,6 +34,7 @@ mvn archetype:generate \
 mvn archetype:generate \
     -DarchetypeGroupId=io.github.alainpham \
     -DarchetypeArtifactId=plain-java \
+    -DarchetypeCatalog=local \
     -DarchetypeVersion=1.0.0
 ```
 
@@ -86,29 +89,45 @@ https://github.com/alainpham/dev-env-scripts#monitoring
 
 By editing the prometheus config we can set static targets on your local env to emulate the behavior of auto discovered pods on Kubernetes.
 
-## Current versions for spring booot used
+## Current versions for plain java pojects
 
-| Components                 | Version       |
-|----------------------------|---------------|
-| camel-version              | 3.13.0        |
-| spring-boot-version        | 2.6.1         |
-| swagger-ui-version         | 3.52.5        |
-| swagger-codegen-version    | 2.4.24        |
-| fmp-version                | 4.4.1         |
-| cxf-codegen-plugin-version | 3.4.5         |
-| logstash-encoder-version   | 7.0.1         |
-| webjars-locator-version    | 0.42          |
-| hawtio-springboot-version  | 2.14.2        |
-| jmx_prometheus_javaagent   | 0.16.1        |
+| Components                 | Version        |
+|----------------------------|----------------|
+| java                       | 11             |
+| camel-version              | 3.17.0         |
+| maven-compiler-plugin      | 3.10.1         |
+| maven-dependency-plugin    | 3.3.0          |
+| maven-jar-plugin           | 3.2.2          |
+| logback-version            | 1.2.9          |
+
+
+## Current versions for spring boot used
+
+| Components                 | Version        |
+|----------------------------|----------------|
+| java                       | 11             |
+| camel-version              | 3.13.0         |
+| spring-boot-version        | 2.6.1          |
+| swagger-ui-version         | 3.52.5         |
+| swagger-codegen-version    | 2.4.24         |
+| fmp-version                | 4.4.1          |
+| cxf-codegen-plugin-version | 3.4.5          |
+| logstash-encoder-version   | 7.0.1          |
+| webjars-locator-version    | 0.42           |
+| hawtio-springboot-version  | 2.14.2         |
+| jmx_prometheus_javaagent   | 0.16.1         | 
 
 ## Current versions for quarkus used
 
-(To be updated to quarlus 2.x)
-
-| Components                 | Version       |
-|----------------------------|---------------|
-| quarkus-version            | 1.13.3.Final  |
-| camel-version              | 3.9.0         |
+| Components                 | Version        |
+|----------------------------|----------------|
+| java                       | 11             |
+| camel-version              | 3.17.0         |
+| quarkus-version            | 2.10.0.Final   |
+| maven-compiler-plugin      | 3.8.1          |
+| surefire-plugin-version    | 3.0.0-M7       |
+| ubi-image-version          | 1.11           |
+| temurin-image-version      | 11.0.15_10-jre |
 
 ## Next steps for this small project
 

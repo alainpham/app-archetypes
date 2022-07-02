@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<routes xmlns="http://camel.apache.org/schema/spring" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring.xsd">
+<routes xmlns="http://camel.apache.org/schema/spring" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://camel.apache.org/schema/spring ./../xsd/camel-spring.xsd">
     <route id="http-receiver">
         <from id="http-receiver-starter" uri="servlet://ping" />
         <to uri="bean:eventLogger?method=logStartAndBody" />
@@ -35,6 +35,13 @@
         <marshal>
             <json library="Jackson"/>
         </marshal>
+    </route>
+
+    <route id="get-ping-route">
+        <from uri="direct:get-ping"/>
+        <setBody>
+            <constant>pong</constant>
+        </setBody>
     </route>
 
 #if (${cxfSupport} == 'true')
