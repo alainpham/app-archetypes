@@ -3,12 +3,15 @@ package io.github.alainpham.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
-public class Artifact extends PanacheEntity implements Serializable{
-    
+public class Artifact extends PanacheEntityBase implements Serializable{
+    @Id
+    public long id;
     public String project;
     public String currentVersionResource;
     public String currentVersionExpression;

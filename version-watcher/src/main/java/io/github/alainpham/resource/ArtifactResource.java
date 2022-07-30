@@ -94,7 +94,6 @@ public class ArtifactResource {
 
 
         for (Artifact artifact : artifacts) {
-            
             em.merge(artifact);
         }
 
