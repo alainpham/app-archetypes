@@ -13,7 +13,7 @@
       <defaultValue>11</defaultValue>
     </requiredProperty>
     <requiredProperty key="compiler-plugin-version">
-      <defaultValue>3.8.1</defaultValue>
+      <defaultValue>3.10.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="quarkus-version">
       <defaultValue>2.11.1.Final</defaultValue>
