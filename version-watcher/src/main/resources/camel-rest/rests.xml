@@ -1,0 +1,7 @@
+<rests xmlns="http://camel.apache.org/schema/spring" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://camel.apache.org/schema/spring ./../xsd/camel-spring.xsd">
+    <rest id="rest-svc" path="/restsvc">
+        <get id="get-ping" path="/ping" >
+            <to uri="direct:get-ping"/>
+        </get>
+    </rest>
+</rests>

@@ -1,0 +1,26 @@
+FROM debian:bullseye
+
+RUN useradd -u 1000 appuser
+
+USER root
+
+RUN apt-get update && apt-get install -y \
+    curl \
+    procps \
+    openjdk-11-jdk \
+    && rm -rf /var/lib/apt/lists/*
+
+# Configure the JAVA_OPTIONS, you can add -XshowSettings:vm to also display the heap size.
+ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+
+# We make four distinct layers so if there are application changes the library layers can be re-used
+COPY --chown=1000 target/quarkus-app/lib/ /deployments/lib/
+COPY --chown=1000 target/quarkus-app/*.jar /deployments/
+COPY --chown=1000 target/quarkus-app/app/ /deployments/app/
+COPY --chown=1000 target/quarkus-app/quarkus/ /deployments/quarkus/
+
+EXPOSE 8080
+USER 1000
+
+ENTRYPOINT [ "java", "-jar", "/deployments/quarkus-run.jar" ]
+

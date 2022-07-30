@@ -2,7 +2,7 @@
 <archetype-descriptor xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" name="fuse-standard-archetype"
     xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <requiredProperties >
+  <requiredProperties>
     <requiredProperty key="project-reporting-outputEncoding">
       <defaultValue>UTF-8</defaultValue>
     </requiredProperty>
@@ -16,10 +16,10 @@
       <defaultValue>3.8.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="quarkus-version">
-      <defaultValue>2.10.0.Final</defaultValue>
+      <defaultValue>2.11.1.Final</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>3.17.0</defaultValue>
+      <defaultValue>3.18.0</defaultValue>
     </requiredProperty>
     
     <requiredProperty key="surefire-plugin-version">

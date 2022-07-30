@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://camel.apache.org/schema/spring" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://camel.apache.org/schema/spring ./../xsd/camel-spring.xsd">
+    <route id="http-receiver">
+        <from id="http-receiver-starter" uri="platform-http:/ping" />
+        <setHeader id="set-header-http-receiver" name="Content-Type">
+            <constant>application/json</constant>
+        </setHeader>
+        <setBody id="set-body-http-receiver">
+            <constant>{"msg" : "HELLO"}</constant>
+        </setBody>
+    </route>
+
+    <route id="send-msg">
+        <from id="send-socket-msg-to-all-starter" uri="platform-http:/send-msg"/>
+        <convertBodyTo type="java.lang.String"/>
+        <unmarshal>
+            <json library="Jackson"/>
+        </unmarshal>
+        <log message="${body}"/>
+
+        <bean ref="viewUpdate" method="upsertData(${body}, person, state-table)"/>
+        <bean ref="viewUpdate" method="appendData(${body}, person, log-table)"/>
+
+        <marshal>
+            <json library="Jackson"/>
+        </marshal>
+    </route>
+
+    <route id="get-ping-route">
+        <from uri="direct:get-ping"/>
+        <setBody>
+            <constant>pong</constant>
+        </setBody>
+    </route>
+
+
+    <route>
+        <from uri="direct:watch-maven"/>
+
+        <log message="${body}"/>
+        <setHeader name="CamelHttpPath">
+            <constant></constant>
+        </setHeader>
+        <to uri="https://repo.maven.apache.org/maven2/org/apache/camel/camel/maven-metadata.xml?bridgeEndpoint=true"/>
+        <setBody>
+            <xpath saxon="true">/metadata/versioning/versions/version[position()>last()-10]/text()</xpath>
+        </setBody>
+        <split>
+            <simple>${body}</simple>
+            <log message="${body}"/>
+        </split>
+    </route>
+
+    <route>
+        <from uri="platform-http:/arch"/>
+        <removeHeaders pattern="*"/>
+        <setHeader name="CamelHttpPath">
+            <constant></constant>
+        </setHeader>
+        
+        <to uri="https://github.com/alainpham/app-archetypes/raw/master/quarkus-camel/src/main/resources/META-INF/maven/archetype-metadata.xml?bridgeEndpoint=true"/>
+        
+        <to uri="language:xpath://*:requiredProperty[@key='quarkus-version']/*:defaultValue/text()"/>
+        <log message="${body.class} ${body}"></log>
+    </route>
+
+
+    <route>
+        <from uri="platform-http:/analyse"/>
+        <bean ref="artifactResource" method="getAllArtifacts"/>
+        <split>
+            <simple>${body}</simple>
+            <setProperty name="artifact">
+                <simple>${body}</simple>
+            </setProperty>
+            <removeHeaders pattern="*"/>
+            <setHeader name="CamelHttpMethod">
+                <constant>GET</constant>
+            </setHeader>
+            <toD uri="${exchangeProperty.artifact.currentVersionResource}"/>
+            <toD uri="${exchangeProperty.artifact.currentVersionExpression}"/>
+            <log message="current version ${body}"/>
+        </split>
+        <marshal>
+            <json library="Jackson"/>
+        </marshal>
+    </route>
+</routes>
