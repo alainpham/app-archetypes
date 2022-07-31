@@ -85,4 +85,15 @@
             <json library="Jackson"/>
         </marshal>
     </route>
+
+    <route>
+        <from uri="direct:extract-latest-container-tag"/>
+        <log message="${header.filter}"></log>
+        <setBody>
+            <jsonpath>$.results[?(@.name =~ /${header.filter}/)].name</jsonpath>
+        </setBody>
+        <setBody>
+            <simple>${body[0]}</simple>
+        </setBody>
+    </route>
 </routes>

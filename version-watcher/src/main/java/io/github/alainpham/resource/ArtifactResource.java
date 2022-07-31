@@ -51,7 +51,7 @@ public class ArtifactResource {
             
             System.out.println("current version " + artifact.currentVersion);
 
-            if(artifact.coordinates.startsWith("mvn:")){
+            if (artifact.coordinates.startsWith("mvn:")){
                 String groupId = artifact.coordinates.split(":")[1].replaceAll("\\.", "/");
                 String artifactId = artifact.coordinates.split(":")[2];
                 String artifactResource = "https://repo.maven.apache.org/maven2/" + groupId + "/" + artifactId + "/maven-metadata.xml";
@@ -70,6 +70,23 @@ public class ArtifactResource {
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
+            }
+
+            if (artifact.coordinates.startsWith("docker:")){
+                // String artifactResource = "https://hub.docker.com/v2/repositories/" + artifact.coordinates.split(":")[1] +"/tags/?page_size=100&name="+artifact.latestVersionFilter.split(":")[0];
+                String artifactResource = "https://hub.docker.com/v2/repositories/" + artifact.coordinates.split(":")[1] +"/tags/?page_size=100";
+                System.out.println(artifactResource);
+                String artifactResourceContent = producer.requestBody(artifactResource,null,String.class);
+                System.out.println(artifactResourceContent);
+
+                // String latestVersion = producer.requestBodyAndHeader("direct:extract-latest-container-tag",artifactResourceContent,"filter",artifact.latestVersionFilter.split(":")[1],String.class);
+                String latestVersion = producer.requestBodyAndHeader("direct:extract-latest-container-tag",artifactResourceContent,"filter",artifact.latestVersionFilter,String.class);
+                
+                System.out.println(latestVersion);
+                artifact.latestVersion = latestVersion;
+                artifact.latestAndGreatest = producer.requestBodyAndHeader("direct:extract-latest-container-tag",artifactResourceContent,"filter","[0-9]+.*",String.class);
+                System.out.println(artifact.latestAndGreatest);
+
             }
 
         }
