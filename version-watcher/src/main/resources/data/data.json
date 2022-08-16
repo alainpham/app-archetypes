@@ -31,8 +31,22 @@
     "coordinates": "mvn:org.apache.maven.plugins:maven-surefire-plugin",
     "latestVersionFilter": "^3.*"
   },
-
-
+  {
+    "id": 104,
+    "project": "quarkus-camel-archetype",
+    "currentVersionResource": "https://github.com/alainpham/app-archetypes/raw/master/quarkus-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='temurin-image-version']/*:defaultValue/text()",
+    "coordinates": "docker:library/eclipse-temurin",
+    "latestVersionFilter": "^11.*-jre$"
+  },
+  {
+    "id": 105,
+    "project": "quarkus-camel-archetype",
+    "currentVersionResource": "https://github.com/alainpham/app-archetypes/raw/master/quarkus-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='ubi-image-version']/*:defaultValue/text()",
+    "coordinates": "redhat-registry:ubi8/openjdk-11",
+    "latestVersionFilter": "^11.*-jre$"
+  },
   {
     "id": 200,
     "project": "spring-boot-camel-archetype",

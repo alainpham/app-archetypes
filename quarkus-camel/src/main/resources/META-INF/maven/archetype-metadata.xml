@@ -16,10 +16,10 @@
       <defaultValue>3.10.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="quarkus-version">
-      <defaultValue>2.11.1.Final</defaultValue>
+      <defaultValue>2.11.2.Final</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>3.18.0</defaultValue>
+      <defaultValue>3.18.1</defaultValue>
     </requiredProperty>
     
     <requiredProperty key="surefire-plugin-version">
