@@ -34,7 +34,7 @@
     </route>
 
 
-    <route>
+    <route id="watch-maven">
         <from uri="direct:watch-maven"/>
 
         <log message="${body}"/>
@@ -51,7 +51,7 @@
         </split>
     </route>
 
-    <route>
+    <route id="arch-test">
         <from uri="platform-http:/arch"/>
         <removeHeaders pattern="*"/>
         <setHeader name="CamelHttpPath">
@@ -65,7 +65,7 @@
     </route>
 
 
-    <route>
+    <route id="analyse">
         <from uri="platform-http:/analyse"/>
         <bean ref="artifactResource" method="getAllArtifacts"/>
         <split>
@@ -86,7 +86,7 @@
         </marshal>
     </route>
 
-    <route>
+    <route id="extract-latest-container-tag">
         <from uri="direct:extract-latest-container-tag"/>
         <log message="${header.filter}"></log>
         <setBody>
