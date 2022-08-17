@@ -58,7 +58,7 @@
       <defaultValue>1.11</defaultValue>
     </requiredProperty>
     <requiredProperty key="temurin-image-version">
-      <defaultValue>11.0.15_10-jre</defaultValue>
+      <defaultValue>11.0.16_8-jre</defaultValue>
     </requiredProperty>
 
     <!-- app vars -->

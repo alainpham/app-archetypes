@@ -107,17 +107,17 @@ By editing the prometheus config we can set static targets on your local env to 
 |----------------------------|----------------|
 | java                       | 11             |
 | maven-compiler-plugin      | 3.10.1         |
-| camel-version              | 3.18.0         |
+| camel-version              | 3.18.1         |
 | spring-boot-version        | 2.7.2          |
 | swagger-ui-version         | 3.52.5         |
-| swagger-codegen-version    | 3.5.3          |
+| swagger-codegen-version    | 3.0.35	      |
 | cxf-codegen-plugin-version | 3.5.3          |
 | logstash-encoder-version   | 7.2            |
 | webjars-locator-version    | 0.45           |
 | hawtio-springboot-version  | 2.15.0         |
 | jmx_prometheus_javaagent   | 0.17.0         | 
 | run-java-version           | 1.3.8          |
-| temurin-image-version      | 11.0.15_10-jre |
+| temurin-image-version      | 11.0.16_8-jre  |
 
 
 ## Current versions for quarkus used
@@ -125,12 +125,12 @@ By editing the prometheus config we can set static targets on your local env to 
 | Components                 | Version        |
 |----------------------------|----------------|
 | java                       | 11             |
-| camel-version              | 3.18.0         |
-| quarkus-version            | 2.11.1.Final   |
+| camel-version              | 3.18.1         |
+| quarkus-version            | 2.11.2.Final   |
 | maven-compiler-plugin      | 3.8.1          |
 | surefire-plugin-version    | 3.0.0-M7       |
 | ubi-image-version          | 1.11           |
-| temurin-image-version      | 11.0.15_10-jre |
+| temurin-image-version      | 11.0.16_8-jre  |
 
 ## Next steps for this small project
 
