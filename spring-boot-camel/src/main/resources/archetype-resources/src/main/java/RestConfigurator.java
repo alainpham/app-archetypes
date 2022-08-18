@@ -15,7 +15,7 @@ public class RestConfigurator extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		restConfiguration()
-		.apiContextRouteId("api-docs")
+		// .apiContextRouteId("api-docs")
 		.component("servlet")
 		.bindingMode(RestBindingMode.json)
 		.contextPath(environment.getProperty("camelrest.contextPath"))

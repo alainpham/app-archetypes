@@ -100,6 +100,7 @@
       <excludes>
         <exclude>**/framework/**</exclude>
         <exclude>**/favicon.ico</exclude>
+        <exclude>**/camel-spring.xsd</exclude>
       </excludes>
     </fileSet>
     <fileSet filtered="false" encoding="UTF-8">
@@ -107,6 +108,7 @@
       <includes>
         <include>**/framework/**</include>
         <include>**/favicon.ico</include>
+        <include>**/camel-spring.xsd</include>
       </includes>
     </fileSet>
      <fileSet filtered="true" encoding="UTF-8">
