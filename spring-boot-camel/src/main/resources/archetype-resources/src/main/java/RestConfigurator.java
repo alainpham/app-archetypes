@@ -1,6 +1,10 @@
 package ${package};
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.micrometer.eventnotifier.MicrometerExchangeEventNotifier;
+import org.apache.camel.component.micrometer.eventnotifier.MicrometerRouteEventNotifier;
+import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryFactory;
+import org.apache.camel.component.micrometer.routepolicy.MicrometerRoutePolicyFactory;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -26,6 +30,12 @@ public class RestConfigurator extends RouteBuilder {
 		.apiProperty("api.version", environment.getProperty("camelrest.apiversion"))
 		// .host(environment.getProperty("camelrest.host"))
 		.dataFormatProperty("prettyPrint", "true");
+
+		getContext().addRoutePolicyFactory(new MicrometerRoutePolicyFactory());
+		getContext().setMessageHistoryFactory(new MicrometerMessageHistoryFactory());
+		getCamelContext().getManagementStrategy().addEventNotifier(new MicrometerExchangeEventNotifier());
+		getCamelContext().getManagementStrategy().addEventNotifier(new MicrometerRouteEventNotifier());
+
 	}
 
 

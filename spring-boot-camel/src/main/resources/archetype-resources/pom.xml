@@ -113,6 +113,15 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+          </dependency>
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-micrometer-starter</artifactId>
+        </dependency>
+
         <!-- autoreload on changes -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -208,11 +217,11 @@
                     <profiles>
                         <profile>dev</profile>
                     </profiles>
-                    <agents> 
+                    <!-- <agents> 
                         <agent>
                         ${user.home}/.m2/repository/io/prometheus/jmx/jmx_prometheus_javaagent/${jmx.prometheus.javaagent.version}/jmx_prometheus_javaagent-${jmx.prometheus.javaagent.version}.jar=9779:${project.basedir}/src/main/fabric8-includes/prometheus-config.yml
                         </agent>
-                    </agents>
+                    </agents> -->
                 </configuration>
             </plugin>
         </plugins>
