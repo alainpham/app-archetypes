@@ -1,6 +1,10 @@
 # Archetypes & Monitoring Tools for Java/Apache Camel developers
 
-This repo contains archetypes that should be useful to camel developers that don't want to start with common things already included in their projects such as monitoring, circuit breaking, swagger ui etc..
+This repo contains archetypes that should be useful to camel developers that don't want to start with common things already included in their projects such as 
+* Monitoring with Micrometer / Prometheus / Grafana
+* HTTP Rest with OpenAPI / SwaggerUI
+* Websockets
+* Soap with CXF (Optional)
 
 It also contains the a comprehensive Grafana Dashboard for performance monitoring on metrics collected through Prometheus.
 
@@ -132,3 +136,7 @@ By editing the prometheus config we can set static targets on your local env to 
 | ubi-image-version          | 1.11           |
 | temurin-image-version      | 11.0.16_8-jre  |
 
+## Next steps for this small project
+
+* Add opentelemetry tracing and send data to Grafana Tempo.
+* Link metrics to traces.
