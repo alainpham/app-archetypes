@@ -1,5 +1,17 @@
 # Archetypes & Monitoring Tools for Java/Apache Camel developers
 
+- [Archetypes & Monitoring Tools for Java/Apache Camel developers](#archetypes--monitoring-tools-for-javaapache-camel-developers)
+  - [Create a Spring Boot Camel Project](#create-a-spring-boot-camel-project)
+  - [Create a Quarkus Camel Project](#create-a-quarkus-camel-project)
+  - [Create a Plain Java Project](#create-a-plain-java-project)
+  - [Grafana Dashboard For Camel Monitoring](#grafana-dashboard-for-camel-monitoring)
+  - [Install Prometheus and Grafana Kubernetes/Openshift Namespace for monitoring](#install-prometheus-and-grafana-kubernetesopenshift-namespace-for-monitoring)
+  - [Install Prometheus & Grafana on local docker engine for testing](#install-prometheus--grafana-on-local-docker-engine-for-testing)
+  - [Current versions for plain java pojects](#current-versions-for-plain-java-pojects)
+  - [Current versions for spring boot used](#current-versions-for-spring-boot-used)
+  - [Current versions for quarkus used](#current-versions-for-quarkus-used)
+  - [Next steps for this small project](#next-steps-for-this-small-project)
+
 This repo contains archetypes that should be useful to camel developers that don't want to start with common things already included in their projects such as 
 * Monitoring with Micrometer / Prometheus / Grafana
 * HTTP Rest with OpenAPI / SwaggerUI
