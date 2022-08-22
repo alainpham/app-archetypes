@@ -132,6 +132,3 @@ By editing the prometheus config we can set static targets on your local env to 
 | ubi-image-version          | 1.11           |
 | temurin-image-version      | 11.0.16_8-jre  |
 
-## Next steps for this small project
-
-* Build a Dashboard for Camel Quarkus with the microprofile metrics componenents. This will be great for SLA management as their are some cool metrics like quantiles on execution time.
