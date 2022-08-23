@@ -32,7 +32,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "h": 1,
@@ -46,7 +46,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "refId": "A"
         }
@@ -57,7 +57,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "${datasource}"
       },
       "description": "Number of parallel instances of this camel context running ",
       "fieldConfig": {
@@ -107,7 +107,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "count (CamelRoutesRunning_routes{namespace=\"$namespace\",camelContext=\"$context\"})",
@@ -127,7 +127,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "${datasource}"
       },
       "description": "",
       "fieldConfig": {
@@ -206,7 +206,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -221,7 +221,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -241,7 +241,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "${datasource}"
       },
       "description": "Shows completed exchanges of the camel context in the time range",
       "fieldConfig": {
@@ -293,7 +293,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(increase(CamelExchangesTotal_total{namespace=\"$namespace\",camelContext=\"$context\"}[$__range]))",
@@ -312,7 +312,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "${datasource}"
       },
       "description": "",
       "fieldConfig": {
@@ -389,7 +389,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum by (camelContext) (increase(CamelExchangesFailed_total{namespace=\"$namespace\",camelContext=\"$context\"}[$__range]))",
@@ -404,7 +404,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum by (camelContext) (increase(CamelExchangesFailed_total{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"}[$__range])) / sum by (camelContext) (increase(CamelExchangesTotal_total{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"}[$__range]))",
@@ -420,7 +420,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -469,7 +469,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(CamelExchangesInflight{namespace=\"$namespace\",camelContext=\"$context\"})",
@@ -486,7 +486,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "${datasource}"
       },
       "description": "",
       "fieldConfig": {
@@ -553,7 +553,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -569,9 +569,22 @@
       "type": "table"
     },
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 382,
+      "panels": [],
+      "title": "Camel Context Overview",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -596,7 +609,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 6
       },
       "id": 368,
       "options": {
@@ -616,7 +629,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum by (routeId) (irate(CamelExchangesTotal_total{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"}[$__rate_interval]))",
@@ -631,7 +644,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -665,7 +678,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 11
       },
       "id": 337,
       "options": {
@@ -685,7 +698,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum by (routeId) (increase(CamelExchangesFailed_total{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"}[$__range])) / sum by (routeId) (increase(CamelExchangesTotal_total{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"}[$__range]))",
@@ -701,20 +714,20 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 16
       },
       "id": 10,
       "panels": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "description": "Show the numbers of exchanges per second for a camel route",
           "fieldConfig": {
@@ -745,7 +758,7 @@
             "h": 5,
             "w": 2,
             "x": 0,
-            "y": 16
+            "y": 17
           },
           "id": 12,
           "links": [],
@@ -771,7 +784,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "grafanacloud-prom"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum(irate(CamelExchangesTotal_total{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"}[$__rate_interval]))",
@@ -788,7 +801,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -844,7 +857,7 @@
             "h": 5,
             "w": 5,
             "x": 2,
-            "y": 16
+            "y": 17
           },
           "id": 16,
           "links": [],
@@ -867,7 +880,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "grafanacloud-prom"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum by (camelContext) (irate(CamelExchangesTotal_total{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"}[$__rate_interval]))",
@@ -884,7 +897,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -943,7 +956,7 @@
             "h": 5,
             "w": 5,
             "x": 7,
-            "y": 16
+            "y": 17
           },
           "id": 27,
           "links": [],
@@ -966,7 +979,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "grafanacloud-prom"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum by (kubernetes_pod_name) (irate(CamelExchangesTotal_total{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"}[$__rate_interval]))",
@@ -983,7 +996,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "description": "",
           "fieldConfig": {
@@ -1044,7 +1057,7 @@
             "h": 5,
             "w": 5,
             "x": 12,
-            "y": 16
+            "y": 17
           },
           "id": 335,
           "links": [],
@@ -1067,7 +1080,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "grafanacloud-prom"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum by (routeId) (increase(CamelExchangesFailed_total{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"}[$__range])) / sum by (routeId) (increase(CamelExchangesTotal_total{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"}[$__range]))",
@@ -1084,7 +1097,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "description": "Current number of inflight exchanges",
           "fieldConfig": {
@@ -1124,7 +1137,7 @@
             "h": 5,
             "w": 2,
             "x": 17,
-            "y": 16
+            "y": 17
           },
           "id": 35,
           "links": [],
@@ -1150,7 +1163,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "grafanacloud-prom"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum by (camelContext) (CamelExchangesInflight{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"})",
@@ -1168,7 +1181,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1227,7 +1240,7 @@
             "h": 5,
             "w": 5,
             "x": 19,
-            "y": 16
+            "y": 17
           },
           "id": 55,
           "links": [],
@@ -1250,7 +1263,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "grafanacloud-prom"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum by (kubernetes_pod_name) (CamelExchangesInflight{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"})",
@@ -1269,7 +1282,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "refId": "A"
         }
@@ -1281,20 +1294,20 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "grafanacloud-prom"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 17
       },
       "id": 69,
       "panels": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "description": "Average execution time for a route",
           "fieldConfig": {
@@ -1324,7 +1337,7 @@
             "h": 5,
             "w": 2,
             "x": 0,
-            "y": 17
+            "y": 8
           },
           "id": 96,
           "links": [],
@@ -1350,7 +1363,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "grafanacloud-prom"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1370,7 +1383,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1431,7 +1444,7 @@
             "h": 5,
             "w": 5,
             "x": 2,
-            "y": 17
+            "y": 8
           },
           "id": 112,
           "links": [],
@@ -1454,7 +1467,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "grafanacloud-prom"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum by (camelContext) (increase (CamelRoutePolicy_seconds_sum{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"}[$__range])) \n \n/ \n \nsum by (camelContext) (increase (CamelRoutePolicy_seconds_count{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"}[$__range]))",
@@ -1471,7 +1484,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1532,7 +1545,7 @@
             "h": 5,
             "w": 5,
             "x": 7,
-            "y": 17
+            "y": 8
           },
           "id": 181,
           "links": [],
@@ -1555,7 +1568,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "grafanacloud-prom"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum by (kubernetes_pod_name) (increase (CamelRoutePolicy_seconds_sum{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"}[$__range])) \n \n/ \n \nsum by (kubernetes_pod_name) (increase (CamelRoutePolicy_seconds_count{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"}[$__range]))",
@@ -1572,7 +1585,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1646,7 +1659,7 @@
             "h": 5,
             "w": 12,
             "x": 12,
-            "y": 17
+            "y": 8
           },
           "id": 189,
           "interval": "",
@@ -1668,7 +1681,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "grafanacloud-prom"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "sum by (routeId,nodeId) (increase (CamelMessageHistory_seconds_sum{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\",nodeId=~\"$processor\"}[$__range])) \n/ \nsum by (routeId,nodeId) (increase (CamelMessageHistory_seconds_count{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\",nodeId=~\"$processor\"}[$__range]))\n",
@@ -1695,7 +1708,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "grafanacloud-prom"
+            "uid": "${datasource}"
           },
           "refId": "A"
         }
@@ -1713,12 +1726,31 @@
       {
         "current": {
           "selected": false,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Data Source",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
           "text": "camel",
           "value": "camel"
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "grafanacloud-prom"
+          "uid": "${datasource}"
         },
         "definition": "label_values(CamelRoutesRunning_routes{eventType=\"RouteEvent\"},namespace)",
         "hide": 0,
@@ -1748,7 +1780,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "grafanacloud-prom"
+          "uid": "${datasource}"
         },
         "definition": "label_values(CamelRoutesRunning_routes{eventType=\"RouteEvent\",namespace=\"$namespace\"},camelContext)",
         "hide": 0,
@@ -1782,7 +1814,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "grafanacloud-prom"
+          "uid": "${datasource}"
         },
         "definition": "label_values(CamelExchangesSucceeded_total{namespace=\"$namespace\",camelContext=\"$context\"},routeId)",
         "hide": 0,
@@ -1816,7 +1848,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "grafanacloud-prom"
+          "uid": "${datasource}"
         },
         "definition": "label_values(CamelMessageHistory_seconds_count{namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"},nodeId)",
         "hide": 0,
@@ -1872,6 +1904,6 @@
   "timezone": "",
   "title": "Apache Camel - Context view",
   "uid": "nhyuoEiVz",
-  "version": 21,
+  "version": 25,
   "weekStart": ""
 }
