@@ -1,7 +1,7 @@
-# Apache Camel - Statistics on Camel Context level
+# Apache Camel 3 - Statistics on Camel Context level
 
 ## Intro
-Performance oriented monitoring on Apache Camel deployments. Works ideally on Kubernetes deployments. Based on Prometheus datasource scraping metrics coming from the micrometer framework. Focuses on analyzing Camel Context, Route & Processor execution times and throughput.
+Performance oriented monitoring on Apache Camel 3 deployments. Works ideally on Kubernetes deployments. Based on Prometheus datasource scraping metrics coming from the micrometer framework. Focuses on analyzing Camel Context, Route & Processor execution times and throughput.
 
 ## Application instrumentation
 
