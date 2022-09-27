@@ -16,9 +16,7 @@
     <module>spring-boot-camel</module>
         
     <module>quarkus-camel</module>
-        
-    <module>quarkus-library</module>
-        
+                
     <module>plain-java</module>
         
     <module>version-watcher</module>
