@@ -32,14 +32,6 @@
     "latestVersionFilter": "^3.*"
   },
   {
-    "id": 104,
-    "project": "quarkus-camel-archetype",
-    "currentVersionResource": "https://github.com/alainpham/app-archetypes/raw/master/quarkus-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
-    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='temurin-image-version']/*:defaultValue/text()",
-    "coordinates": "docker:library/eclipse-temurin",
-    "latestVersionFilter": "^11.*-jre$"
-  },
-  {
     "id": 105,
     "project": "quarkus-camel-archetype",
     "currentVersionResource": "https://github.com/alainpham/app-archetypes/raw/master/quarkus-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
@@ -173,6 +165,6 @@
     "currentVersionResource": "https://github.com/alainpham/app-archetypes/raw/master/plain-java/src/main/resources/META-INF/maven/archetype-metadata.xml",
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='logback-version']/*:defaultValue/text()",
     "coordinates": "mvn:ch.qos.logback:logback-classic",
-    "latestVersionFilter": "^1.2.*"
+    "latestVersionFilter": "^1.4.*"
   }
 ]

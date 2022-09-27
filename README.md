@@ -56,8 +56,9 @@ mvn archetype:generate \
 
 ## Grafana Dashboard For Camel Monitoring
 
-The dashboard that you can import can be found [here](camel-monitoring/dashboards-for-import/Camel%20Dashboard%20-%20Context%20View.json)
+The dashboard that you can import can be found [here](camel-monitoring/dashboards-for-import/apache-camel-micrometer.json)
 
+In camel 2 we relied on JMX exporter which was not idea. For Camel 3, the dashboard now now uses metrics exposed by the micrometer library. This offers the same dashboard accross all flavors like Camel Spring, Camel Quarkus and Camel K.
 
 It gives comprehensive metrics for performance monitoring. It focuses on monitoring route execution rate and average executions times that is broken down to processors & routes. You can use it to find your bottlenecks and detect degradations in quality of service.
 
@@ -107,46 +108,46 @@ By editing the prometheus config we can set static targets on your local env to 
 
 ## Current versions for plain java pojects
 
-| Components                 | Version        |
-|----------------------------|----------------|
-| java                       | 11             |
-| camel-version              | 3.17.0         |
-| maven-compiler-plugin      | 3.10.1         |
-| maven-dependency-plugin    | 3.3.0          |
-| maven-jar-plugin           | 3.2.2          |
-| logback-version            | 1.2.9          |
+| Components                 | Version          |
+|----------------------------|------------------|
+| java                       | 11               |
+| camel-version              | 3.18.2           |
+| maven-compiler-plugin      | 3.10.1           |
+| maven-dependency-plugin    | 3.3.0            |
+| maven-jar-plugin           | 3.3.0            |
+| logback-version            | 1.4.1            |
 
 
 ## Current versions for spring boot used
 
-| Components                 | Version        |
-|----------------------------|----------------|
-| java                       | 11             |
-| maven-compiler-plugin      | 3.10.1         |
-| camel-version              | 3.18.1         |
-| spring-boot-version        | 2.7.2          |
-| swagger-ui-version         | 3.52.5         |
-| swagger-codegen-version    | 3.0.35	      |
-| cxf-codegen-plugin-version | 3.5.3          |
-| logstash-encoder-version   | 7.2            |
-| webjars-locator-version    | 0.45           |
-| hawtio-springboot-version  | 2.15.0         |
-| jmx_prometheus_javaagent   | 0.17.0         | 
-| run-java-version           | 1.3.8          |
-| temurin-image-version      | 11.0.16_8-jre  |
+| Components                 | Version          |
+|----------------------------|------------------|
+| java                       | 11               |
+| maven-compiler-plugin      | 3.10.1           |
+| camel-version              | 3.18.2           |
+| spring-boot-version        | 2.7.4            |
+| swagger-ui-version         | 3.52.5           |
+| swagger-codegen-version    | 3.0.35	        |
+| cxf-codegen-plugin-version | 3.5.3            |
+| logstash-encoder-version   | 7.2              |
+| webjars-locator-version    | 0.45             |
+| hawtio-springboot-version  | 2.15.2           |
+| jmx_prometheus_javaagent   | 0.17.0           | 
+| run-java-version           | 1.3.8            |
+| temurin-image-version      | 11.0.16.1_1-jre  |
 
 
 ## Current versions for quarkus used
 
-| Components                 | Version        |
-|----------------------------|----------------|
-| java                       | 11             |
-| camel-version              | 3.18.1         |
-| quarkus-version            | 2.11.2.Final   |
-| maven-compiler-plugin      | 3.8.1          |
-| surefire-plugin-version    | 3.0.0-M7       |
-| ubi-image-version          | 1.11           |
-| temurin-image-version      | 11.0.16_8-jre  |
+| Components                 | Version          |
+|----------------------------|------------------|
+| java                       | 11               |
+| camel-version              | 3.18.1           |
+| quarkus-version            | 2.11.2.Final     |
+| maven-compiler-plugin      | 3.8.1            |
+| surefire-plugin-version    | 3.0.0-M7         |
+| ubi-image-version          | 1.11             |
+| temurin-image-version      | 11.0.16.1_1-jre  |
 
 ## Next steps for this small project
 
