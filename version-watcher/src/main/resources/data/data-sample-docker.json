@@ -14,5 +14,5 @@
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='temurin-image-version']/*:defaultValue/text()",
     "coordinates": "docker:library/eclipse-temurin",
     "latestVersionFilter": "^11.*-jre$"
-  },
+  }
 ]
