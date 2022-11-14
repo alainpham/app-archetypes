@@ -16,7 +16,7 @@
       <defaultValue>3.10.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="quarkus-version">
-      <defaultValue>2.13.3.Final</defaultValue>
+      <defaultValue>2.14.0.Final</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
       <defaultValue>3.19.0</defaultValue>
