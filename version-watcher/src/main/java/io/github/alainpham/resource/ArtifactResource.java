@@ -74,18 +74,23 @@ public class ArtifactResource {
 
             if (artifact.coordinates.startsWith("docker:")){
                 // String artifactResource = "https://hub.docker.com/v2/repositories/" + artifact.coordinates.split(":")[1] +"/tags/?page_size=100&name="+artifact.latestVersionFilter.split(":")[0];
-                String artifactResource = "https://hub.docker.com/v2/repositories/" + artifact.coordinates.split(":")[1] +"/tags/?page_size=100";
+                // String artifactResource = "https://hub.docker.com/v2/repositories/" + artifact.coordinates.split(":")[1] +"/tags/?page_size=100";
+                String artifactResource = "https://hub.docker.com/v2/namespaces/" + artifact.coordinates.split(":")[1].replace("/", "/repositories/") +"/tags?page_size=100&name=" + artifact.coordinates.split(":")[2];
                 System.out.println(artifactResource);
                 String artifactResourceContent = producer.requestBody(artifactResource,null,String.class);
-                System.out.println(artifactResourceContent);
 
                 // String latestVersion = producer.requestBodyAndHeader("direct:extract-latest-container-tag",artifactResourceContent,"filter",artifact.latestVersionFilter.split(":")[1],String.class);
                 String latestVersion = producer.requestBodyAndHeader("direct:extract-latest-container-tag",artifactResourceContent,"filter",artifact.latestVersionFilter,String.class);
                 
-                System.out.println(latestVersion);
                 artifact.latestVersion = latestVersion;
                 artifact.latestAndGreatest = producer.requestBodyAndHeader("direct:extract-latest-container-tag",artifactResourceContent,"filter","[0-9]+.*",String.class);
-                System.out.println(artifact.latestAndGreatest);
+                System.out.println("current version " + artifact.currentVersion + " : latest version" + artifact.latestVersion);
+
+                try {
+                    viewUpdate.upsertData(artifact,"artifact","state-table");
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
 
             }
 

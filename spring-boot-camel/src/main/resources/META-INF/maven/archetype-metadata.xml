@@ -19,7 +19,7 @@
       <defaultValue>3.52.5</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-codegen-version">
-      <defaultValue>3.0.35</defaultValue>
+      <defaultValue>3.0.36</defaultValue>
     </requiredProperty>
     <requiredProperty key="cxf-codegen-plugin-version">
       <defaultValue>3.5.4</defaultValue>
@@ -28,10 +28,10 @@
       <defaultValue>7.2</defaultValue>
     </requiredProperty>
     <requiredProperty key="webjars-locator-version">
-      <defaultValue>0.45</defaultValue>
+      <defaultValue>0.46</defaultValue>
     </requiredProperty>
     <requiredProperty key="hawtio-springboot-version">
-      <defaultValue>2.16.0</defaultValue>
+      <defaultValue>2.16.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="jmx-prometheus-javaagent-version">
       <defaultValue>0.17.2</defaultValue>
@@ -58,7 +58,7 @@
       <defaultValue>1.11</defaultValue>
     </requiredProperty>
     <requiredProperty key="temurin-image-version">
-      <defaultValue>11.0.16.1_1-jre</defaultValue>
+      <defaultValue>11.0.17_8-jre</defaultValue>
     </requiredProperty>
 
     <!-- app vars -->

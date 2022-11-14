@@ -40,6 +40,14 @@
     "latestVersionFilter": "^11.*-jre$"
   },
   {
+    "id": 106,
+    "project": "quarkus-camel-archetype",
+    "currentVersionResource": "https://github.com/alainpham/app-archetypes/raw/master/quarkus-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='temurin-image-version']/*:defaultValue/text()",
+    "coordinates": "docker:library/eclipse-temurin:11.",
+    "latestVersionFilter": "^11.*-jre$"
+  },
+  {
     "id": 200,
     "project": "spring-boot-camel-archetype",
     "currentVersionResource": "https://github.com/alainpham/app-archetypes/raw/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
@@ -126,6 +134,14 @@
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='maven-compiler-plugin-version']/*:defaultValue/text()",
     "coordinates": "mvn:org.apache.maven.plugins:maven-compiler-plugin",
     "latestVersionFilter": "^3.*"
+  },
+  {
+    "id": 211,
+    "project": "spring-boot-camel-archetyp",
+    "currentVersionResource": "https://github.com/alainpham/app-archetypes/raw/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='temurin-image-version']/*:defaultValue/text()",
+    "coordinates": "docker:library/eclipse-temurin:11.",
+    "latestVersionFilter": "^11.*-jre$"
   },
   {
     "id": 300,

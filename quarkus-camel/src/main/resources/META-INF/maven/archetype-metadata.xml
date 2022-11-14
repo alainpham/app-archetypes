@@ -19,7 +19,7 @@
       <defaultValue>2.13.3.Final</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>3.18.2</defaultValue>
+      <defaultValue>3.19.0</defaultValue>
     </requiredProperty>
     
     <requiredProperty key="surefire-plugin-version">
@@ -30,7 +30,7 @@
       <defaultValue>1.11</defaultValue>
     </requiredProperty>
     <requiredProperty key="temurin-image-version">
-      <defaultValue>11.0.16.1_1-jre</defaultValue>
+      <defaultValue>11.0.17_8-jre</defaultValue>
     </requiredProperty>
 
     <!-- app vars -->
