@@ -111,7 +111,7 @@ By editing the prometheus config we can set static targets on your local env to 
 | Components                 | Version          |
 |----------------------------|------------------|
 | java                       | 11               |
-| camel-version              | 3.19.0           |
+| camel-version              | 3.20.0           |
 | maven-compiler-plugin      | 3.10.1           |
 | maven-dependency-plugin    | 3.3.0            |
 | maven-jar-plugin           | 3.3.0            |
