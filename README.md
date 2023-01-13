@@ -111,11 +111,11 @@ By editing the prometheus config we can set static targets on your local env to 
 | Components                 | Version          |
 |----------------------------|------------------|
 | java                       | 11               |
-| camel-version              | 3.20.0           |
+| camel-version              | 3.20.1           |
 | maven-compiler-plugin      | 3.10.1           |
 | maven-dependency-plugin    | 3.3.0            |
 | maven-jar-plugin           | 3.3.0            |
-| logback-version            | 1.4.4            |
+| logback-version            | 1.4.5            |
 
 
 ## Current versions for spring boot used
@@ -124,14 +124,14 @@ By editing the prometheus config we can set static targets on your local env to 
 |----------------------------|------------------|
 | java                       | 11               |
 | maven-compiler-plugin      | 3.10.1           |
-| camel-version              | 3.19.0           |
-| spring-boot-version        | 2.7.5            |
+| camel-version              | 3.20.1           |
+| spring-boot-version        | 2.7.7            |
 | swagger-ui-version         | 3.52.5           |
 | swagger-codegen-version    | 3.0.36	        |
-| cxf-codegen-plugin-version | 3.5.4            |
+| cxf-codegen-plugin-version | 3.5.5            |
 | logstash-encoder-version   | 7.2              |
 | webjars-locator-version    | 0.46             |
-| hawtio-springboot-version  | 2.16.1           |
+| hawtio-springboot-version  | 2.17.0           |
 | jmx_prometheus_javaagent   | 0.17.2           | 
 | run-java-version           | 1.3.8            |
 | temurin-image-version      | 11.0.17_8-jre    |
@@ -143,9 +143,9 @@ By editing the prometheus config we can set static targets on your local env to 
 |----------------------------|------------------|
 | java                       | 11               |
 | camel-version              | 3.19.0           |
-| quarkus-version            | 2.14.0.Final	    |
+| quarkus-version            | 2.15.3.Final	    |
 | maven-compiler-plugin      | 3.10.1	        |
-| surefire-plugin-version    | 3.0.0-M7         |
+| surefire-plugin-version    | 3.0.0-M8         |
 | ubi-image-version          | 1.11             |
 | temurin-image-version      | 11.0.17_8-jre    |
 
