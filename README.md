@@ -56,7 +56,7 @@ mvn archetype:generate \
 
 ## Grafana Dashboard For Camel Monitoring
 
-The dashboard that you can import can be found [here](camel-monitoring/dashboards-for-import/apache-camel-micrometer.json)
+The dashboard that you can import can be found [here](camel-monitoring/camel-dashboards-for-import/apache-camel-micrometer.json)
 
 In camel 2 we relied on JMX exporter which was not idea. For Camel 3, the dashboard now now uses metrics exposed by the micrometer library. This offers the same dashboard accross all flavors like Camel Spring, Camel Quarkus and Camel K.
 
