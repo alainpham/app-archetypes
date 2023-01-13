@@ -10,7 +10,7 @@
       <defaultValue>.springboot</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>3.20.0</defaultValue>
+      <defaultValue>3.20.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="spring-boot-version">
       <defaultValue>2.7.7</defaultValue>
@@ -31,7 +31,7 @@
       <defaultValue>0.46</defaultValue>
     </requiredProperty>
     <requiredProperty key="hawtio-springboot-version">
-      <defaultValue>2.16.3</defaultValue>
+      <defaultValue>2.17.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="jmx-prometheus-javaagent-version">
       <defaultValue>0.17.2</defaultValue>
