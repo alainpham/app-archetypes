@@ -25,7 +25,7 @@
       <defaultValue>3.3.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>3.20.1</defaultValue>
+      <defaultValue>3.20.2</defaultValue>
     </requiredProperty>
     <requiredProperty key="logback-version">
       <defaultValue>1.4.5</defaultValue>

@@ -10,16 +10,16 @@
       <defaultValue>.springboot</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>3.20.1</defaultValue>
+      <defaultValue>3.20.2</defaultValue>
     </requiredProperty>
     <requiredProperty key="spring-boot-version">
-      <defaultValue>2.7.7</defaultValue>
+      <defaultValue>2.7.8</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-ui-version">
       <defaultValue>3.52.5</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-codegen-version">
-      <defaultValue>3.0.36</defaultValue>
+      <defaultValue>3.0.40</defaultValue>
     </requiredProperty>
     <requiredProperty key="cxf-codegen-plugin-version">
       <defaultValue>3.5.5</defaultValue>
@@ -58,7 +58,7 @@
       <defaultValue>1.11</defaultValue>
     </requiredProperty>
     <requiredProperty key="temurin-image-version">
-      <defaultValue>11.0.17_8-jre</defaultValue>
+      <defaultValue>11.0.18_10-jre</defaultValue>
     </requiredProperty>
 
     <!-- app vars -->
