@@ -495,16 +495,6 @@ Error handler settings
     </xs:annotation>
   </xs:element>
     
-  <xs:element name="errorHandlerRef" type="tns:errorHandlerRefDefinition">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">
-        <![CDATA[
-Dead letter channel error handler.
-      ]]>
-      </xs:documentation>
-    </xs:annotation>
-  </xs:element>
-    
   <xs:element name="exchangeProperty" type="tns:exchangePropertyExpression">
     <xs:annotation>
       <xs:documentation xml:lang="en">
@@ -855,6 +845,16 @@ Evaluates a jOOR (Java compiled once at runtime) expression.
       <xs:documentation xml:lang="en">
         <![CDATA[
 Evaluates a JQ expression against a JSON message body.
+      ]]>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+    
+  <xs:element name="js" type="tns:javaScriptExpression">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        <![CDATA[
+Evaluates a JavaScript expression.
       ]]>
       </xs:documentation>
     </xs:annotation>
@@ -1394,6 +1394,16 @@ Configuration of redelivery policy.
       <xs:documentation xml:lang="en">
         <![CDATA[
 Uses an existing expression from the registry.
+      ]]>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+    
+  <xs:element name="refErrorHandler" type="tns:refErrorHandlerDefinition">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        <![CDATA[
+References to an existing or custom error handler.
       ]]>
       </xs:documentation>
     </xs:annotation>
@@ -2032,6 +2042,26 @@ Stream caching configuration.
     </xs:annotation>
   </xs:element>
     
+  <xs:element name="swiftMt" type="tns:swiftMtDataFormat">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        <![CDATA[
+Encode and decode SWIFT MT messages.
+      ]]>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+    
+  <xs:element name="swiftMx" type="tns:swiftMxDataFormat">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        <![CDATA[
+Encode and decode SWIFT MX messages.
+      ]]>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+    
   <xs:element name="syslog" type="tns:syslogDataFormat">
     <xs:annotation>
       <xs:documentation xml:lang="en">
@@ -2341,6 +2371,16 @@ Validates a message based on an expression
       <xs:documentation xml:lang="en">
         <![CDATA[
 To configure validators.
+      ]]>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+    
+  <xs:element name="value" type="tns:valueDefinition">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        <![CDATA[
+A single value
       ]]>
       </xs:documentation>
     </xs:annotation>
@@ -3261,6 +3301,18 @@ file not found. Default value: false
           </xs:annotation>
         </xs:attribute>
                 
+        <xs:attribute name="nestedPlaceholder" type="xs:boolean">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+Whether to support nested property placeholders. A nested placeholder, means
+that a placeholder, has also a placeholder, that should be resolved
+(recursively). Default value: true
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
         <xs:attribute name="propertiesParserRef" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
@@ -3901,6 +3953,17 @@ create the SecureRandom represented by this object's configuration.
                 
         <xs:sequence/>
                 
+        <xs:attribute name="disabled" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+Whether to disable this EIP from the route during build time. Once an EIP has
+been disabled then it cannot be enabled later at runtime. Default value: false
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
         <xs:attribute name="inheritErrorHandler" type="xs:boolean"/>
               
       </xs:extension>
@@ -4476,6 +4539,8 @@ CamelContext or the route using it. Default value: false
             
       <xs:element ref="tns:hl7terser"/>
             
+      <xs:element ref="tns:js"/>
+            
       <xs:element ref="tns:joor"/>
             
       <xs:element ref="tns:jq"/>
@@ -4941,6 +5006,8 @@ should be intercepted by this exception type or not.
             <xs:element ref="tns:header"/>
                         
             <xs:element ref="tns:hl7terser"/>
+                        
+            <xs:element ref="tns:js"/>
                         
             <xs:element ref="tns:joor"/>
                         
@@ -6082,6 +6149,8 @@ To use a specific charset when converting.
                     
           <xs:element ref="tns:hl7terser"/>
                     
+          <xs:element ref="tns:js"/>
+                    
           <xs:element ref="tns:joor"/>
                     
           <xs:element ref="tns:jq"/>
@@ -6175,6 +6244,8 @@ To use a custom Thread Pool if asyncDelay has been enabled.
           <xs:element ref="tns:header"/>
                     
           <xs:element ref="tns:hl7terser"/>
+                    
+          <xs:element ref="tns:js"/>
                     
           <xs:element ref="tns:joor"/>
                     
@@ -6281,6 +6352,8 @@ producers.
           <xs:element ref="tns:header"/>
                     
           <xs:element ref="tns:hl7terser"/>
+                    
+          <xs:element ref="tns:js"/>
                     
           <xs:element ref="tns:joor"/>
                     
@@ -7084,6 +7157,8 @@ default WARN. Default value: WARN
                         
             <xs:element ref="tns:hl7terser"/>
                         
+            <xs:element ref="tns:js"/>
+                        
             <xs:element ref="tns:joor"/>
                         
             <xs:element ref="tns:jq"/>
@@ -7512,6 +7587,8 @@ Global option value.
             <xs:element ref="tns:header"/>
                         
             <xs:element ref="tns:hl7terser"/>
+                        
+            <xs:element ref="tns:js"/>
                         
             <xs:element ref="tns:joor"/>
                         
@@ -8861,6 +8938,8 @@ To refer to a custom logger instance to lookup from the registry.
                         
             <xs:element ref="tns:hl7terser"/>
                         
+            <xs:element ref="tns:js"/>
+                        
             <xs:element ref="tns:joor"/>
                         
             <xs:element ref="tns:jq"/>
@@ -9135,6 +9214,10 @@ it reaches the end when Camel is shut down. Default value: false
             <xs:element ref="tns:rss"/>
                         
             <xs:element ref="tns:soap"/>
+                        
+            <xs:element ref="tns:swiftMt"/>
+                        
+            <xs:element ref="tns:swiftMx"/>
                         
             <xs:element ref="tns:syslog"/>
                         
@@ -10297,6 +10380,17 @@ DSTU2,DSTU2_HL7ORG,DSTU2_1,DSTU3,R4,R5. Default value: R4
           </xs:annotation>
         </xs:attribute>
                 
+        <xs:attribute name="fhirContext" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+To use a custom fhir context. Reference to object of type
+ca.uhn.fhir.context.FhirContext.
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
         <xs:attribute name="prettyPrint" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
@@ -10304,6 +10398,55 @@ DSTU2,DSTU2_HL7ORG,DSTU2_1,DSTU3,R4,R5. Default value: R4
 Sets the pretty print flag, meaning that the parser will encode resources with
 human-readable spacing and newlines between elements instead of condensing
 output as much as possible. Default value: false
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
+        <xs:attribute name="parserErrorHandler" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+Registers an error handler which will be invoked when any parse errors are
+found. Reference to object of type ca.uhn.fhir.parser.IParserErrorHandler.
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
+        <xs:attribute name="parserOptions" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+Sets the parser options object which will be used to supply default options to
+newly created parsers. Reference to object of type
+ca.uhn.fhir.context.ParserOptions.
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
+        <xs:attribute name="preferTypes" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+If set (FQN class names), when parsing resources the parser will try to use the
+given types when possible, in the order that they are provided (from highest to
+lowest priority). For example, if a custom type which declares to implement the
+Patient resource is passed in here, and the parser is parsing a Bundle
+containing a Patient resource, the parser will use the given custom type.
+Multiple class names can be separated by comma.
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
+        <xs:attribute name="forceResourceId" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+When encoding, force this resource ID to be encoded as the resource ID.
+Reference to object of type org.hl7.fhir.instance.model.api.IIdType.
             ]]>
             </xs:documentation>
           </xs:annotation>
@@ -10348,12 +10491,13 @@ in that bundle). Default value: false
           </xs:annotation>
         </xs:attribute>
                 
-        <xs:attribute name="encodeElements">
+        <xs:attribute name="encodeElements" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
               <![CDATA[
 If provided, specifies the elements which should be encoded, to the exclusion of
-all others. Valid values for this field would include: Patient - Encode patient
+all others. Multiple elements can be separated by comma when using String
+parameter. Valid values for this field would include: Patient - Encode patient
 and all its children Patient.name - Encode only the patient's name
 Patient.name.family - Encode only the patient's family name .text - Encode the
 text element on any resource (only the very first position may contain a
@@ -10362,37 +10506,24 @@ fields (min 0) to be encoded.
             ]]>
             </xs:documentation>
           </xs:annotation>
-                    
-          <xs:simpleType>
-                        
-            <xs:list itemType="xs:string"/>
-                      
-          </xs:simpleType>
-                  
         </xs:attribute>
                 
-        <xs:attribute name="dontEncodeElements">
+        <xs:attribute name="dontEncodeElements" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
               <![CDATA[
-If provided, specifies the elements which should NOT be encoded. Valid values
-for this field would include: Patient - Don't encode patient and all its
-children Patient.name - Don't encode the patient's name Patient.name.family -
-Don't encode the patient's family name .text - Don't encode the text element on
-any resource (only the very first position may contain a wildcard) DSTU2 note:
-Note that values including meta, such as Patient.meta will work for DSTU2
-parsers, but values with subelements on meta such as Patient.meta.lastUpdated
-will only work in DSTU3 mode.
+If provided, specifies the elements which should NOT be encoded. Multiple
+elements can be separated by comma when using String parameter. Valid values for
+this field would include: Patient - Don't encode patient and all its children
+Patient.name - Don't encode the patient's name Patient.name.family - Don't
+encode the patient's family name .text - Don't encode the text element on any
+resource (only the very first position may contain a wildcard) DSTU2 note: Note
+that values including meta, such as Patient.meta will work for DSTU2 parsers,
+but values with subelements on meta such as Patient.meta.lastUpdated will only
+work in DSTU3 mode.
             ]]>
             </xs:documentation>
           </xs:annotation>
-                    
-          <xs:simpleType>
-                        
-            <xs:list itemType="xs:string"/>
-                      
-          </xs:simpleType>
-                  
         </xs:attribute>
                 
         <xs:attribute name="stripVersionsFromReferences" type="xs:string">
@@ -10449,13 +10580,14 @@ encoded values. Default value: false
           </xs:annotation>
         </xs:attribute>
                 
-        <xs:attribute name="dontStripVersionsFromReferencesAtPaths">
+        <xs:attribute name="dontStripVersionsFromReferencesAtPaths" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
               <![CDATA[
 If supplied value(s), any resource references at the specified paths will have
 their resource versions encoded instead of being automatically stripped during
-the encoding process. This setting has no effect on the parsing process. This
+the encoding process. This setting has no effect on the parsing process.
+Multiple elements can be separated by comma when using String parameter. This
 method provides a finer-grained level of control than
 setStripVersionsFromReferences(String) and any paths specified by this method
 will be encoded even if setStripVersionsFromReferences(String) has been set to
@@ -10463,13 +10595,6 @@ true (which is the default).
             ]]>
             </xs:documentation>
           </xs:annotation>
-                    
-          <xs:simpleType>
-                        
-            <xs:list itemType="xs:string"/>
-                      
-          </xs:simpleType>
-                  
         </xs:attribute>
                 
         <xs:attribute name="contentTypeHeader" type="xs:string">
@@ -11451,28 +11576,22 @@ true
                 
         <xs:sequence/>
                 
-        <xs:attribute name="dataFormatTypes">
+        <xs:attribute name="dataFormatTypes" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
               <![CDATA[
-The classes to take into account for the marshalling.
+The classes to take into account for the marshalling. Multiple classes can be
+separated by comma.
             ]]>
             </xs:documentation>
           </xs:annotation>
-                    
-          <xs:simpleType>
-                        
-            <xs:list itemType="xs:string"/>
-                      
-          </xs:simpleType>
-                  
         </xs:attribute>
                 
         <xs:attribute name="mainFormatType" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
               <![CDATA[
-The classes to take into account while unmarshalling.
+The class to take into account while unmarshalling.
             ]]>
             </xs:documentation>
           </xs:annotation>
@@ -11938,6 +12057,89 @@ multiple schema files by using the ',' character.
       
   </xs:complexType>
     
+  <xs:complexType name="swiftMtDataFormat">
+        
+    <xs:complexContent>
+            
+      <xs:extension base="tns:dataFormat">
+                
+        <xs:sequence/>
+                
+        <xs:attribute name="writeInJson" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+The flag indicating that messages must be marshalled in a JSON format. Default
+value: false
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+              
+      </xs:extension>
+          
+    </xs:complexContent>
+      
+  </xs:complexType>
+    
+  <xs:complexType name="swiftMxDataFormat">
+        
+    <xs:complexContent>
+            
+      <xs:extension base="tns:dataFormat">
+                
+        <xs:sequence/>
+                
+        <xs:attribute name="writeConfigRef" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+Refers to a specific configuration to use when marshalling a message to lookup
+from the registry.
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
+        <xs:attribute name="writeInJson" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+The flag indicating that messages must be marshalled in a JSON format. Default
+value: false
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
+        <xs:attribute name="readMessageId" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+The type of MX message to produce when unmarshalling an input stream. If not
+set, it will be automatically detected from the namespace used.
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
+        <xs:attribute name="readConfigRef" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+Refers to a specific configuration to use when unmarshalling an input stream to
+lookup from the registry.
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+              
+      </xs:extension>
+          
+    </xs:complexContent>
+      
+  </xs:complexType>
+    
   <xs:complexType name="syslogDataFormat">
         
     <xs:complexContent>
@@ -12191,7 +12393,7 @@ Default value: true
           <xs:annotation>
             <xs:documentation xml:lang="en">
               <![CDATA[
-Whether or not the trailing white spaces must ignored. The default value is
+Whether or not the trailing white spaces must be ignored. The default value is
 true. Default value: true
             ]]>
             </xs:documentation>
@@ -14614,6 +14816,8 @@ Sets a reference to use for lookup the policy in the registry.
                     
           <xs:element ref="tns:hl7terser"/>
                     
+          <xs:element ref="tns:js"/>
+                    
           <xs:element ref="tns:joor"/>
                     
           <xs:element ref="tns:jq"/>
@@ -14812,6 +15016,8 @@ by their type in the registry by prefixing with #type: syntax, eg
             
       <xs:element ref="tns:hl7terser"/>
             
+      <xs:element ref="tns:js"/>
+            
       <xs:element ref="tns:joor"/>
             
       <xs:element ref="tns:jq"/>
@@ -14879,6 +15085,8 @@ Property key.
           <xs:element ref="tns:header"/>
                     
           <xs:element ref="tns:hl7terser"/>
+                    
+          <xs:element ref="tns:js"/>
                     
           <xs:element ref="tns:joor"/>
                     
@@ -15269,6 +15477,8 @@ Name of property to remove.
             <xs:element ref="tns:header"/>
                         
             <xs:element ref="tns:hl7terser"/>
+                        
+            <xs:element ref="tns:js"/>
                         
             <xs:element ref="tns:joor"/>
                         
@@ -15812,6 +16022,8 @@ Reference to the routes in the xml dsl.
                 
         <xs:sequence>
                     
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="routeProperty" type="tns:propertyDefinition"/>
+                    
           <xs:element minOccurs="0" ref="tns:from"/>
                     
           <xs:element minOccurs="0" ref="tns:inputType"/>
@@ -15955,8 +16167,6 @@ Reference to the routes in the xml dsl.
             <xs:element ref="tns:serviceCall"/>
                       
           </xs:choice>
-                    
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="routeProperty" type="tns:propertyDefinition"/>
                   
         </xs:sequence>
                 
@@ -16015,17 +16225,45 @@ Whether security mask for Logging is enabled on this route. Default value: false
           <xs:annotation>
             <xs:documentation xml:lang="en">
               <![CDATA[
-Whether message history is enabled on this route. Default value: true
+Whether message history is enabled on this route.
             ]]>
             </xs:documentation>
           </xs:annotation>
         </xs:attribute>
                 
-        <xs:attribute name="precondition" type="xs:string"/>
+        <xs:attribute name="nodePrefixId" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+Sets a prefix to use for all node ids (not route id).
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
+        <xs:attribute name="precondition" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+The predicate of the precondition in simple language to evaluate in order to
+determine if this route should be included or not.
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
                 
         <xs:attribute name="rest" type="xs:boolean"/>
                 
-        <xs:attribute name="routeConfigurationId" type="xs:string"/>
+        <xs:attribute name="routeConfigurationId" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+The route configuration id or pattern this route should use for configuration.
+Multiple id/pattern can be separated by comma.
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
                 
         <xs:attribute name="routePolicyRef" type="xs:string">
           <xs:annotation>
@@ -16256,6 +16494,8 @@ Description of the parameter.
           <xs:element ref="tns:header"/>
                     
           <xs:element ref="tns:hl7terser"/>
+                    
+          <xs:element ref="tns:js"/>
                     
           <xs:element ref="tns:joor"/>
                     
@@ -16655,6 +16895,8 @@ after this many received.
                     
           <xs:element ref="tns:hl7terser"/>
                     
+          <xs:element ref="tns:js"/>
+                    
           <xs:element ref="tns:joor"/>
                     
           <xs:element ref="tns:jq"/>
@@ -16716,6 +16958,8 @@ after this many received.
           <xs:element ref="tns:header"/>
                     
           <xs:element ref="tns:hl7terser"/>
+                    
+          <xs:element ref="tns:js"/>
                     
           <xs:element ref="tns:joor"/>
                     
@@ -16804,6 +17048,8 @@ forward.
                     
           <xs:element ref="tns:hl7terser"/>
                     
+          <xs:element ref="tns:js"/>
+                    
           <xs:element ref="tns:joor"/>
                     
           <xs:element ref="tns:jq"/>
@@ -16877,6 +17123,8 @@ will be used.
           <xs:element ref="tns:header"/>
                     
           <xs:element ref="tns:hl7terser"/>
+                    
+          <xs:element ref="tns:js"/>
                     
           <xs:element ref="tns:joor"/>
                     
@@ -16952,6 +17200,8 @@ constant name will be used.
                     
           <xs:element ref="tns:hl7terser"/>
                     
+          <xs:element ref="tns:js"/>
+                    
           <xs:element ref="tns:joor"/>
                     
           <xs:element ref="tns:jq"/>
@@ -17025,6 +17275,8 @@ Sets the comparator to use for sorting.
             <xs:element ref="tns:header"/>
                         
             <xs:element ref="tns:hl7terser"/>
+                        
+            <xs:element ref="tns:js"/>
                         
             <xs:element ref="tns:joor"/>
                         
@@ -17599,6 +17851,16 @@ Sets the id of the route built from the route template.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
+        
+    <xs:attribute name="prefixId" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          <![CDATA[
+Sets a prefix to use for all node ids (not route id).
+        ]]>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
       
   </xs:complexType>
     
@@ -17886,6 +18148,8 @@ rejection handler. Is by default true. Default value: true
             <xs:element ref="tns:header"/>
                         
             <xs:element ref="tns:hl7terser"/>
+                        
+            <xs:element ref="tns:js"/>
                         
             <xs:element ref="tns:joor"/>
                         
@@ -18339,6 +18603,8 @@ Sets a reference to use for lookup the policy in the registry.
                     
           <xs:element ref="tns:hl7terser"/>
                     
+          <xs:element ref="tns:js"/>
+                    
           <xs:element ref="tns:joor"/>
                     
           <xs:element ref="tns:jq"/>
@@ -18593,6 +18859,10 @@ Sets a reference to use for lookup the policy in the registry.
                         
             <xs:element ref="tns:soap"/>
                         
+            <xs:element ref="tns:swiftMt"/>
+                        
+            <xs:element ref="tns:swiftMx"/>
+                        
             <xs:element ref="tns:syslog"/>
                         
             <xs:element ref="tns:tarFile"/>
@@ -18664,6 +18934,8 @@ value: false
                     
           <xs:element ref="tns:hl7terser"/>
                     
+          <xs:element ref="tns:js"/>
+                    
           <xs:element ref="tns:joor"/>
                     
           <xs:element ref="tns:jq"/>
@@ -18714,6 +18986,12 @@ exception to throw instead.
     </xs:complexContent>
       
   </xs:complexType>
+    
+  <xs:simpleType name="valueDefinition">
+        
+    <xs:restriction base="xs:string"/>
+      
+  </xs:simpleType>
     
   <xs:complexType name="wireTapDefinition">
         
@@ -19691,6 +19969,8 @@ Set the base path to store in ZK.
                         
             <xs:element ref="tns:hl7terser"/>
                         
+            <xs:element ref="tns:js"/>
+                        
             <xs:element ref="tns:joor"/>
                         
             <xs:element ref="tns:jq"/>
@@ -19992,6 +20272,10 @@ Set a reference to a custom Expression to use.
                 
         <xs:element ref="tns:soap"/>
                 
+        <xs:element ref="tns:swiftMt"/>
+                
+        <xs:element ref="tns:swiftMx"/>
+                
         <xs:element ref="tns:syslog"/>
                 
         <xs:element ref="tns:tarFile"/>
@@ -20024,7 +20308,7 @@ Set a reference to a custom Expression to use.
       
   </xs:complexType>
     
-  <xs:complexType name="errorHandlerRefDefinition">
+  <xs:complexType name="refErrorHandlerDefinition">
         
     <xs:complexContent>
             
@@ -20052,13 +20336,23 @@ References to an existing or custom error handler.
         
     <xs:simpleContent>
             
+      <xs:extension base="tns:typedExpressionDefinition"/>
+          
+    </xs:simpleContent>
+      
+  </xs:complexType>
+    
+  <xs:complexType abstract="true" name="typedExpressionDefinition">
+        
+    <xs:simpleContent>
+            
       <xs:extension base="tns:expression">
                 
         <xs:attribute name="resultType" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
               <![CDATA[
-Sets the class name of the result type (type from output).
+Sets the class of the result type (type from output).
             ]]>
             </xs:documentation>
           </xs:annotation>
@@ -20074,19 +20368,7 @@ Sets the class name of the result type (type from output).
         
     <xs:simpleContent>
             
-      <xs:extension base="tns:expression">
-                
-        <xs:attribute name="resultType" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-              <![CDATA[
-Sets the class name of the constant type.
-            ]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
-              
-      </xs:extension>
+      <xs:extension base="tns:typedExpressionDefinition"/>
           
     </xs:simpleContent>
       
@@ -20096,7 +20378,7 @@ Sets the class name of the constant type.
         
     <xs:simpleContent>
             
-      <xs:extension base="tns:expression">
+      <xs:extension base="tns:typedExpressionDefinition">
                 
         <xs:attribute name="bodyMediaType" type="xs:string">
           <xs:annotation>
@@ -20113,17 +20395,6 @@ The String representation of the message's body MediaType.
             <xs:documentation xml:lang="en">
               <![CDATA[
 The String representation of the MediaType to output.
-            ]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
-                
-        <xs:attribute name="resultType" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-              <![CDATA[
-Sets the class name of the result type (type from output) The default result
-type is com.datasonnet.document.Document.
             ]]>
             </xs:documentation>
           </xs:annotation>
@@ -20149,7 +20420,7 @@ type is com.datasonnet.document.Document.
         
     <xs:simpleContent>
             
-      <xs:extension base="tns:expression"/>
+      <xs:extension base="tns:typedExpressionDefinition"/>
           
     </xs:simpleContent>
       
@@ -20169,7 +20440,51 @@ type is com.datasonnet.document.Document.
         
     <xs:simpleContent>
             
-      <xs:extension base="tns:expression"/>
+      <xs:extension base="tns:singleInputTypedExpressionDefinition"/>
+          
+    </xs:simpleContent>
+      
+  </xs:complexType>
+    
+  <xs:complexType abstract="true" name="singleInputTypedExpressionDefinition">
+        
+    <xs:simpleContent>
+            
+      <xs:extension base="tns:typedExpressionDefinition">
+                
+        <xs:attribute name="headerName" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+Name of header to use as input, instead of the message body It has as higher
+precedent than the propertyName if both are set.
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
+        <xs:attribute name="propertyName" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+Name of property to use as input, instead of the message body. It has a lower
+precedent than the headerName if both are set.
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+              
+      </xs:extension>
+          
+    </xs:simpleContent>
+      
+  </xs:complexType>
+    
+  <xs:complexType name="javaScriptExpression">
+        
+    <xs:simpleContent>
+            
+      <xs:extension base="tns:typedExpressionDefinition"/>
           
     </xs:simpleContent>
       
@@ -20179,7 +20494,7 @@ type is com.datasonnet.document.Document.
         
     <xs:simpleContent>
             
-      <xs:extension base="tns:expression">
+      <xs:extension base="tns:typedExpressionDefinition">
                 
         <xs:attribute name="preCompile" type="xs:string">
           <xs:annotation>
@@ -20204,16 +20519,6 @@ true
             </xs:documentation>
           </xs:annotation>
         </xs:attribute>
-                
-        <xs:attribute name="resultType" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-              <![CDATA[
-Sets the class name of the result type (type from output).
-            ]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
               
       </xs:extension>
           
@@ -20225,30 +20530,7 @@ Sets the class name of the result type (type from output).
         
     <xs:simpleContent>
             
-      <xs:extension base="tns:expression">
-                
-        <xs:attribute name="resultType" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-              <![CDATA[
-Sets the class of the result type (type from output).
-            ]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
-                
-        <xs:attribute name="headerName" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-              <![CDATA[
-Name of header to use as input, instead of the message body It has as higher
-precedent than the propertyName if both are set.
-            ]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
-              
-      </xs:extension>
+      <xs:extension base="tns:singleInputTypedExpressionDefinition"/>
           
     </xs:simpleContent>
       
@@ -20258,17 +20540,7 @@ precedent than the propertyName if both are set.
         
     <xs:simpleContent>
             
-      <xs:extension base="tns:expression">
-                
-        <xs:attribute name="resultType" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-              <![CDATA[
-Sets the class name of the result type (type from output).
-            ]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
+      <xs:extension base="tns:singleInputTypedExpressionDefinition">
                 
         <xs:attribute name="suppressExceptions" type="xs:string">
           <xs:annotation>
@@ -20314,11 +20586,12 @@ of a Map/POJO value. Default value: false
           </xs:annotation>
         </xs:attribute>
                 
-        <xs:attribute name="headerName" type="xs:string">
+        <xs:attribute name="unpackArray" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
               <![CDATA[
-Name of header to use as input, instead of the message body.
+Whether to unpack a single element json-array into an object. Default value:
+false
             ]]>
             </xs:documentation>
           </xs:annotation>
@@ -20367,7 +20640,7 @@ The name of the language to use.
         
     <xs:simpleContent>
             
-      <xs:extension base="tns:expression">
+      <xs:extension base="tns:typedExpressionDefinition">
                 
         <xs:attribute name="ref" type="xs:string">
           <xs:annotation>
@@ -20433,7 +20706,7 @@ implementation. Default value: Singleton
         
     <xs:simpleContent>
             
-      <xs:extension base="tns:expression"/>
+      <xs:extension base="tns:typedExpressionDefinition"/>
           
     </xs:simpleContent>
       
@@ -20443,53 +20716,35 @@ implementation. Default value: Singleton
         
     <xs:simpleContent>
             
-      <xs:extension base="tns:expression"/>
+      <xs:extension base="tns:singleInputExpressionDefinition"/>
           
     </xs:simpleContent>
       
   </xs:complexType>
     
-  <xs:complexType name="ognlExpression">
-        
-    <xs:simpleContent>
-            
-      <xs:extension base="tns:expression"/>
-          
-    </xs:simpleContent>
-      
-  </xs:complexType>
-    
-  <xs:complexType name="pythonExpression">
-        
-    <xs:simpleContent>
-            
-      <xs:extension base="tns:expression"/>
-          
-    </xs:simpleContent>
-      
-  </xs:complexType>
-    
-  <xs:complexType name="refExpression">
-        
-    <xs:simpleContent>
-            
-      <xs:extension base="tns:expression"/>
-          
-    </xs:simpleContent>
-      
-  </xs:complexType>
-    
-  <xs:complexType name="simpleExpression">
+  <xs:complexType abstract="true" name="singleInputExpressionDefinition">
         
     <xs:simpleContent>
             
       <xs:extension base="tns:expression">
                 
-        <xs:attribute name="resultType" type="xs:string">
+        <xs:attribute name="headerName" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
               <![CDATA[
-Sets the class name of the result type (type from output).
+Name of header to use as input, instead of the message body It has as higher
+precedent than the propertyName if both are set.
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
+        <xs:attribute name="propertyName" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+Name of property to use as input, instead of the message body. It has a lower
+precedent than the headerName if both are set.
             ]]>
             </xs:documentation>
           </xs:annotation>
@@ -20501,11 +20756,51 @@ Sets the class name of the result type (type from output).
       
   </xs:complexType>
     
+  <xs:complexType name="ognlExpression">
+        
+    <xs:simpleContent>
+            
+      <xs:extension base="tns:typedExpressionDefinition"/>
+          
+    </xs:simpleContent>
+      
+  </xs:complexType>
+    
+  <xs:complexType name="pythonExpression">
+        
+    <xs:simpleContent>
+            
+      <xs:extension base="tns:typedExpressionDefinition"/>
+          
+    </xs:simpleContent>
+      
+  </xs:complexType>
+    
+  <xs:complexType name="refExpression">
+        
+    <xs:simpleContent>
+            
+      <xs:extension base="tns:typedExpressionDefinition"/>
+          
+    </xs:simpleContent>
+      
+  </xs:complexType>
+    
+  <xs:complexType name="simpleExpression">
+        
+    <xs:simpleContent>
+            
+      <xs:extension base="tns:typedExpressionDefinition"/>
+          
+    </xs:simpleContent>
+      
+  </xs:complexType>
+    
   <xs:complexType name="spELExpression">
         
     <xs:simpleContent>
             
-      <xs:extension base="tns:expression"/>
+      <xs:extension base="tns:typedExpressionDefinition"/>
           
     </xs:simpleContent>
       
@@ -20515,7 +20810,7 @@ Sets the class name of the result type (type from output).
         
     <xs:simpleContent>
             
-      <xs:extension base="tns:expression">
+      <xs:extension base="tns:singleInputExpressionDefinition">
                 
         <xs:attribute name="token" type="xs:string" use="required">
           <xs:annotation>
@@ -20545,16 +20840,6 @@ simple language as the token to support dynamic tokens.
               <![CDATA[
 To inherit namespaces from a root/parent tag name when using XML You can use
 simple language as the tag name to support dynamic names.
-            ]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
-                
-        <xs:attribute name="headerName" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-              <![CDATA[
-Name of header to tokenize instead of using the message body.
             ]]>
             </xs:documentation>
           </xs:annotation>
@@ -20636,16 +20921,6 @@ To skip the very first element. Default value: false
     <xs:simpleContent>
             
       <xs:extension base="tns:namespaceAwareExpression">
-                
-        <xs:attribute name="headerName" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-              <![CDATA[
-Name of header to tokenize instead of using the message body.
-            ]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
                 
         <xs:attribute name="mode" type="xs:string">
           <xs:annotation>
@@ -20744,16 +21019,6 @@ value: false
           </xs:annotation>
         </xs:attribute>
                 
-        <xs:attribute name="headerName" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-              <![CDATA[
-Name of header to use as input, instead of the message body.
-            ]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
-                
         <xs:attribute name="threadSafety" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
@@ -20798,22 +21063,22 @@ JVM runtime. Default value: true
             
       <xs:extension base="tns:namespaceAwareExpression">
                 
+        <xs:attribute name="resultType" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+Sets the class of the result type (type from output).
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
         <xs:attribute name="type" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
               <![CDATA[
 Sets the class name of the result type (type from output) The default result
 type is NodeSet.
-            ]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
-                
-        <xs:attribute name="headerName" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-              <![CDATA[
-Name of header to use as input, instead of the message body.
             ]]>
             </xs:documentation>
           </xs:annotation>
@@ -21021,6 +21286,18 @@ be configured on a parent level.
           </xs:annotation>
         </xs:attribute>
                 
+        <xs:attribute name="disabled" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+Whether to disable this REST service from the route during build time. Once an
+REST service has been disabled then it cannot be enabled later at runtime.
+Default value: false
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
         <xs:attribute name="type" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
@@ -21142,20 +21419,19 @@ Sets the id of the route.
     <xs:sequence>
             
       <xs:element minOccurs="0" name="allowableValues">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            <![CDATA[
+Sets the parameter list of allowable values (enum).
+          ]]>
+          </xs:documentation>
+        </xs:annotation>
                 
         <xs:complexType>
                     
           <xs:sequence>
                         
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="value" type="xs:string">
-              <xs:annotation>
-                <xs:documentation xml:lang="en">
-                  <![CDATA[
-Sets the parameter list of allowable values (enum).
-                ]]>
-                </xs:documentation>
-              </xs:annotation>
-            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:value"/>
                       
           </xs:sequence>
                   
@@ -21163,15 +21439,7 @@ Sets the parameter list of allowable values (enum).
               
       </xs:element>
             
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="examples" type="tns:restPropertyDefinition">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">
-            <![CDATA[
-Sets the parameter examples.
-          ]]>
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="examples" nillable="true" type="tns:restPropertyDefinition"/>
           
     </xs:sequence>
         
@@ -21357,20 +21625,19 @@ The response model.
     <xs:sequence>
             
       <xs:element minOccurs="0" name="allowableValues">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            <![CDATA[
+Sets the parameter list of allowable values.
+          ]]>
+          </xs:documentation>
+        </xs:annotation>
                 
         <xs:complexType>
                     
           <xs:sequence>
                         
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="value" type="xs:string">
-              <xs:annotation>
-                <xs:documentation xml:lang="en">
-                  <![CDATA[
-Sets the parameter list of allowable values.
-                ]]>
-                </xs:documentation>
-              </xs:annotation>
-            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:value"/>
                       
           </xs:sequence>
                   
@@ -21937,7 +22204,7 @@ hostname.
       </xs:annotation>
     </xs:attribute>
         
-    <xs:attribute name="useXForwardHeaders" type="xs:boolean">
+    <xs:attribute name="useXForwardHeaders" type="xs:string">
       <xs:annotation>
         <xs:documentation xml:lang="en">
           <![CDATA[
@@ -21986,7 +22253,18 @@ application is deployed using a context-path.
       </xs:annotation>
     </xs:attribute>
         
-    <xs:attribute name="apiVendorExtension" type="xs:boolean">
+    <xs:attribute name="apiContextRouteId" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          <![CDATA[
+Sets the route id to use for the route that services the REST API. The route
+will by default use an auto assigned route id.
+        ]]>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+        
+    <xs:attribute name="apiVendorExtension" type="xs:string">
       <xs:annotation>
         <xs:documentation xml:lang="en">
           <![CDATA[
@@ -22020,7 +22298,7 @@ Sets the binding mode to use. The default value is off. Default value: off
       </xs:annotation>
     </xs:attribute>
         
-    <xs:attribute name="skipBindingOnErrorCode" type="xs:boolean">
+    <xs:attribute name="skipBindingOnErrorCode" type="xs:string">
       <xs:annotation>
         <xs:documentation xml:lang="en">
           <![CDATA[
@@ -22032,7 +22310,7 @@ as success messages otherwise will do. Default value: false
       </xs:annotation>
     </xs:attribute>
         
-    <xs:attribute name="clientRequestValidation" type="xs:boolean">
+    <xs:attribute name="clientRequestValidation" type="xs:string">
       <xs:annotation>
         <xs:documentation xml:lang="en">
           <![CDATA[
@@ -22048,7 +22326,7 @@ Status 400 if validation error. Default value: false
       </xs:annotation>
     </xs:attribute>
         
-    <xs:attribute name="enableCORS" type="xs:boolean">
+    <xs:attribute name="enableCORS" type="xs:string">
       <xs:annotation>
         <xs:documentation xml:lang="en">
           <![CDATA[
@@ -22059,7 +22337,7 @@ Default value: false
       </xs:annotation>
     </xs:attribute>
         
-    <xs:attribute name="inlineRoutes" type="xs:boolean">
+    <xs:attribute name="inlineRoutes" type="xs:string">
       <xs:annotation>
         <xs:documentation xml:lang="en">
           <![CDATA[
@@ -22167,6 +22445,18 @@ be configured on a parent level.
 To define the content type what the REST service produces (uses for output),
 such as application/xml or application/json This option will override what may
 be configured on a parent level.
+            ]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+                
+        <xs:attribute name="disabled" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              <![CDATA[
+Whether to disable this REST service from the route during build time. Once an
+REST service has been disabled then it cannot be enabled later at runtime.
+Default value: false
             ]]>
             </xs:documentation>
           </xs:annotation>
@@ -22386,6 +22676,10 @@ To configure a special tag for the operations within this rest definition.
                         
             <xs:element ref="tns:soap"/>
                         
+            <xs:element ref="tns:swiftMt"/>
+                        
+            <xs:element ref="tns:swiftMx"/>
+                        
             <xs:element ref="tns:syslog"/>
                         
             <xs:element ref="tns:tarFile"/>
@@ -22525,6 +22819,8 @@ To configure a special tag for the operations within this rest definition.
           <xs:element ref="tns:header"/>
                     
           <xs:element ref="tns:hl7terser"/>
+                    
+          <xs:element ref="tns:js"/>
                     
           <xs:element ref="tns:joor"/>
                     
