@@ -1,12 +1,12 @@
 # Archetypes & Monitoring Tools for Java/Apache Camel developers
 
-- [Archetypes & Monitoring Tools for Java/Apache Camel developers](#archetypes--monitoring-tools-for-javaapache-camel-developers)
+- [Archetypes \& Monitoring Tools for Java/Apache Camel developers](#archetypes--monitoring-tools-for-javaapache-camel-developers)
   - [Create a Spring Boot Camel Project](#create-a-spring-boot-camel-project)
   - [Create a Quarkus Camel Project](#create-a-quarkus-camel-project)
   - [Create a Plain Java Project](#create-a-plain-java-project)
   - [Grafana Dashboard For Camel Monitoring](#grafana-dashboard-for-camel-monitoring)
   - [Install Prometheus and Grafana Kubernetes/Openshift Namespace for monitoring](#install-prometheus-and-grafana-kubernetesopenshift-namespace-for-monitoring)
-  - [Install Prometheus & Grafana on local docker engine for testing](#install-prometheus--grafana-on-local-docker-engine-for-testing)
+  - [Install Prometheus \& Grafana on local docker engine for testing](#install-prometheus--grafana-on-local-docker-engine-for-testing)
   - [Current versions for plain java pojects](#current-versions-for-plain-java-pojects)
   - [Current versions for spring boot used](#current-versions-for-spring-boot-used)
   - [Current versions for quarkus used](#current-versions-for-quarkus-used)
@@ -111,7 +111,7 @@ By editing the prometheus config we can set static targets on your local env to 
 | Components                 | Version          |
 |----------------------------|------------------|
 | java                       | 11               |
-| camel-version              | 3.20.1           |
+| camel-version              | 3.20.2           |
 | maven-compiler-plugin      | 3.10.1           |
 | maven-dependency-plugin    | 3.3.0            |
 | maven-jar-plugin           | 3.3.0            |
@@ -124,17 +124,17 @@ By editing the prometheus config we can set static targets on your local env to 
 |----------------------------|------------------|
 | java                       | 11               |
 | maven-compiler-plugin      | 3.10.1           |
-| camel-version              | 3.20.1           |
-| spring-boot-version        | 2.7.7            |
+| camel-version              | 3.20.2           |
+| spring-boot-version        | 2.7.8            |
 | swagger-ui-version         | 3.52.5           |
-| swagger-codegen-version    | 3.0.36	        |
+| swagger-codegen-version    | 3.0.40	        |
 | cxf-codegen-plugin-version | 3.5.5            |
 | logstash-encoder-version   | 7.2              |
 | webjars-locator-version    | 0.46             |
 | hawtio-springboot-version  | 2.17.0           |
 | jmx_prometheus_javaagent   | 0.17.2           | 
 | run-java-version           | 1.3.8            |
-| temurin-image-version      | 11.0.17_8-jre    |
+| temurin-image-version      | 11.0.18_10-jre   |
 
 
 ## Current versions for quarkus used
@@ -142,12 +142,12 @@ By editing the prometheus config we can set static targets on your local env to 
 | Components                 | Version          |
 |----------------------------|------------------|
 | java                       | 11               |
-| camel-version              | 3.19.0           |
-| quarkus-version            | 2.15.3.Final	    |
+| camel-version              | 3.20.2           |
+| quarkus-version            | 2.16.2.Final	    |
 | maven-compiler-plugin      | 3.10.1	        |
 | surefire-plugin-version    | 3.0.0-M8         |
 | ubi-image-version          | 1.11             |
-| temurin-image-version      | 11.0.17_8-jre    |
+| temurin-image-version      | 11.0.18_10-jre   |
 
 ## Next steps for this small project
 
