@@ -13,17 +13,17 @@
       <defaultValue>11</defaultValue>
     </requiredProperty>
     <requiredProperty key="compiler-plugin-version">
-      <defaultValue>3.10.1</defaultValue>
+      <defaultValue>3.11.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="quarkus-version">
-      <defaultValue>2.16.2.Final</defaultValue>
+      <defaultValue>2.16.5.Final</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
       <defaultValue>3.20.1</defaultValue>
     </requiredProperty>
     
     <requiredProperty key="surefire-plugin-version">
-      <defaultValue>3.0.0-M8</defaultValue>
+      <defaultValue>3.0.0</defaultValue>
     </requiredProperty>
     
     <requiredProperty key="ubi-image-version">
