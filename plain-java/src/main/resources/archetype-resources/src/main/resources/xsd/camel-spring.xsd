@@ -18381,8 +18381,8 @@ producers.
           <xs:annotation>
             <xs:documentation xml:lang="en">
               <![CDATA[
-Ignore the invalidate endpoint exception when try to create a producer with that
-endpoint. Default value: false
+Whether to ignore invalid endpoint URIs and skip sending the message. Default
+value: false
             ]]>
             </xs:documentation>
           </xs:annotation>
@@ -20930,6 +20930,7 @@ The extraction mode. The available extraction modes are: i - injecting the
 contextual namespace bindings into the extracted token (default) w - wrapping
 the extracted token in its ancestor context u - unwrapping the extracted token
 to its child content t - extracting the text content of the specified element.
+Default value: i
             ]]>
             </xs:documentation>
           </xs:annotation>
@@ -21439,7 +21440,15 @@ Sets the parameter list of allowable values (enum).
               
       </xs:element>
             
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="examples" nillable="true" type="tns:restPropertyDefinition"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="examples" type="tns:restPropertyDefinition">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            <![CDATA[
+Sets the parameter examples.
+          ]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
           
     </xs:sequence>
         
