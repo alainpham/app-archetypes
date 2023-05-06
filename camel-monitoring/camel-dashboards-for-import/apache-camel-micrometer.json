@@ -1724,7 +1724,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1830,7 +1831,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1930,7 +1932,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2005,7 +2008,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2097,14 +2101,7 @@
             }
           ],
           "title": "Processor Execution Times - $route",
-          "transformations": [
-            {
-              "id": "merge",
-              "options": {
-                "reducers": []
-              }
-            }
-          ],
+          "transformations": [],
           "type": "table"
         }
       ],
@@ -2451,6 +2448,6 @@
   "timezone": "",
   "title": "Apache Camel - Context view",
   "uid": "apache-camel-micrometer",
-  "version": 3,
+  "version": 10,
   "weekStart": ""
 }
