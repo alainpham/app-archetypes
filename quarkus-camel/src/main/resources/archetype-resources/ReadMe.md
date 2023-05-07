@@ -47,6 +47,8 @@ docker rmi ${artifactId}
 
 docker build -f src/main/docker/Dockerfile.multiarch -t ${artifactId}:${version} .
 
+docker run --rm ${artifactId}:${version}
+
 docker run -d --net primenet --ip 172.18.0.10 --name ${artifactId} ${artifactId}:${version}
 ```
 
@@ -69,13 +71,27 @@ done
 ```
 
 
-#[[## Push on dockerhub]]#
+#[[## Push on registry and deploy on kube]]#
+
+change to your registry and ingress root domain
 
 ```
-docker login
-docker build -t ${artifactId} -f src/main/docker/Dockerfile.jvm .
-docker tag ${artifactId}:latest YOUR_REPO/${artifactId}:latest
+
+export localregistry=registry.work.lan
+export kube_ingress_root_domain=kube.loc 
+
+mvn clean package -DskipTests
+
+docker build -f src/main/docker/Dockerfile.multiarch -t ${artifactId}:${version} .
+docker tag ${artifactId}:${version} ${localregistry}/${artifactId}:${version}
+docker push ${localregistry}/${artifactId}:${version}
+
+envsubst < src/main/kube/deploy.envsubst.yaml | kubectl delete -f -
+envsubst < src/main/kube/deploy.envsubst.yaml | kubectl apply -f -
+
 ```
+
+
 
 #[[##Dealing with SSL/TLS]]#
 

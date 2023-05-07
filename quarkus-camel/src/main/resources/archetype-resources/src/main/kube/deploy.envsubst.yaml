@@ -72,6 +72,10 @@ spec:
       app.kubernetes.io/version: "${version}"
   template:
     metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path:  "/q/metrics"
       labels:
         app.kubernetes.io/name: "${artifactId}"
         app.kubernetes.io/component: "${artifactId}"
@@ -81,27 +85,29 @@ spec:
     spec:
       containers:
       - name: ${artifactId}
-        image: "alainpham/${artifactId}:${version}"
+        image: "${localregistry}/${artifactId}:${version}"
         imagePullPolicy: "Always"
         env:
           - name: APPLICATION_NAME
             value: ${artifactId}
         livenessProbe:
-          failureThreshold: 9
           httpGet:
-            path: "/q/health"
+            path: "/q/health/live"
             port: 8080
             scheme: "HTTP"
-          initialDelaySeconds: 10
+          initialDelaySeconds: 0
           successThreshold: 1
+          periodSeconds: 3
+          failureThreshold: 10 
         readinessProbe:
-          failureThreshold: 3
           httpGet:
-            path: "/q/health"
+            path: "/q/health/ready"
             port: 8080
             scheme: "HTTP"
-          initialDelaySeconds: 10
+          initialDelaySeconds: 0
           successThreshold: 1
+          periodSeconds: 3
+          failureThreshold: 10 
         resources:
           limits:
             cpu: "1.0"
@@ -164,7 +170,6 @@ metadata:
     app.kubernetes.io/component: "${artifactId}"
     app.kubernetes.io/part-of: "${artifactId}"
     app.kubernetes.io/instance: "${artifactId}-main"
-    app.kubernetes.io/group: "${group}"
     app.kubernetes.io/version: "${version}"
   annotations:
     nginx.ingress.kubernetes.io/ssl-passthrough: "false"
@@ -172,7 +177,7 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   rules:
-  - host: ${artifactId}.kube.loc
+  - host: ${artifactId}.${kube_ingress_root_domain}
     http:
       paths:
       - path: /

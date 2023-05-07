@@ -11,6 +11,7 @@ public class Main extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         
+		restConfiguration().apiContextRouteId("api-docs");
 
 		// restConfiguration()
 		// .apiContextRouteId("api-docs")
@@ -24,8 +25,7 @@ public class Main extends RouteBuilder {
         // ;
 
 
-        from("timer:test-from-java?period=1s").log("hello from java");
-
+        from("timer:test-from-java?period=1s").routeId("hello-java").log("hello from java");
         
     }
     
