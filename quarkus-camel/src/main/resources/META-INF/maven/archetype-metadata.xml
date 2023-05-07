@@ -64,6 +64,12 @@
         <include>**/*.*</include>
       </includes>
     </fileSet>
+    <fileSet filtered="true" packaged="false" encoding="UTF-8">
+      <directory>src/main/kube</directory>
+      <includes>
+        <include>**/*.*</include>
+      </includes>
+    </fileSet>
     <fileSet filtered="true" encoding="UTF-8">
       <directory>src/main/resources</directory>
       <includes>

@@ -81,7 +81,7 @@ spec:
     spec:
       containers:
       - name: ${artifactId}
-        image: "alainpham/${artifactId}:latest"
+        image: "alainpham/${artifactId}:${version}"
         imagePullPolicy: "Always"
         env:
           - name: APPLICATION_NAME
