@@ -23,7 +23,7 @@
     </requiredProperty>
     
     <requiredProperty key="surefire-plugin-version">
-      <defaultValue>3.0.0</defaultValue>
+      <defaultValue>3.1.0</defaultValue>
     </requiredProperty>
     
     <requiredProperty key="ubi-image-version">
