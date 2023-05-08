@@ -12,13 +12,13 @@ You can run your application in dev mode that enables live coding using:
 mvn quarkus:dev
 ```
 
-Accessing the app : `http://localhost:8080`
+Accessing the app : `http://localhost:8090`
 
-Accessing SwaggerUi : `http://localhost:8080/swagger-ui/`
+Accessing SwaggerUi : `http://localhost:8090/swagger-ui/`
 
-Accessing openapi spec of camel rests : `http://localhost:8080/camel-openapi`
+Accessing openapi spec of camel rests : `http://localhost:8090/camel-openapi`
 
-Accessing metrics : `http://localhost:8080/q/metrics`
+Accessing metrics : `http://localhost:8090/q/metrics`
 
 #[[## Packaging and running the application]]#
 
