@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<archetype-descriptor xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" name="fuse-standard-archetype"
-    xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <requiredProperties >
-    <requiredProperty key="cxfSupport" >
+<archetype-descriptor
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
+  name="fuse-standard-archetype"
+  xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <requiredProperties>
+    <requiredProperty key="cxfSupport">
       <defaultValue>false</defaultValue>
     </requiredProperty>
-    <requiredProperty key="camel-3-sbsuffix" >
+    <requiredProperty key="camel-sbsuffix">
       <defaultValue>.springboot</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>3.20.3</defaultValue>
+      <defaultValue>4.0.0-M3</defaultValue>
     </requiredProperty>
     <requiredProperty key="spring-boot-version">
-      <defaultValue>2.7.10</defaultValue>
+      <defaultValue>3.0.6</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-ui-version">
       <defaultValue>3.52.5</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-codegen-version">
-      <defaultValue>3.0.41</defaultValue>
+      <defaultValue>3.0.42</defaultValue>
     </requiredProperty>
     <requiredProperty key="cxf-codegen-plugin-version">
-      <defaultValue>3.5.5</defaultValue>
+      <defaultValue>4.0.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="logstash-encoder-version">
       <defaultValue>7.3</defaultValue>
     </requiredProperty>
     <requiredProperty key="webjars-locator-version">
       <defaultValue>0.46</defaultValue>
-    </requiredProperty>
-    <requiredProperty key="hawtio-springboot-version">
-      <defaultValue>2.17.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="jmx-prometheus-javaagent-version">
       <defaultValue>0.18.0</defaultValue>
@@ -43,10 +42,10 @@
       <defaultValue>UTF-8</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-compiler-target">
-      <defaultValue>11</defaultValue>
+      <defaultValue>17</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-compiler-source">
-      <defaultValue>11</defaultValue>
+      <defaultValue>17</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-compiler-plugin-version">
       <defaultValue>3.11.0</defaultValue>
@@ -54,42 +53,45 @@
     <requiredProperty key="run-java-version">
       <defaultValue>1.3.8</defaultValue>
     </requiredProperty>
-    <requiredProperty key="ubi-image-version">
-      <defaultValue>1.11</defaultValue>
-    </requiredProperty>
     <requiredProperty key="temurin-image-version">
-      <defaultValue>11.0.18_10-jre</defaultValue>
+      <defaultValue>17.0.7_7-jre</defaultValue>
     </requiredProperty>
 
     <!-- app vars -->
     <requiredProperty key="svc-ping-path">
-      <defaultValue>/camel/ping</defaultValue>
+      <defaultValue>/ping</defaultValue>
     </requiredProperty>
     <requiredProperty key="svc-definition-path">
-      <defaultValue>/camel/api-docs</defaultValue>
+      <defaultValue>/api-docs</defaultValue>
     </requiredProperty>
     <requiredProperty key="svc-camel-definition-path">
-      <defaultValue>/camel/api-docs</defaultValue>
+      <defaultValue>/api-docs</defaultValue>
     </requiredProperty>
     <requiredProperty key="svc-send-msg-path">
-      <defaultValue>/camel/send-msg</defaultValue>
+      <defaultValue>/send-msg</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-ui-path">
-      <defaultValue>/webjars/swagger-ui/index.html?url=/camel/api-docs</defaultValue>
+      <defaultValue>/webjars/swagger-ui/index.html?url=/api-docs</defaultValue>
     </requiredProperty>
 
   </requiredProperties>
- <fileSets>
+  <fileSets>
     <fileSet filtered="true" packaged="true" encoding="UTF-8">
       <directory>src/main/java</directory>
       <includes>
         <include>**/*.java</include>
       </includes>
     </fileSet>
-    <fileSet filtered="false" encoding="UTF-8">
-      <directory>tls</directory>
+    <fileSet filtered="true" packaged="false" encoding="UTF-8">
+      <directory>src/main/docker</directory>
       <includes>
-        <include>**/*</include>
+        <include>**/*.*</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" packaged="false" encoding="UTF-8">
+      <directory>src/main/kube</directory>
+      <includes>
+        <include>**/*.*</include>
       </includes>
     </fileSet>
     <fileSet filtered="true" encoding="UTF-8">
@@ -111,22 +113,10 @@
         <include>**/camel-spring.xsd</include>
       </includes>
     </fileSet>
-     <fileSet filtered="true" encoding="UTF-8">
-         <directory>src/main/fabric8</directory>
-         <includes>
-             <include>**/*</include>
-         </includes>
-     </fileSet>
-     <fileSet filtered="false" encoding="UTF-8">
-      <directory>src/main/fabric8-includes</directory>
-      <includes>
-          <include>**/*</include>
-      </includes>
-  </fileSet>
     <fileSet filtered="true" encoding="UTF-8">
-      <directory>src/data</directory>
+      <directory>src/main/fabric8</directory>
       <includes>
-        <include>**/*.xml</include>
+        <include>**/*</include>
       </includes>
     </fileSet>
     <fileSet filtered="true" packaged="true" encoding="UTF-8">
@@ -147,17 +137,11 @@
         <include>ReadMe.md</include>
       </includes>
     </fileSet>
-    <fileSet filtered="true" encoding="UTF-8">
+    <fileSet filtered="false" encoding="UTF-8">
       <directory></directory>
       <includes>
-        <include>Dockerfile</include>
+        <include>.gitignore</include>
       </includes>
     </fileSet>
-     <fileSet filtered="false" encoding="UTF-8">
-         <directory></directory>
-         <includes>
-             <include>.gitignore</include>
-         </includes>
-     </fileSet>
   </fileSets>
 </archetype-descriptor>

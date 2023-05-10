@@ -19,10 +19,10 @@ public class RestConfigurator extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		restConfiguration()
-		// .apiContextRouteId("api-docs")
-		.component("servlet")
+		.apiContextRouteId("api-docs")
+		.component("platform-http")
 		.bindingMode(RestBindingMode.json)
-		.contextPath(environment.getProperty("camelrest.contextPath"))
+		// .contextPath(environment.getProperty("camelrest.contextPath"))
 		// .port(environment.getProperty("camelrest.port"))
 		.apiContextPath("/api-docs")
 		.apiProperty("cors", "true")

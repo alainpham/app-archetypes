@@ -4,7 +4,7 @@ import org.apache.cxf.transport.servlet.CXFServlet;
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.camel.component.cxf.CxfEndpoint;
 import java.util.Map;
-import javax.xml.namespace.QName;
+import jakarta.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 #end

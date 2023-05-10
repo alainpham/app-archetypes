@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <routes xmlns="http://camel.apache.org/schema/spring" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://camel.apache.org/schema/spring ./../xsd/camel-spring.xsd">
     <route id="http-receiver">
-        <from id="http-receiver-starter" uri="servlet://ping" />
+        <from id="http-receiver-starter" uri="platform-http:/ping" />
         <to uri="bean:eventLogger?method=logStartAndBody" />
         <setHeader id="set-header-http-receiver" name="Content-Type">
             <constant>application/json</constant>
@@ -22,7 +22,7 @@
 
 
     <route id="send-msg">
-        <from id="send-socket-msg-to-all-starter" uri="servlet:/send-msg"/>
+        <from id="send-socket-msg-to-all-starter" uri="platform-http:/send-msg"/>
         <convertBodyTo type="java.lang.String"/>
         <unmarshal>
             <json library="Jackson"/>
