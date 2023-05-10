@@ -13,24 +13,34 @@ metadata:
 type: Opaque
 stringData: 
   application.properties: |
-    # Configuration file
-    # key = value
-    %dev.quarkus.http.port=8090
-    %dev.quarkus.http.host=0.0.0.0
-    quarkus.live-reload.watched-resources=camel/routes.xml,camel-rest/rests.xml
+    logging.config=classpath:logback.xml
 
-    camel.context.name = ${artifactId}
+    # the options from org.apache.camel.spring.boot.CamelConfigurationProperties can be configured here
+    camel.springboot.name=${artifactId}
 
-    camel.main.routes-include-pattern = classpath:camel/routes.xml,classpath:camel-rest/rests.xml
+    # lets listen on all ports to ensure we can be invoked from the pod IP
+    server.address=0.0.0.0
+    management.server.address=0.0.0.0
+    # lets use a different management port in case you need to listen to HTTP requests on 8080
+    server.port=8080
+    management.server.port=8081
 
-    camel.rest.binding-mode=json
-    camel.rest.api-context-path=/camel-openapi
+    endpoints.enabled = true
+    endpoints.health.enabled = true
 
-    theme=main-dark-orange
+    management.endpoints.web.exposure.include=health,prometheus
 
-    quarkus.swagger-ui.always-include=true
+    cxf.path=/services
 
-    quarkus.camel.metrics.enable-message-history=true
+    camel.component.servlet.mapping.contextPath=/camel/*
+
+    camelrest.contextPath=/camel
+    camelrest.apiversion=${version}
+
+    theme=main-dark-green
+
+    spring.resources.cache.cachecontrol.cache-public=true
+    spring.resources.cache.cachecontrol.max-age=0
 ---
 
 # Sample TLS certs (do not use this in prod)
@@ -92,8 +102,8 @@ spec:
             value: ${artifactId}
         livenessProbe:
           httpGet:
-            path: "/q/health/live"
-            port: 8080
+            path: "/actuator/health"
+            port: 8081
             scheme: "HTTP"
           initialDelaySeconds: 0
           successThreshold: 1
@@ -101,8 +111,8 @@ spec:
           failureThreshold: 10 
         readinessProbe:
           httpGet:
-            path: "/q/health/ready"
-            port: 8080
+            path: "/actuator/health"
+            port: 8081
             scheme: "HTTP"
           initialDelaySeconds: 0
           successThreshold: 1
