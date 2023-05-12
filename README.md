@@ -16,7 +16,7 @@ This repo contains archetypes that should be useful to camel developers that don
 * Monitoring with Micrometer / Prometheus / Grafana
 * HTTP Rest with OpenAPI / SwaggerUI
 * Websockets
-* Soap with CXF (Optional)
+* Soap with CXF (Optional) -> not supported yet in the latest versions as we transition from javax to jakarta
 
 It also contains the a comprehensive Grafana Dashboard for performance monitoring on metrics collected through Prometheus.
 
@@ -58,11 +58,11 @@ mvn archetype:generate \
 
 The dashboard that you can import can be found [here](camel-monitoring/camel-dashboards-for-import/apache-camel-micrometer.json)
 
-In camel 2 we relied on JMX exporter which was not idea. For Camel 3, the dashboard now now uses metrics exposed by the micrometer library. This offers the same dashboard accross all flavors like Camel Spring, Camel Quarkus and Camel K.
+In camel 2 we relied on JMX exporter. For Camel 3 & 4, the dashboard now uses metrics exposed by the micrometer library. This offers the same dashboard accross all flavors like Camel Spring, Camel Quarkus and Camel K.
 
 It gives comprehensive metrics for performance monitoring. It focuses on monitoring route execution rate and average executions times that is broken down to processors & routes. You can use it to find your bottlenecks and detect degradations in quality of service.
 
-Videos : 
+Videos based on the JMX exporter version (micrometer version to come) : 
 Here : http://www.youtube.com/watch?v=0LDgv1nIk-Y
 or here : https://odysee.com/@alainpham:8/apache-camel-monitoring-prometheus-grafana:c 
 
@@ -120,34 +120,33 @@ By editing the prometheus config we can set static targets on your local env to 
 
 ## Current versions for spring boot used
 
-| Components                 | Version          |
-|----------------------------|------------------|
-| java                       | 11               |
-| maven-compiler-plugin      | 3.10.1           |
-| camel-version              | 3.20.2           |
-| spring-boot-version        | 2.7.8            |
-| swagger-ui-version         | 3.52.5           |
-| swagger-codegen-version    | 3.0.40	        |
-| cxf-codegen-plugin-version | 3.5.5            |
-| logstash-encoder-version   | 7.2              |
-| webjars-locator-version    | 0.46             |
-| hawtio-springboot-version  | 2.17.0           |
-| jmx_prometheus_javaagent   | 0.17.2           | 
-| run-java-version           | 1.3.8            |
-| temurin-image-version      | 11.0.18_10-jre   |
+| Components                   | Version          |
+|------------------------------|------------------|
+| java                         | 11               |
+| maven-compiler-plugin        | 3.10.1           |
+| camel-version                | 3.20.2           |
+| spring-boot-version          | 2.7.8            |
+| swagger-ui-version           | 3.52.5           |
+| swagger-codegen-version      | 3.0.40	          |
+| (cxf-codegen-plugin-version) | (3.5.5)          |
+| logstash-encoder-version     | 7.2              |
+| webjars-locator-version      | 0.46             |
+| hawtio-springboot-version    | 2.17.0           |
+| jmx_prometheus_javaagent     | 0.17.2           | 
+| run-java-version             | 1.3.8            |
+| temurin-image-version        | 17.0.7_7-jre     |
 
 
 ## Current versions for quarkus used
 
 | Components                 | Version          |
 |----------------------------|------------------|
-| java                       | 11               |
-| camel-version              | 3.20.2           |
-| quarkus-version            | 2.16.2.Final	    |
-| maven-compiler-plugin      | 3.10.1	        |
-| surefire-plugin-version    | 3.0.0-M8         |
-| ubi-image-version          | 1.11             |
-| temurin-image-version      | 11.0.18_10-jre   |
+| java                       | 17               |
+| camel-version              | 4.0.0-M2         |
+| quarkus-version            | 3.0.2.Final	    |
+| maven-compiler-plugin      | 3.11.0	        |
+| surefire-plugin-version    | 3.1.0            |
+| temurin-image-version      | 17.0.7_7-jre     |
 
 ## Next steps for this small project
 

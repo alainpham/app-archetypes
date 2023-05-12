@@ -26,9 +26,6 @@
       <defaultValue>3.1.0</defaultValue>
     </requiredProperty>
     
-    <requiredProperty key="ubi-image-version">
-      <defaultValue>1.11</defaultValue>
-    </requiredProperty>
     <requiredProperty key="temurin-image-version">
       <defaultValue>17.0.7_7-jre</defaultValue>
     </requiredProperty>
