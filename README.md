@@ -122,17 +122,16 @@ By editing the prometheus config we can set static targets on your local env to 
 
 | Components                   | Version          |
 |------------------------------|------------------|
-| java                         | 11               |
-| maven-compiler-plugin        | 3.10.1           |
-| camel-version                | 3.20.2           |
-| spring-boot-version          | 2.7.8            |
+| java                         | 17               |
+| maven-compiler-plugin        | 3.11.0           |
+| camel-version                | 4.0.0.M3         |
+| spring-boot-version          | 3.0.6            |
 | swagger-ui-version           | 3.52.5           |
-| swagger-codegen-version      | 3.0.40	          |
-| (cxf-codegen-plugin-version) | (3.5.5)          |
-| logstash-encoder-version     | 7.2              |
+| swagger-codegen-version      | 3.0.42	          |
+| (cxf-codegen-plugin-version) | (4.0.0) WIP      |
+| logstash-encoder-version     | 7.3              |
 | webjars-locator-version      | 0.46             |
-| hawtio-springboot-version    | 2.17.0           |
-| jmx_prometheus_javaagent     | 0.17.2           | 
+| jmx_prometheus_javaagent     | 0.18.0           | 
 | run-java-version             | 1.3.8            |
 | temurin-image-version        | 17.0.7_7-jre     |
 
@@ -143,7 +142,7 @@ By editing the prometheus config we can set static targets on your local env to 
 |----------------------------|------------------|
 | java                       | 17               |
 | camel-version              | 4.0.0-M2         |
-| quarkus-version            | 3.0.2.Final	    |
+| quarkus-version            | 3.0.3.Final	    |
 | maven-compiler-plugin      | 3.11.0	        |
 | surefire-plugin-version    | 3.1.0            |
 | temurin-image-version      | 17.0.7_7-jre     |
