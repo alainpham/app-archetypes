@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11.0.18_10-jre
+FROM eclipse-temurin:17.0.7_7-jre
 
 USER root
 

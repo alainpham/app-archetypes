@@ -7,39 +7,30 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
+
 ```
 mvn quarkus:dev
 ```
 
-Accessing the app : http://localhost:8080
+Accessing the app : `http://localhost:8080`
 
-Accessing SwaggerUi : http://localhost:8080/swagger-ui/
+Accessing SwaggerUi : `http://localhost:8080/swagger-ui/`
 
-Accessing openapi spec of camel rests : http://localhost:8080/camel-openapi
+Accessing openapi spec of camel rests : `http://localhost:8080/camel-openapi`
 
-Health UI : http://localhost:8080/health-ui/
-
-Accessing metrics : http://localhost:8080/metrics
-
-Metrics in json with filters on app metrics : `curl -H"Accept: application/json" localhost:8080/metrics/application`
+Accessing metrics : `http://localhost:8080/q/metrics`
 
 ## Packaging and running the application
 
 The application can be packaged using `mvn package`.
-It produces the `testing-1.0-SNAPSHOT-runner.jar` file in the `/target` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/lib` directory.
 
-The application is now runnable using `java -jar target/testing-1.0-SNAPSHOT-runner.jar`.
+The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
 
 ## Creating a native executable
 
 You can create a native executable using: `mvn package -Pnative`.
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: `mvn package -Pnative -Dquarkus.native.container-build=true`.
-
-You can then execute your native executable with: `./target/testing-1.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/building-native-image.
+You can then execute your native executable with: `./target/version-watcher-1.0.0-runner`
 
 ## Run local container with specific network and IP address
 
@@ -54,51 +45,53 @@ docker stop version-watcher
 docker rm version-watcher
 docker rmi version-watcher
 
-docker build -f src/main/docker/Dockerfile.fast-jar -t version-watcher-fast .
-docker build -f src/main/docker/Dockerfile.jvm -t version-watcher .
-docker build -f src/main/docker/Dockerfile.native -t version-watcher-native .
+docker build -f src/main/docker/Dockerfile.multiarch -t version-watcher:1.0.0 .
 
-docker run -d --net primenet --ip 172.18.0.10 --name version-watcher version-watcher
+docker run --rm version-watcher:1.0.0
+
+docker run -d --net primenet --ip 172.18.0.10 --name version-watcher version-watcher:1.0.0
 ```
 
-
-Stop or launch multple instaces
+Launch multple instaces
 
 ```
 NB_CONTAINERS=2
+
+for (( i=0; i<$NB_CONTAINERS; i++ ))
+do
+    docker run -d --net primenet --ip 172.18.0.1$i --name version-watcher-$i version-watcher:1.0.0
+done
+
 for (( i=0; i<$NB_CONTAINERS; i++ ))
 do
    docker stop version-watcher-$i
    docker rm version-watcher-$i
 done
 
-
-docker rmi version-watcher
-docker build -t version-watcher .
-```
-
-Choose one of methods
-```
-docker build -f src/main/docker/Dockerfile.fast-jar -t version-watcher-fast .
-docker build -f src/main/docker/Dockerfile.jvm -t version-watcher .
-docker build -f src/main/docker/Dockerfile.native -t version-watcher-native .```
-```
-```
-for (( i=0; i<$NB_CONTAINERS; i++ ))
-do
-    docker run -d --net primenet --ip 172.18.0.1$i --name version-watcher-$i version-watcher
-done
-
 ```
 
 
-## Push on dockerhub
+## Push on registry and deploy on kube
+
+change to your registry and ingress root domain
 
 ```
-docker login
-docker build -t version-watcher -f src/main/docker/Dockerfile.jvm .
-docker tag version-watcher:latest YOUR_REPO/version-watcher:latest
+
+export localregistry=alainpham
+export kube_ingress_root_domain=kube.loc 
+
+mvn clean package -DskipTests
+
+docker build -f src/main/docker/Dockerfile.multiarch -t version-watcher:1.0.0 .
+docker tag version-watcher:1.0.0 ${localregistry}/version-watcher:1.0.0
+docker push ${localregistry}/version-watcher:1.0.0
+
+envsubst < src/main/kube/deploy.envsubst.yaml | kubectl delete -f -
+envsubst < src/main/kube/deploy.envsubst.yaml | kubectl apply -f -
+
 ```
+
+
 
 ##Dealing with SSL/TLS
 

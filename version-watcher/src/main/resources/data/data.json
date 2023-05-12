@@ -13,7 +13,7 @@
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/quarkus-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='quarkus-version']/*:defaultValue/text()",
     "coordinates": "mvn:io.quarkus.platform:quarkus-bom",
-    "latestVersionFilter": "^2.*Final"
+    "latestVersionFilter": "^3.*Final"
   },
   {
     "id": 103,
@@ -24,20 +24,12 @@
     "latestVersionFilter": "^3.*"
   },
   {
-    "id": 105,
-    "project": "quarkus-camel-archetype",
-    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/quarkus-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
-    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='ubi-image-version']/*:defaultValue/text()",
-    "coordinates": "redhat-registry:ubi8/openjdk-11",
-    "latestVersionFilter": "^11.*-jre$"
-  },
-  {
     "id": 106,
     "project": "quarkus-camel-archetype",
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/quarkus-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='temurin-image-version']/*:defaultValue/text()",
-    "coordinates": "docker:library/eclipse-temurin:11.",
-    "latestVersionFilter": "^11.*-jre$"
+    "coordinates": "docker:library/eclipse-temurin:17.",
+    "latestVersionFilter": "^17.*-jre$"
   },
   {
     "id": 200,
