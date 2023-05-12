@@ -4,9 +4,13 @@
   - [Create a Spring Boot Camel Project](#create-a-spring-boot-camel-project)
   - [Create a Quarkus Camel Project](#create-a-quarkus-camel-project)
   - [Create a Plain Java Project](#create-a-plain-java-project)
-  - [Grafana Dashboard For Camel Monitoring](#grafana-dashboard-for-camel-monitoring)
-  - [Install Prometheus and Grafana Kubernetes/Openshift Namespace for monitoring](#install-prometheus-and-grafana-kubernetesopenshift-namespace-for-monitoring)
+  - [Observability Stack : Grafana Dashboard For Apache Camel](#observability-stack--grafana-dashboard-for-apache-camel)
   - [Install Prometheus \& Grafana on local docker engine for testing](#install-prometheus--grafana-on-local-docker-engine-for-testing)
+    - [Create docker network for internal dns resolution](#create-docker-network-for-internal-dns-resolution)
+    - [Run a smoke-test-app written with quarkus](#run-a-smoke-test-app-written-with-quarkus)
+    - [Run Prometheus](#run-prometheus)
+    - [Run Grafana](#run-grafana)
+  - [Install Prometheus \& Grafana on kubernetes](#install-prometheus--grafana-on-kubernetes)
   - [Current versions for plain java pojects](#current-versions-for-plain-java-pojects)
   - [Current versions for spring boot used](#current-versions-for-spring-boot-used)
   - [Current versions for quarkus used](#current-versions-for-quarkus-used)
@@ -54,7 +58,7 @@ mvn archetype:generate \
     -DarchetypeVersion=1.0.0
 ```
 
-## Grafana Dashboard For Camel Monitoring
+## Observability Stack : Grafana Dashboard For Apache Camel
 
 The dashboard that you can import can be found [here](camel-monitoring/camel-dashboards-for-import/apache-camel-micrometer.json)
 
@@ -68,43 +72,58 @@ or here : https://odysee.com/@alainpham:8/apache-camel-monitoring-prometheus-gra
 
 [![Grafana](assets/grafana-dash-sample.png)](http://www.youtube.com/watch?v=0LDgv1nIk-Y)
 
-## Install Prometheus and Grafana Kubernetes/Openshift Namespace for monitoring
+## Install Prometheus & Grafana on local docker engine for testing
+
+### Create docker network for internal dns resolution
+
+```
+docker network create --driver=bridge --subnet=172.22.0.0/16 --gateway=172.22.0.1 camelnet
+```
+
+### Run a smoke-test-app written with quarkus
+
+```
+docker run -d \
+    --name=smoke-test-app-quarkus \
+    --net camelnet \
+    -p 7080:8080 \
+    alainpham/smoke-test-app:2.0.0
+```
+
+### Run Prometheus
+
+```
+docker run -d \
+    --name=camel-prometheus \
+    --net camelnet \
+    -p 9090:9090 \
+    -v $(pwd)/camel-monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro \
+    prom/prometheus:v2.43.1
+```
+
+### Run Grafana
+
+```
+docker run -d \
+    --name=camel-grafana \
+    --net camelnet \
+    -p 3000:3000 \
+    -e GF_SECURITY_ADMIN_PASSWORD=password \
+    -v $(pwd)/camel-monitoring/grafana-datasources.yml:/etc/grafana/provisioning/datasources/grafana-datasources.yml:ro \
+    -v $(pwd)/camel-monitoring/camel-dashboards/:/etc/grafana/provisioning/dashboards:ro \
+    grafana/grafana:9.5.2
+
+```
+
+
+## Install Prometheus & Grafana on kubernetes
 
 Use these commands if you want to quickly test the archetype out including some monitoring
 
 ```
-export TARGET_NS=YOUR_TARGET_NAMESPACE_HERE
-
-oc project ${TARGET_NS}
-
-cat camel-monitoring/prometheus-local.yaml | sed -E "s/TARGET_NAMESPACE/${TARGET_NS}/"| oc apply -f -
-
-oc create configmap grafana-dashboards --from-file=camel-monitoring/dashboards
-
-oc apply -f camel-monitoring/grafana.yaml
+WIP
 ```
 
-alternative : prometheus with the operator
-
-```
-export TARGET_NS=YOUR_TARGET_NAMESPACE_HERE
-
-cat prometheus-with-operator/operator-group.yml | sed -E "s/TARGET_NAMESPACE/${TARGET_NS}/"| oc apply -f -
-cat prometheus-with-operator/prom-sub.yml | sed -E "s/TARGET_NAMESPACE/${TARGET_NS}/"| oc apply -f -
-cat prometheus-with-operator/prom.yml | sed -E "s/TARGET_NAMESPACE/${TARGET_NS}/"| oc apply -f -
-cat prometheus-with-operator/strimzi-pod-monitor.yaml | sed -E "s/TARGET_NAMESPACE/${TARGET_NS}/"| oc apply -f -
-cat prometheus-with-operator/camel-pod-monitor.yml | sed -E "s/TARGET_NAMESPACE/${TARGET_NS}/"| oc apply -f -
-cat prometheus-with-operator/artemis-pod-monitor.yml | sed -E "s/TARGET_NAMESPACE/${TARGET_NS}/"| oc apply -f -
-
-```
-
-## Install Prometheus & Grafana on local docker engine for testing
-
-Follow these instructions linked here to have Prometheus and Grafana running as local docker containers. 
-
-https://github.com/alainpham/dev-env-scripts#monitoring
-
-By editing the prometheus config we can set static targets on your local env to emulate the behavior of auto discovered pods on Kubernetes.
 
 ## Current versions for plain java pojects
 
@@ -151,3 +170,4 @@ By editing the prometheus config we can set static targets on your local env to 
 
 * Add opentelemetry tracing and send data to Grafana Tempo.
 * Link metrics to traces.
+* Make a video on Grafana dashboard and the newer micrometer prometheus metrics
