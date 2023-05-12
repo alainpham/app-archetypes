@@ -128,7 +128,7 @@ By editing the prometheus config we can set static targets on your local env to 
 | spring-boot-version          | 3.0.6            |
 | swagger-ui-version           | 3.52.5           |
 | swagger-codegen-version      | 3.0.42	          |
-| (cxf-codegen-plugin-version) | (4.0.0) WIP      |
+| (cxf-codegen-plugin-version) | (4.0.1) WIP      |
 | logstash-encoder-version     | 7.3              |
 | webjars-locator-version      | 0.46             |
 | jmx_prometheus_javaagent     | 0.18.0           | 

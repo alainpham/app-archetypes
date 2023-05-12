@@ -37,7 +37,7 @@
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='camel-version']/*:defaultValue/text()",
     "coordinates": "mvn:org.apache.camel.springboot:camel-spring-boot-dependencies",
-    "latestVersionFilter": "^3.*"
+    "latestVersionFilter": "^4.*"
   },
   {
     "id": 201,
@@ -45,7 +45,7 @@
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='spring-boot-version']/*:defaultValue/text()",
     "coordinates": "mvn:org.springframework.boot:spring-boot-dependencies",
-    "latestVersionFilter": "^2.*"
+    "latestVersionFilter": "3.*"
   },
   {
     "id": 202,
@@ -69,7 +69,7 @@
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='cxf-codegen-plugin-version']/*:defaultValue/text()",
     "coordinates": "mvn:org.apache.cxf:cxf-codegen-plugin",
-    "latestVersionFilter": "^3.*"
+    "latestVersionFilter": "^4.*"
   },
   {
     "id": 205,
@@ -86,14 +86,6 @@
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='webjars-locator-version']/*:defaultValue/text()",
     "coordinates": "mvn:org.webjars:webjars-locator",
     "latestVersionFilter": "^0.*"
-  },
-  {
-    "id": 207,
-    "project": "spring-boot-camel-archetype",
-    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
-    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='hawtio-springboot-version']/*:defaultValue/text()",
-    "coordinates": "mvn:io.hawt:hawtio-springboot",
-    "latestVersionFilter": "^2.*"
   },
   {
     "id": 208,
@@ -124,8 +116,8 @@
     "project": "spring-boot-camel-archetyp",
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='temurin-image-version']/*:defaultValue/text()",
-    "coordinates": "docker:library/eclipse-temurin:11.",
-    "latestVersionFilter": "^11.*-jre$"
+    "coordinates": "docker:library/eclipse-temurin:17.",
+    "latestVersionFilter": "^17.*-jre$"
   },
   {
     "id": 300,
