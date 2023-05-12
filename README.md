@@ -10,6 +10,7 @@
     - [Run a smoke-test-app written with quarkus](#run-a-smoke-test-app-written-with-quarkus)
     - [Run Prometheus](#run-prometheus)
     - [Run Grafana](#run-grafana)
+    - [Delete everything](#delete-everything)
   - [Install Prometheus \& Grafana on kubernetes](#install-prometheus--grafana-on-kubernetes)
   - [Current versions for plain java pojects](#current-versions-for-plain-java-pojects)
   - [Current versions for spring boot used](#current-versions-for-spring-boot-used)
@@ -115,6 +116,15 @@ docker run -d \
 
 ```
 
+### Delete everything
+
+```
+docker stop camel-grafana camel-prometheus smoke-test-app-quarkus
+
+docker rm camel-grafana camel-prometheus smoke-test-app-quarkus
+
+docker network rm camelnet
+```
 
 ## Install Prometheus & Grafana on kubernetes
 

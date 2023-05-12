@@ -6,7 +6,7 @@ Its folder structure is similar to a standard Java project for Java devs to easi
 
 # Build & Run
 
-Run scripts for shot shell tooling functions
+Run scripts for shotr shell tooling functions
 ```
 . shorts.sh
 ```
