@@ -19,7 +19,7 @@
       <defaultValue>3.11.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-dependency-plugin-version">
-      <defaultValue>3.5.0</defaultValue>
+      <defaultValue>3.6.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-jar-plugin-version">
       <defaultValue>3.3.0</defaultValue>
@@ -28,7 +28,7 @@
       <defaultValue>4.0.0-M3</defaultValue>
     </requiredProperty>
     <requiredProperty key="logback-version">
-      <defaultValue>1.4.7</defaultValue>
+      <defaultValue>1.4.8</defaultValue>
     </requiredProperty>
     
   </requiredProperties>
