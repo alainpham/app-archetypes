@@ -139,12 +139,12 @@ WIP
 
 | Components                 | Version          |
 |----------------------------|------------------|
-| java                       | 11               |
-| camel-version              | 3.20.2           |
-| maven-compiler-plugin      | 3.10.1           |
-| maven-dependency-plugin    | 3.3.0            |
+| java                       | 17               |
+| camel-version              | 3.21.0           |
+| maven-compiler-plugin      | 3.11.0           |
+| maven-dependency-plugin    | 3.6.0            |
 | maven-jar-plugin           | 3.3.0            |
-| logback-version            | 1.4.5            |
+| logback-version            | 1.4.8            |
 
 
 ## Current versions for spring boot used
@@ -153,14 +153,14 @@ WIP
 |------------------------------|------------------|
 | java                         | 17               |
 | maven-compiler-plugin        | 3.11.0           |
-| camel-version                | 4.0.0.M3         |
-| spring-boot-version          | 3.0.6            |
+| camel-version                | 4.0.0-RC1        |
+| spring-boot-version          | 3.1.1            |
 | swagger-ui-version           | 3.52.5           |
-| swagger-codegen-version      | 3.0.42	          |
-| (cxf-codegen-plugin-version) | (4.0.1) WIP      |
-| logstash-encoder-version     | 7.3              |
-| webjars-locator-version      | 0.46             |
-| jmx_prometheus_javaagent     | 0.18.0           | 
+| swagger-codegen-version      | 3.0.46	          |
+| (cxf-codegen-plugin-version) | (4.0.2) WIP      |
+| logstash-encoder-version     | 7.4              |
+| webjars-locator-version      | 0.47             |
+| jmx_prometheus_javaagent     | 0.19.0           | 
 | run-java-version             | 1.3.8            |
 | temurin-image-version        | 17.0.7_7-jre     |
 
@@ -170,10 +170,10 @@ WIP
 | Components                 | Version          |
 |----------------------------|------------------|
 | java                       | 17               |
-| camel-version              | 4.0.0-M2         |
-| quarkus-version            | 3.0.3.Final	    |
+| camel-version              | 4.0.0-RC1        |
+| quarkus-version            | 3.1.3.Final	    |
 | maven-compiler-plugin      | 3.11.0	        |
-| surefire-plugin-version    | 3.1.0            |
+| surefire-plugin-version    | 3.1.2            |
 | temurin-image-version      | 17.0.7_7-jre     |
 
 ## Next steps for this small project
