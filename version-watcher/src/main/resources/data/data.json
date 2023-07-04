@@ -149,7 +149,7 @@
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/plain-java/src/main/resources/META-INF/maven/archetype-metadata.xml",
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='camel-version']/*:defaultValue/text()",
     "coordinates": "mvn:org.apache.camel:camel-bom",
-    "latestVersionFilter": "^3.*"
+    "latestVersionFilter": "^4.*"
   },
   {
     "id": 304,
