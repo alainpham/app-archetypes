@@ -14,7 +14,7 @@ scrape_configs:
       - target_label: app_kubernetes_io_instance
         replacement: smoke-test-app-quarkus-master
       - target_label: app_kubernetes_io_version
-        replacement: "2.0.0"
+        replacement: "2.0.1"
       - target_label: cluster
         replacement: cloud
       - target_label: node
