@@ -187,7 +187,7 @@ WIP
 | Components                 | Version          |
 |----------------------------|------------------|
 | java                       | 17               |
-| camel-version              | 4.0.0-RC1        |
+| camel-version              | 4.0.0-M3         |
 | quarkus-version            | 3.1.3.Final	    |
 | maven-compiler-plugin      | 3.11.0	        |
 | surefire-plugin-version    | 3.1.2            |
