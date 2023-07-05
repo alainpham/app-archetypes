@@ -1,6 +1,7 @@
 # Archetypes & Monitoring Tools for Java/Apache Camel developers
 
 - [Archetypes \& Monitoring Tools for Java/Apache Camel developers](#archetypes--monitoring-tools-for-javaapache-camel-developers)
+  - [Install archetypes](#install-archetypes)
   - [Create a Spring Boot Camel Project](#create-a-spring-boot-camel-project)
   - [Create a Quarkus Camel Project](#create-a-quarkus-camel-project)
   - [Create a Plain Java Project](#create-a-plain-java-project)
@@ -24,6 +25,15 @@ This repo contains archetypes that should be useful to camel developers that don
 * Soap with CXF (Optional) -> not supported yet in the latest versions as we transition from javax to jakarta
 
 It also contains the a comprehensive Grafana Dashboard for performance monitoring on metrics collected through Prometheus.
+
+
+## Install archetypes
+
+```
+mvn -f quarkus-camel/pom.xml install
+mvn -f spring-boot-camel/pom.xml install
+mvn -f plain-java/pom.xml install
+```
 
 ## Create a Spring Boot Camel Project
 
@@ -65,6 +75,13 @@ The dashboard that you can import can be found [here](camel-monitoring/camel-das
 
 In camel 2 we relied on JMX exporter. For Camel 3 & 4, the dashboard now uses metrics exposed by the micrometer library. This offers the same dashboard accross all flavors like Camel Spring, Camel Quarkus and Camel K.
 
+Minimal Apache Camel version required with the changes to micrometer naming convention
+
+- Apache Camel 3.21+
+- Apache Camel 4.0.0-M3
+
+ref : [https://issues.apache.org/jira/browse/CAMEL-19193](https://issues.apache.org/jira/browse/CAMEL-19193)
+
 It gives comprehensive metrics for performance monitoring. It focuses on monitoring route execution rate and average executions times that is broken down to processors & routes. You can use it to find your bottlenecks and detect degradations in quality of service.
 
 Videos based on the JMX exporter version (micrometer version to come) : 
@@ -88,7 +105,7 @@ docker run -d \
     --name=smoke-test-app-quarkus \
     --net camelnet \
     -p 7080:8080 \
-    alainpham/smoke-test-app:2.0.0
+    alainpham/smoke-test-app:2.0.1
 ```
 
 ### Run Prometheus
@@ -99,7 +116,7 @@ docker run -d \
     --net camelnet \
     -p 9090:9090 \
     -v $(pwd)/camel-monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro \
-    prom/prometheus:v2.43.1
+    prom/prometheus:v2.45.0
 ```
 
 ### Run Grafana
@@ -112,7 +129,7 @@ docker run -d \
     -e GF_SECURITY_ADMIN_PASSWORD=password \
     -v $(pwd)/camel-monitoring/grafana-datasources.yml:/etc/grafana/provisioning/datasources/grafana-datasources.yml:ro \
     -v $(pwd)/camel-monitoring/camel-dashboards/:/etc/grafana/provisioning/dashboards:ro \
-    grafana/grafana:9.5.2
+    grafana/grafana:10.0.1
 
 ```
 

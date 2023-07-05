@@ -2,11 +2,15 @@
 
 Performance oriented monitoring on Apache Camel 3 & 4 deployments. Works ideally on Kubernetes deployments. Based on Prometheus datasource scraping metrics coming from the micrometer framework. Focuses on analyzing Camel Context, Route & Processor execution times and throughput.
 
+Min required versions : 
+- Apache Camel 3.21+
+- Apache Camel 4.0.0-M3+
+
 ## Mixin install commands
 ```
 jb init
 
-jb install https://github.com/alainpham/app-archetypes/camel-monitoring/camel-dashboards-for-import/
+jb install https://github.com/alainpham/app-archetypes/camel-monitoring/camel-dashboards/
 
 ```
 
