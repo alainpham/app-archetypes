@@ -234,7 +234,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "max(\n    camel_routes_added_routessAdded_routes{\n        job=~\"$job\",\n        cluster=\"$cluster\",\n        namespace=\"$namespace\",\n        camelContext=\"$context\",\n        app_kubernetes_io_part_of=\"$part_of\",\n        app_kubernetes_io_name=\"$app_name\",\n        app_kubernetes_io_component=\"$component\",\n        app_kubernetes_io_instance=\"$instance\",\n        app_kubernetes_io_version=\"$version\"\n    }\n)",
+          "expr": "max(\n    camel_routes_added_routes{\n        job=~\"$job\",\n        cluster=\"$cluster\",\n        namespace=\"$namespace\",\n        camelContext=\"$context\",\n        app_kubernetes_io_part_of=\"$part_of\",\n        app_kubernetes_io_name=\"$app_name\",\n        app_kubernetes_io_component=\"$component\",\n        app_kubernetes_io_instance=\"$instance\",\n        app_kubernetes_io_version=\"$version\"\n    }\n)",
           "format": "time_series",
           "hide": false,
           "instant": true,
