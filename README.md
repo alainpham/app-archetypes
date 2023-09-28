@@ -157,11 +157,11 @@ WIP
 | Components                 | Version          |
 |----------------------------|------------------|
 | java                       | 17               |
-| camel-version              | 3.21.0           |
+| camel-version              | 4.0.1            |
 | maven-compiler-plugin      | 3.11.0           |
 | maven-dependency-plugin    | 3.6.0            |
 | maven-jar-plugin           | 3.3.0            |
-| logback-version            | 1.4.8            |
+| logback-version            | 1.4.11           |
 
 
 ## Current versions for spring boot used
@@ -170,16 +170,16 @@ WIP
 |------------------------------|------------------|
 | java                         | 17               |
 | maven-compiler-plugin        | 3.11.0           |
-| camel-version                | 4.0.0-RC1        |
-| spring-boot-version          | 3.1.1            |
+| camel-version                | 4.0.1            |
+| spring-boot-version          | 3.1.4            |
 | swagger-ui-version           | 3.52.5           |
 | swagger-codegen-version      | 3.0.46	          |
-| (cxf-codegen-plugin-version) | (4.0.2) WIP      |
+| (cxf-codegen-plugin-version) | (4.0.3) WIP      |
 | logstash-encoder-version     | 7.4              |
 | webjars-locator-version      | 0.47             |
-| jmx_prometheus_javaagent     | 0.19.0           | 
+| jmx_prometheus_javaagent     | 0.20.0           | 
 | run-java-version             | 1.3.8            |
-| temurin-image-version        | 17.0.7_7-jre     |
+| temurin-image-version        | 17.0.8.1_1-jre   |
 
 
 ## Current versions for quarkus used
@@ -187,11 +187,11 @@ WIP
 | Components                 | Version          |
 |----------------------------|------------------|
 | java                       | 17               |
-| camel-version              | 4.0.0-M3         |
-| quarkus-version            | 3.1.3.Final	    |
+| camel-version              | 4.0.0            |
+| quarkus-version            | 3.4.1    	    |
 | maven-compiler-plugin      | 3.11.0	        |
 | surefire-plugin-version    | 3.1.2            |
-| temurin-image-version      | 17.0.7_7-jre     |
+| temurin-image-version      | 17.0.8.1_1-jre   |
 
 ## Next steps for this small project
 
