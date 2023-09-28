@@ -16,10 +16,10 @@
       <defaultValue>3.11.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="quarkus-version">
-      <defaultValue>3.1.3.Final</defaultValue>
+      <defaultValue>3.4.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>3.21.0</defaultValue>
+      <defaultValue>4.0.0</defaultValue>
     </requiredProperty>
     
     <requiredProperty key="surefire-plugin-version">
@@ -27,7 +27,7 @@
     </requiredProperty>
     
     <requiredProperty key="temurin-image-version">
-      <defaultValue>17.0.7_7-jre</defaultValue>
+      <defaultValue>17.0.8.1_1-jre</defaultValue>
     </requiredProperty>
 
     <!-- app vars -->

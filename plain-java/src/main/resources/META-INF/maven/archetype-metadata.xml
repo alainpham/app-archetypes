@@ -25,10 +25,10 @@
       <defaultValue>3.3.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>4.0.0-RC1</defaultValue>
+      <defaultValue>4.0.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="logback-version">
-      <defaultValue>1.4.8</defaultValue>
+      <defaultValue>1.4.11</defaultValue>
     </requiredProperty>
     
   </requiredProperties>
