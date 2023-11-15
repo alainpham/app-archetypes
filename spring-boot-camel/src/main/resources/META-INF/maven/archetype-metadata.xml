@@ -12,7 +12,7 @@
       <defaultValue>.springboot</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>4.1.0</defaultValue>
+      <defaultValue>4.2.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="spring-boot-version">
       <defaultValue>3.1.5</defaultValue>
