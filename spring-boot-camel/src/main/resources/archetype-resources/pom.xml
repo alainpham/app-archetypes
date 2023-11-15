@@ -216,9 +216,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <profiles>
-                        <profile>dev</profile>
-                    </profiles>
+                    <profiles>dev</profiles>
                     <!-- <agents> 
                         <agent>
                         ${user.home}/.m2/repository/io/prometheus/jmx/jmx_prometheus_javaagent/${jmx.prometheus.javaagent.version}/jmx_prometheus_javaagent-${jmx.prometheus.javaagent.version}.jar=9779:${project.basedir}/src/main/fabric8-includes/prometheus-config.yml

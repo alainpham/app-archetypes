@@ -19,13 +19,13 @@
       <defaultValue>3.11.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-dependency-plugin-version">
-      <defaultValue>3.6.0</defaultValue>
+      <defaultValue>3.6.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-jar-plugin-version">
       <defaultValue>3.3.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>4.0.1</defaultValue>
+      <defaultValue>4.1.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="logback-version">
       <defaultValue>1.4.11</defaultValue>
