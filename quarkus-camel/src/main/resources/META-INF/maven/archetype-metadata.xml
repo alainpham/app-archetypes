@@ -23,7 +23,7 @@
     </requiredProperty>
     
     <requiredProperty key="surefire-plugin-version">
-      <defaultValue>3.2.1</defaultValue>
+      <defaultValue>3.2.2</defaultValue>
     </requiredProperty>
     
     <requiredProperty key="temurin-image-version">
