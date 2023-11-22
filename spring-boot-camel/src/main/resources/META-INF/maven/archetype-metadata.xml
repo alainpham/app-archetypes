@@ -30,7 +30,7 @@
       <defaultValue>7.4</defaultValue>
     </requiredProperty>
     <requiredProperty key="webjars-locator-version">
-      <defaultValue>0.48</defaultValue>
+      <defaultValue>0.50</defaultValue>
     </requiredProperty>
     <requiredProperty key="jmx-prometheus-javaagent-version">
       <defaultValue>0.20.0</defaultValue>
@@ -55,6 +55,9 @@
     </requiredProperty>
     <requiredProperty key="temurin-image-version">
       <defaultValue>17.0.9_9-jre</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="grafana-opentelemetry-version">
+      <defaultValue>1.3.2</defaultValue>
     </requiredProperty>
 
     <!-- app vars -->
