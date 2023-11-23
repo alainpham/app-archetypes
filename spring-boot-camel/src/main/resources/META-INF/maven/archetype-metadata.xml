@@ -15,7 +15,7 @@
       <defaultValue>4.2.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="spring-boot-version">
-      <defaultValue>3.2.0</defaultValue>
+      <defaultValue>3.1.6</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-codegen-version">
       <defaultValue>3.0.51</defaultValue>

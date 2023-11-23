@@ -45,7 +45,7 @@
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='spring-boot-version']/*:defaultValue/text()",
     "coordinates": "mvn:org.springframework.boot:spring-boot-dependencies",
-    "latestVersionFilter": "3.*"
+    "latestVersionFilter": "3.1.*"
   },
   {
     "id": 203,
@@ -105,7 +105,7 @@
   },
   {
     "id": 211,
-    "project": "spring-boot-camel-archetyp",
+    "project": "spring-boot-camel-archetype",
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='temurin-image-version']/*:defaultValue/text()",
     "coordinates": "docker:library/eclipse-temurin:17.",
