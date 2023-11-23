@@ -10,7 +10,7 @@
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>ts=%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} thread="%thread" traceId=%X{traceId:-} spanId=%X{spanId:-} level=%-5level logger=%logger{36} msg="%msg"%n</pattern>
+      <pattern>ts=%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} traceId=%X{traceId:-} spanId=%X{spanId:-} level=%-5.5level logger=%-36.36logger{36} msg="%msg" thread="%thread"%n</pattern>
     </encoder>
   </appender>
   <!-- Uncomment the following and comment the previous if you want to have json logs -->
