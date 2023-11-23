@@ -163,7 +163,7 @@
 
         <!-- for websockets -->
         <dependency>
-            <groupId>org.apache.camel.springboot</groupId>
+            <groupId>org.apache.camel${camel-sbsuffix}</groupId>
             <artifactId>camel-vertx-websocket-starter</artifactId>
         </dependency>
 
@@ -172,7 +172,10 @@
             <artifactId>grafana-opentelemetry-starter</artifactId>
             <version>${grafana.opentelemetry.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.camel${camel-sbsuffix}</groupId>
+            <artifactId>camel-opentelemetry-starter</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>

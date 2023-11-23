@@ -21,8 +21,12 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
+import org.apache.camel.opentelemetry.starter.CamelOpenTelemetry;
+
+
 @SpringBootApplication
 @EnableWebSocket
+@CamelOpenTelemetry
 public class Application implements WebSocketConfigurer{
 
 #if (${cxfSupport} == 'true')
