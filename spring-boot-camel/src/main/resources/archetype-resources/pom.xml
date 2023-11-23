@@ -11,18 +11,16 @@
     <properties>
         <camel.version>${camel-version}</camel.version>
         <spring.boot.version>${spring-boot-version}</spring.boot.version>
-        <swagger.ui.version>${swagger-ui-version}</swagger.ui.version>
         <swagger.codegen.version>${swagger-codegen-version}</swagger.codegen.version>
+        <springdoc.openapi.version>${springdoc-openapi-version}</springdoc.openapi.version>
         <cxf.codegen.plugin.version>${cxf-codegen-plugin-version}</cxf.codegen.plugin.version>
         <logstash.encoder.version>${logstash-encoder-version}</logstash.encoder.version>
-        <webjars.locator.version>${webjars-locator-version}</webjars.locator.version>
-        <jmx.prometheus.javaagent.version>${jmx-prometheus-javaagent-version}</jmx.prometheus.javaagent.version>
+        <grafana.opentelemetry.version>${grafana-opentelemetry-version}</grafana.opentelemetry.version>
         <project.reporting.outputEncoding>${project-reporting-outputEncoding}</project.reporting.outputEncoding>
         <project.build.sourceEncoding>${project-build-sourceEncoding}</project.build.sourceEncoding>
         <maven.compiler.target>${maven-compiler-target}</maven.compiler.target>
         <maven.compiler.source>${maven-compiler-source}</maven.compiler.source>
         <maven-compiler-plugin.version>${maven-compiler-plugin-version}</maven-compiler-plugin.version>
-        <grafana.opentelemetry.version>${grafana-opentelemetry-version}</grafana.opentelemetry.version>
     </properties>
 
     <dependencyManagement>
@@ -94,28 +92,6 @@
             <artifactId>camel-xml-io-dsl</artifactId>
         </dependency>
 
-        <!-- xml  dependencies for java 11-->
-        <!-- <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            </dependency>
-            <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-core</artifactId>
-            </dependency>
-            <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-        </dependency> -->
-
-        <!-- prometheus dependency for metrics when running spring-boot:run -->
-        <dependency>
-            <groupId>io.prometheus.jmx</groupId>
-            <artifactId>jmx_prometheus_javaagent</artifactId>
-            <version>${jmx.prometheus.javaagent.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
@@ -137,16 +113,11 @@
             <groupId>org.apache.camel${camel-sbsuffix}</groupId>
             <artifactId>camel-openapi-java-starter</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>swagger-ui</artifactId>
-            <version>${swagger.ui.version}</version>
-        </dependency>
 
         <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>webjars-locator</artifactId>
-            <version>${webjars.locator.version}</version>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc.openapi.version}</version>
         </dependency>
 
         <!-- parsing rendering support -->
@@ -224,20 +195,11 @@
                 </executions>
                 <configuration>
                     <profiles>dev</profiles>
-                    <!-- <agents> 
-                        <agent>
-                        ${user.home}/.m2/repository/io/prometheus/jmx/jmx_prometheus_javaagent/${jmx.prometheus.javaagent.version}/jmx_prometheus_javaagent-${jmx.prometheus.javaagent.version}.jar=9779:${project.basedir}/src/main/fabric8-includes/prometheus-config.yml
-                        </agent>
-                    </agents> -->
                 </configuration>
             </plugin>
         </plugins>
     </build>
     <profiles>
-        <profile>
-            <id>k8s</id>
-            <!-- TO BE DONE -->
-        </profile>
         <!-- generate code from swagger -->
         <profile>
             <id>swaggergen</id>

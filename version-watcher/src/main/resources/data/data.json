@@ -48,14 +48,6 @@
     "latestVersionFilter": "3.*"
   },
   {
-    "id": 202,
-    "project": "spring-boot-camel-archetype",
-    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
-    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='swagger-ui-version']/*:defaultValue/text()",
-    "coordinates": "mvn:org.webjars:swagger-ui",
-    "latestVersionFilter": "^3.*"
-  },
-  {
     "id": 203,
     "project": "spring-boot-camel-archetype",
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
@@ -83,17 +75,17 @@
     "id": 206,
     "project": "spring-boot-camel-archetype",
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
-    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='webjars-locator-version']/*:defaultValue/text()",
-    "coordinates": "mvn:org.webjars:webjars-locator",
-    "latestVersionFilter": "^0.*"
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='grafana-opentelemetry-version']/*:defaultValue/text()",
+    "coordinates": "mvn:com.grafana:grafana-opentelemetry-starter",
+    "latestVersionFilter": "^1.*"
   },
   {
-    "id": 208,
+    "id": 207,
     "project": "spring-boot-camel-archetype",
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
-    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='jmx-prometheus-javaagent-version']/*:defaultValue/text()",
-    "coordinates": "mvn:io.prometheus.jmx:jmx_prometheus_javaagent",
-    "latestVersionFilter": "^0.*"
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='springdoc-openapi-version']/*:defaultValue/text()",
+    "coordinates": "mvn:org.springdoc:springdoc-openapi-starter-webmvc-ui",
+    "latestVersionFilter": "^2.*"
   },
   {
     "id": 209,
