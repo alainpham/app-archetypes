@@ -1,3 +1,4 @@
+#set($dollar = '$')
 <?xml version="1.0" encoding="UTF-8"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
@@ -15,7 +16,7 @@
         <springdoc.openapi.version>${springdoc-openapi-version}</springdoc.openapi.version>
         <cxf.codegen.plugin.version>${cxf-codegen-plugin-version}</cxf.codegen.plugin.version>
         <logstash.encoder.version>${logstash-encoder-version}</logstash.encoder.version>
-        <grafana.opentelemetry.version>${grafana-opentelemetry-version}</grafana.opentelemetry.version>
+        <opentelemetry.version>${opentelemetry-version}</opentelemetry.version>
         <project.reporting.outputEncoding>${project-reporting-outputEncoding}</project.reporting.outputEncoding>
         <project.build.sourceEncoding>${project-build-sourceEncoding}</project.build.sourceEncoding>
         <maven.compiler.target>${maven-compiler-target}</maven.compiler.target>
@@ -92,10 +93,24 @@
             <artifactId>camel-xml-io-dsl</artifactId>
         </dependency>
 
+        <!-- observability with otel -->
+        <dependency>
+            <groupId>io.opentelemetry.javaagent</groupId>
+            <artifactId>opentelemetry-javaagent</artifactId>
+            <version>${opentelemetry.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel${camel-sbsuffix}</groupId>
+            <artifactId>camel-opentelemetry-starter</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
-          </dependency>
+            </dependency>
+            
         <dependency>
             <groupId>org.apache.camel.springboot</groupId>
             <artifactId>camel-micrometer-starter</artifactId>
@@ -108,6 +123,7 @@
             <optional>true</optional>
             <scope>runtime</scope>
         </dependency>
+
         <!-- Swagger support for restdsl -->
         <dependency>
             <groupId>org.apache.camel${camel-sbsuffix}</groupId>
@@ -167,15 +183,6 @@
             <artifactId>camel-vertx-websocket-starter</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.grafana</groupId>
-            <artifactId>grafana-opentelemetry-starter</artifactId>
-            <version>${grafana.opentelemetry.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel${camel-sbsuffix}</groupId>
-            <artifactId>camel-opentelemetry-starter</artifactId>
-        </dependency>
     </dependencies>
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
@@ -198,6 +205,11 @@
                 </executions>
                 <configuration>
                     <profiles>dev</profiles>
+                    <environmentVariables>
+                        <JAVA_TOOL_OPTIONS>-javaagent:${user.home}/.m2/repository/io/opentelemetry/javaagent/opentelemetry-javaagent/${opentelemetry.version}/opentelemetry-javaagent-${opentelemetry.version}.jar</JAVA_TOOL_OPTIONS>
+                        <OTEL_LOGS_EXPORTER>otlp</OTEL_LOGS_EXPORTER>
+                        <OTEL_RESOURCE_ATTRIBUTES>service.name=${dollar}{artifactId},service.namespace=${dollar}{artifactId}-ns,service.instance.id=${dollar}{artifactId}-01,service.version=${dollar}{version}</OTEL_RESOURCE_ATTRIBUTES>
+                    </environmentVariables>
                 </configuration>
             </plugin>
         </plugins>

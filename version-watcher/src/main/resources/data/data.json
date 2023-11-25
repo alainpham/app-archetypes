@@ -75,8 +75,8 @@
     "id": 206,
     "project": "spring-boot-camel-archetype",
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
-    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='grafana-opentelemetry-version']/*:defaultValue/text()",
-    "coordinates": "mvn:com.grafana:grafana-opentelemetry-starter",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='opentelemetry-version']/*:defaultValue/text()",
+    "coordinates": "mvn:io.opentelemetry.javaagent:opentelemetry-javaagent",
     "latestVersionFilter": "^1.*"
   },
   {

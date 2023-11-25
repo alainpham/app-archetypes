@@ -1,17 +1,68 @@
-#[[# Spring Boot with camel and other useful things]]# ${artifactId} 
+#[[# Project]]# ${artifactId}
 
-
-#[[## To build this project use]]#
-
-```
-mvn install
-```
-
-#[[## To run this project with Maven use]]#
+Optionally you can create a separate local docker network for this app
 
 ```
-mvn spring-boot:run
+docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 primenet 
 ```
+
+Launch project
+
+```
+
+mvn package
+
+docker stop ${artifactId}
+docker rm ${artifactId}
+docker rmi ${artifactId}
+
+docker build -f src/main/docker/Dockerfile.multiarch -t ${artifactId}:${version} .
+
+docker run --rm ${artifactId}:${version}
+
+docker run -d --net primenet --ip 172.18.0.10 --name ${artifactId} ${artifactId}:${version}
+```
+
+Launch multple instaces
+
+```
+NB_CONTAINERS=2
+
+for (( i=0; i<$NB_CONTAINERS; i++ ))
+do
+    docker run -d --net primenet --ip 172.18.0.1$i --name ${artifactId}-$i ${artifactId}:${version}
+done
+
+for (( i=0; i<$NB_CONTAINERS; i++ ))
+do
+   docker stop ${artifactId}-$i
+   docker rm ${artifactId}-$i
+done
+
+```
+
+
+#[[## Push on registry and deploy on kube]]#
+
+change to your registry and ingress root domain
+
+```
+
+export localregistry=registry.work.lan
+export kube_ingress_root_domain=kube.loc 
+
+mvn clean package -DskipTests
+
+docker build -f src/main/docker/Dockerfile.multiarch -t ${artifactId}:${version} .
+docker tag ${artifactId}:${version} ${localregistry}/${artifactId}:${version}
+docker push ${localregistry}/${artifactId}:${version}
+
+envsubst < src/main/kube/deploy.envsubst.yaml | kubectl delete -f -
+envsubst < src/main/kube/deploy.envsubst.yaml | kubectl apply -f -
+
+```
+
+
 
 #[[##Dealing with SSL/TLS]]#
 
@@ -53,81 +104,8 @@ done
 
 keytool -list -storepass password -keystore tls/keystore.p12 -v
 keytool -list -storepass password -keystore tls/truststore.p12 -v
-```
 
+base64 tls/truststore.p12>tls/truststore.base64
+base64 tls/keystore.p12>tls/keystore.base64
 
-#[[## To deploy directly on openshift]]#
-
-```
-oc create secret generic ${artifactId}-tls-secret \
---from-file=keystore.p12=tls/keystore.p12 \
---from-file=truststore.p12=tls/truststore.p12
-
-oc create secret generic ${artifactId}-prop-secret \
---from-file=application.properties=src/main/resources/application.properties
-
-mvn -P k8s fabric8:deploy fabric8:build
-```
-
-#[[## For testing]]#
-
-```
-curl http://localhost:8090/camel/api-docs
-curl http://localhost:8090/camel/ping
-```
-
-
-#[[## Acces Swagger UI with definition]]#
-
-```
-http://localhost:8090/webjars/swagger-ui/index.html?url=/camel/api-docs
-```
-
-#[[## Call the ping rest operation]]#
-```
-curl http://localhost:8090/camel/restsvc/ping
-```
-
-#[[## Run local container with specific network and IP address]]#
-
-
-```
-docker stop ${artifactId}
-docker rm ${artifactId}
-docker rmi ${artifactId}
-docker build -t ${artifactId} .
-docker run -d --net primenet --ip 172.18.0.10 --name ${artifactId} -e SPRING_PROFILES_ACTIVE=dev ${artifactId}
-```
-
-Stop or launch multple instaces
-
-```
-NB_CONTAINERS=2
-for (( i=0; i<$NB_CONTAINERS; i++ ))
-do
-   docker stop ${artifactId}-$i
-   docker rm ${artifactId}-$i
-done
-
-docker rmi ${artifactId}
-docker build -t ${artifactId} .
-
-for (( i=0; i<$NB_CONTAINERS; i++ ))
-do
-    docker run -d --net primenet --ip 172.18.0.1$i --name ${artifactId}-$i -e SPRING_PROFILES_ACTIVE=dev ${artifactId}
-done
-```
-
-#[[## To release without deploying straight to an ocp cluster]]#
-
-```
-mvn  -P k8s package
-```
-
-#[[## Push on dockerhub]]#
-
-```
-docker login
-docker build -t ${artifactId} .
-docker tag ${artifactId}:latest YOUR_REPO/${artifactId}:latest
 ```

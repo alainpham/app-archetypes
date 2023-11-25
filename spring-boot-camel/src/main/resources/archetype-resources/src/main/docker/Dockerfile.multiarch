@@ -6,11 +6,18 @@ RUN useradd -u 1000 appuser
 
 WORKDIR /deployments
 
-RUN curl https://repo1.maven.org/maven2/io/fabric8/run-java-sh/${RUN_JAVA_VERSION}/run-java-sh-${RUN_JAVA_VERSION}-sh.sh -o /deployments/run-java.sh \
+RUN curl https://repo1.maven.org/maven2/io/fabric8/run-java-sh/${run-java-version}/run-java-sh-${run-java-version}-sh.sh -o /deployments/run-java.sh \
+    && curl https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v${opentelemetry-version}/opentelemetry-javaagent.jar -Lo /opt/opentelemetry-javaagent.jar \
     && chown 1000 /deployments/run-java.sh \
     && chmod 550 /deployments/run-java.sh
 
 USER 1000
+
+ENV JAVA_TOOL_OPTIONS=-javaagent:/opt/opentelemetry-javaagent.jar \
+    OTEL_SDK_DISABLED=true \
+    OTEL_EXPORTER_OTLP_ENDPOINT=http://o11y_otel:4317 \
+    OTEL_LOGS_EXPORTER=otlp \
+    OTEL_RESOURCE_ATTRIBUTES=service.name=${artifactId},service.namespace=${artifactId}-ns
 
 COPY target/*.jar /deployments/
 
