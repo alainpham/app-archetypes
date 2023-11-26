@@ -1,4 +1,3 @@
-#set($dollar = '$')
 <?xml version="1.0" encoding="UTF-8"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
@@ -208,7 +207,7 @@
                     <environmentVariables>
                         <JAVA_TOOL_OPTIONS>-javaagent:${user.home}/.m2/repository/io/opentelemetry/javaagent/opentelemetry-javaagent/${opentelemetry.version}/opentelemetry-javaagent-${opentelemetry.version}.jar</JAVA_TOOL_OPTIONS>
                         <OTEL_LOGS_EXPORTER>otlp</OTEL_LOGS_EXPORTER>
-                        <OTEL_RESOURCE_ATTRIBUTES>service.name=${dollar}{artifactId},service.namespace=${dollar}{artifactId}-ns,service.instance.id=${dollar}{artifactId}-01,service.version=${dollar}{version}</OTEL_RESOURCE_ATTRIBUTES>
+                        <OTEL_RESOURCE_ATTRIBUTES>service.name=${project.artifactId},service.namespace=${project.artifactId},service.instance.id=${project.artifactId}-01,service.version=${project.version}</OTEL_RESOURCE_ATTRIBUTES>
                     </environmentVariables>
                 </configuration>
             </plugin>
