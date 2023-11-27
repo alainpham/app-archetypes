@@ -100,6 +100,12 @@ spec:
         env:
           - name: APPLICATION_NAME
             value: ${PROJECT_ARTIFACTID}
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: "http://otel-collector.agents.svc.cluster.local:4317"
+          - name: OTEL_SDK_DISABLED
+            value: "false"
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: "service.name=${PROJECT_ARTIFACTID},service.namespace=${PROJECT_ARTIFACTID}-ns,service.instance.id=${PROJECT_ARTIFACTID}-main,service.version=${PROJECT_VERSION}"
         livenessProbe:
           httpGet:
             path: "/actuator/health"
