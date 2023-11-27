@@ -2,24 +2,13 @@
 <routes xmlns="http://camel.apache.org/schema/spring" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://camel.apache.org/schema/spring ./../xsd/camel-spring.xsd">
     <route id="http-receiver">
         <from id="http-receiver-starter" uri="platform-http:/ping" />
-        <to uri="bean:eventLogger?method=logStartAndBody" />
         <setHeader id="set-header-http-receiver" name="Content-Type">
             <constant>application/json</constant>
         </setHeader>
         <setBody id="set-body-http-receiver">
             <constant>{"msg" : "HELLO"}</constant>
         </setBody>
-        <to uri="bean:eventLogger?method=logElapsedTimeAndBody" />
     </route>
-
-    <route id="${artifactId}-sample-route">
-        <from id="${artifactId}-sample-route-starter" uri="timer:start"/>
-        <transform id="route-transform">
-            <method ref="myTransformer"/>
-        </transform>
-        <log id="log-body" message=">>> ${body}"/>
-    </route>
-
 
     <route id="send-msg">
         <from id="send-socket-msg-to-all-starter" uri="platform-http:/send-msg"/>

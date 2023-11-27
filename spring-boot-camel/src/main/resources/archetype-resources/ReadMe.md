@@ -1,26 +1,60 @@
 #[[# Project]]# ${artifactId}
 
-Optionally you can create a separate local docker network for this app
+#[[## Run in dev]]#
+
+```
+mvn spring-boot:run
+```
+
+#[[## Packaging jar file]]#
+
+```
+mvn clean package
+```
+
+#[[## Packaging container]]#
+
+```
+mvn exec:exec@rmi exec:exec@build
+```
+
+alternatively using raw docker commands
+
+```
+export PROJECT_ARTIFACTID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+export TEMURIN_IMAGE_VERSION=$(mvn help:evaluate -Dexpression=temurin.image.version -q -DforceStdout)
+export JAVA_RUN_VERSION=$(mvn help:evaluate -Dexpression=java.run.version -q -DforceStdout)
+export OPENTELEMETRY_VERSION=$(mvn help:evaluate -Dexpression=opentelemetry.version -q -DforceStdout)
+
+docker rmi -f ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
+
+docker buildx build \
+    --build-arg PROJECT_ARTIFACTID=${PROJECT_ARTIFACTID} \
+    --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
+    --build-arg TEMURIN_IMAGE_VERSION=${TEMURIN_IMAGE_VERSION} \
+    --build-arg JAVA_RUN_VERSION=${JAVA_RUN_VERSION} \
+    --build-arg OPENTELEMETRY_VERSION=${OPENTELEMETRY_VERSION} \
+    -f src/main/docker/Dockerfile.multiarch \
+    -t ${PROJECT_ARTIFACTID}:${PROJECT_VERSION} \
+    .
+```
+
+#[[## Running container with docker ]]#
+
+Optionally create a dedicated network
 
 ```
 docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 primenet 
 ```
 
-Launch project
-
 ```
+export PROJECT_ARTIFACTID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
 
-mvn package
+docker run --rm --net primenet --name ${PROJECT_ARTIFACTID} ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 
-docker stop ${artifactId}
-docker rm ${artifactId}
-docker rmi ${artifactId}
-
-docker build -f src/main/docker/Dockerfile.multiarch -t ${artifactId}:${version} .
-
-docker run --rm ${artifactId}:${version}
-
-docker run -d --net primenet --ip 172.18.0.10 --name ${artifactId} ${artifactId}:${version}
+docker run -d --rm --net primenet --name ${PROJECT_ARTIFACTID} ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 ```
 
 Launch multple instaces
@@ -30,13 +64,13 @@ NB_CONTAINERS=2
 
 for (( i=0; i<$NB_CONTAINERS; i++ ))
 do
-    docker run -d --net primenet --ip 172.18.0.1$i --name ${artifactId}-$i ${artifactId}:${version}
+    docker run -d --net primenet --name ${PROJECT_ARTIFACTID}-$i ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 done
 
 for (( i=0; i<$NB_CONTAINERS; i++ ))
 do
-   docker stop ${artifactId}-$i
-   docker rm ${artifactId}-$i
+   docker stop ${PROJECT_ARTIFACTID}-$i
+   docker rm ${PROJECT_ARTIFACTID}-$i
 done
 
 ```
@@ -47,19 +81,17 @@ done
 change to your registry and ingress root domain
 
 ```
+export PROJECT_ARTIFACTID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
 
-export localregistry=registry.work.lan
-export kube_ingress_root_domain=kube.loc 
+export CONTAINER_REGISTRY=$(mvn help:evaluate -Dexpression=container.registry -q -DforceStdout)
+export KUBE_INGRESS_ROOT_DOMAIN=$(mvn help:evaluate -Dexpression=kube.ingress.root.domain -q -DforceStdout)
 
-mvn clean package -DskipTests
-
-docker build -f src/main/docker/Dockerfile.multiarch -t ${artifactId}:${version} .
-docker tag ${artifactId}:${version} ${localregistry}/${artifactId}:${version}
-docker push ${localregistry}/${artifactId}:${version}
+docker tag ${PROJECT_ARTIFACTID}:${PROJECT_VERSION} ${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
+docker push ${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 
 envsubst < src/main/kube/deploy.envsubst.yaml | kubectl delete -f -
 envsubst < src/main/kube/deploy.envsubst.yaml | kubectl apply -f -
-
 ```
 
 

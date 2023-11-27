@@ -14,13 +14,16 @@
         <swagger.codegen.version>${swagger-codegen-version}</swagger.codegen.version>
         <springdoc.openapi.version>${springdoc-openapi-version}</springdoc.openapi.version>
         <cxf.codegen.plugin.version>${cxf-codegen-plugin-version}</cxf.codegen.plugin.version>
-        <logstash.encoder.version>${logstash-encoder-version}</logstash.encoder.version>
         <opentelemetry.version>${opentelemetry-version}</opentelemetry.version>
         <project.reporting.outputEncoding>${project-reporting-outputEncoding}</project.reporting.outputEncoding>
         <project.build.sourceEncoding>${project-build-sourceEncoding}</project.build.sourceEncoding>
         <maven.compiler.target>${maven-compiler-target}</maven.compiler.target>
         <maven.compiler.source>${maven-compiler-source}</maven.compiler.source>
         <maven-compiler-plugin.version>${maven-compiler-plugin-version}</maven-compiler-plugin.version>
+        <exec-maven-plugin.version>${exec-maven-plugin-version}</exec-maven-plugin.version>
+
+        <container.registry>${container-registry}</container.registry>
+        <kube.ingress.root.domain>${kube-ingress-root-domain}</kube.ingress.root.domain>
     </properties>
 
     <dependencyManagement>
@@ -169,13 +172,6 @@
             <artifactId>camel-sql-starter</artifactId>
         </dependency>
 
-        <!-- Aggregated logs using JSON -->
-        <dependency>
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
-            <version>${logstash.encoder.version}</version>
-        </dependency>
-
         <!-- for websockets -->
         <dependency>
             <groupId>org.apache.camel${camel-sbsuffix}</groupId>
@@ -206,10 +202,131 @@
                     <profiles>dev</profiles>
                     <environmentVariables>
                         <JAVA_TOOL_OPTIONS>-javaagent:${user.home}/.m2/repository/io/opentelemetry/javaagent/opentelemetry-javaagent/${opentelemetry.version}/opentelemetry-javaagent-${opentelemetry.version}.jar</JAVA_TOOL_OPTIONS>
+                        <OTEL_SDK_DISABLED>true</OTEL_SDK_DISABLED>
                         <OTEL_LOGS_EXPORTER>otlp</OTEL_LOGS_EXPORTER>
-                        <OTEL_RESOURCE_ATTRIBUTES>service.name=${project.artifactId},service.namespace=${project.artifactId},service.instance.id=${project.artifactId}-01,service.version=${project.version}</OTEL_RESOURCE_ATTRIBUTES>
+                        <OTEL_RESOURCE_ATTRIBUTES>service.name=${project.artifactId},service.namespace=${project.artifactId},service.instance.id=${project.artifactId}-dev,service.version=${project.version}</OTEL_RESOURCE_ATTRIBUTES>
                     </environmentVariables>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>rmi</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>docker</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>rmi</argument>
+                                <argument>-f</argument>
+                                <argument>${project.artifactId}:${project.version}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!-- docker buildx build -f src/main/docker/Dockerfile.multiarch -t story:1.0-SNAPSHOT . -->
+                        <id>build</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>docker</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>buildx</argument>
+                                <argument>build</argument>
+                                <argument>--progress=plain</argument>
+                                <argument>--build-arg</argument>
+                                <argument>PROJECT_ARTIFACTID=${project.artifactId}</argument>
+                                <argument>--build-arg</argument>
+                                <argument>PROJECT_VERSION=${project.version}</argument>
+                                <argument>--build-arg</argument>
+                                <argument>TEMURIN_IMAGE_VERSION=${temurin.image.version}</argument>
+                                <argument>--build-arg</argument>
+                                <argument>JAVA_RUN_VERSION=${java.run.version}</argument>
+                                <argument>--build-arg</argument>
+                                <argument>OPENTELEMETRY_VERSION=${opentelemetry.version}</argument>
+                                <argument>-f</argument>
+                                <argument>src/main/docker/Dockerfile.multiarch</argument>
+                                <argument>-t</argument>
+                                <argument>${project.artifactId}:${project.version}</argument>
+                                <argument>.</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>tag</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>docker</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>tag</argument>
+                                <argument>${project.artifactId}:${project.version}</argument>
+                                <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>push</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>docker</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>push</argument>
+                                <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>kdelete</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>bash</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>-c</argument>
+                                <argument><![CDATA[envsubst < src/main/kube/deploy.envsubst.yaml | kubectl delete -f -]]></argument>
+                            </arguments>
+                            <environmentVariables>
+                                <PROJECT_ARTIFACTID>${project.artifactId}</PROJECT_ARTIFACTID>
+                                <PROJECT_VERSION>${project.version}</PROJECT_VERSION>
+                                <KUBE_INGRESS_ROOT_DOMAIN>${kube.ingress.root.domain}</KUBE_INGRESS_ROOT_DOMAIN>
+                            </environmentVariables>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>kdeploy</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>bash</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>-c</argument>
+                                <argument><![CDATA[envsubst < src/main/kube/deploy.envsubst.yaml | kubectl deploy -f -]]></argument>
+                            </arguments>
+                            <environmentVariables>
+                                <PROJECT_ARTIFACTID>${project.artifactId}</PROJECT_ARTIFACTID>
+                                <PROJECT_VERSION>${project.version}</PROJECT_VERSION>
+                                <KUBE_INGRESS_ROOT_DOMAIN>${kube.ingress.root.domain}</KUBE_INGRESS_ROOT_DOMAIN>
+                            </environmentVariables>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
