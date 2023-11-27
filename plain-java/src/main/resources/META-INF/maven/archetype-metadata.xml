@@ -28,7 +28,7 @@
       <defaultValue>4.2.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="logback-version">
-      <defaultValue>1.4.11</defaultValue>
+      <defaultValue>1.4.12</defaultValue>
     </requiredProperty>
     
   </requiredProperties>
