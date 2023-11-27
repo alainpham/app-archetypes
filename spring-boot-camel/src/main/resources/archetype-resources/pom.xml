@@ -307,6 +307,7 @@
                             <environmentVariables>
                                 <PROJECT_ARTIFACTID>${project.artifactId}</PROJECT_ARTIFACTID>
                                 <PROJECT_VERSION>${project.version}</PROJECT_VERSION>
+                                <CONTAINER_REGISTRY>${container.registry}</CONTAINER_REGISTRY>
                                 <KUBE_INGRESS_ROOT_DOMAIN>${kube.ingress.root.domain}</KUBE_INGRESS_ROOT_DOMAIN>
                             </environmentVariables>
                         </configuration>
@@ -321,11 +322,12 @@
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>-c</argument>
-                                <argument><![CDATA[envsubst < src/main/kube/deploy.envsubst.yaml | kubectl deploy -f -]]></argument>
+                                <argument><![CDATA[envsubst < src/main/kube/deploy.envsubst.yaml | kubectl apply -f -]]></argument>
                             </arguments>
                             <environmentVariables>
                                 <PROJECT_ARTIFACTID>${project.artifactId}</PROJECT_ARTIFACTID>
                                 <PROJECT_VERSION>${project.version}</PROJECT_VERSION>
+                                <CONTAINER_REGISTRY>${container.registry}</CONTAINER_REGISTRY>
                                 <KUBE_INGRESS_ROOT_DOMAIN>${kube.ingress.root.domain}</KUBE_INGRESS_ROOT_DOMAIN>
                             </environmentVariables>
                         </configuration>
