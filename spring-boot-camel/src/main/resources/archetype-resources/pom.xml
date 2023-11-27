@@ -206,7 +206,7 @@
                         <OTEL_LOGS_EXPORTER>otlp</OTEL_LOGS_EXPORTER>
                         <OTEL_METRIC_EXPORT_INTERVAL>15000</OTEL_METRIC_EXPORT_INTERVAL>
                         <OTEL_EXPORTER_OTLP_TIMEOUT>10000</OTEL_EXPORTER_OTLP_TIMEOUT>
-                        <OTEL_RESOURCE_ATTRIBUTES>service.name=${project.artifactId},service.namespace=${project.artifactId},service.instance.id=${project.artifactId}-dev,service.version=${project.version}</OTEL_RESOURCE_ATTRIBUTES>
+                        <OTEL_RESOURCE_ATTRIBUTES>service.name=${project.artifactId},service.namespace=${project.artifactId}-ns,service.instance.id=${project.artifactId}-dev,service.version=${project.version}</OTEL_RESOURCE_ATTRIBUTES>
                     </environmentVariables>
                 </configuration>
             </plugin>
