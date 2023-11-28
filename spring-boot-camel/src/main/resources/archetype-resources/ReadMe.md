@@ -78,7 +78,14 @@ done
 
 #[[## Push on registry and deploy on kube]]#
 
-change to your registry and ingress root domain
+```
+mvn exec:exec@tag
+mvn exec:exec@push 
+mvn exec:exec@kdelete
+mvn exec:exec@kdeploy
+```
+
+alternative with pure command line
 
 ```
 export PROJECT_ARTIFACTID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
@@ -93,8 +100,6 @@ docker push ${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 envsubst < src/main/kube/deploy.envsubst.yaml | kubectl delete -f -
 envsubst < src/main/kube/deploy.envsubst.yaml | kubectl apply -f -
 ```
-
-
 
 #[[##Dealing with SSL/TLS]]#
 
