@@ -4,14 +4,14 @@ kind: "DeploymentConfig"
 metadata:
   labels:
     app: "version-watcher"
-    group: "io.github.alainpham"
+    group: "net.alainpham"
   name: "version-watcher"
 spec:
   replicas: 1
   revisionHistoryLimit: 2
   selector:
     app: "version-watcher"
-    group: "io.github.alainpham"
+    group: "net.alainpham"
   strategy:
     rollingParams:
       timeoutSeconds: 3600
@@ -20,7 +20,7 @@ spec:
     metadata:
       labels:
         app: "version-watcher"
-        group: "io.github.alainpham"
+        group: "net.alainpham"
     spec:
       containers:
       - env:
@@ -92,7 +92,7 @@ metadata:
   labels:
     expose: "true"
     app: "version-watcher"
-    group: "io.github.alainpham"
+    group: "net.alainpham"
   name: "version-watcher"
 spec:
   ports:
@@ -102,7 +102,7 @@ spec:
     targetPort: 8080
   selector:
     app: "version-watcher"
-    group: "io.github.alainpham"
+    group: "net.alainpham"
 ---
 apiVersion: "v1"
 kind: "Route"
@@ -111,7 +111,7 @@ metadata:
     haproxy.router.openshift.io/balance: "roundrobin"
   labels:
     app: "version-watcher"
-    group: "io.github.alainpham"
+    group: "net.alainpham"
   name: "version-watcher"
 spec:
   port:

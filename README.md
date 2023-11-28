@@ -41,7 +41,7 @@ The following is a Spring Boot archetype
 
 ```
 mvn archetype:generate \
-    -DarchetypeGroupId=io.github.alainpham \
+    -DarchetypeGroupId=net.alainpham \
     -DarchetypeArtifactId=spring-boot-camel \
     -DarchetypeCatalog=local \
     -DarchetypeVersion=1.0.0
@@ -53,7 +53,7 @@ The following is a Quarkus archetype
 
 ```
 mvn archetype:generate \
-    -DarchetypeGroupId=io.github.alainpham \
+    -DarchetypeGroupId=net.alainpham \
     -DarchetypeArtifactId=quarkus-camel \
     -DarchetypeCatalog=local \
     -DarchetypeVersion=1.0.0
@@ -63,7 +63,7 @@ mvn archetype:generate \
 
 ```
 mvn archetype:generate \
-    -DarchetypeGroupId=io.github.alainpham \
+    -DarchetypeGroupId=net.alainpham \
     -DarchetypeArtifactId=plain-java \
     -DarchetypeCatalog=local \
     -DarchetypeVersion=1.0.0

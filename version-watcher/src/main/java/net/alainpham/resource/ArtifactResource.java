@@ -1,4 +1,4 @@
-package io.github.alainpham.resource;
+package net.alainpham.resource;
 
 import java.util.List;
 
@@ -18,8 +18,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.apache.camel.ProducerTemplate;
 
-import io.github.alainpham.ViewUpdate;
-import io.github.alainpham.model.Artifact;
+import net.alainpham.ViewUpdate;
+import net.alainpham.model.Artifact;
 
 @Path("/artifacts")
 @Produces(MediaType.APPLICATION_JSON)

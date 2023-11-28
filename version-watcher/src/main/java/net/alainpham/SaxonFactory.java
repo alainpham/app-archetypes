@@ -1,4 +1,4 @@
-package io.github.alainpham;
+package net.alainpham;
 
 import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.inject.Produces;

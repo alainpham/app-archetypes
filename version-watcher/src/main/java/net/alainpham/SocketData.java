@@ -1,4 +1,4 @@
-package io.github.alainpham;
+package net.alainpham;
 
 import java.io.Serializable;
 import java.util.ArrayList;

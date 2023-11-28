@@ -1,4 +1,4 @@
-package io.github.alainpham.model;
+package net.alainpham.model;
 
 import java.io.Serializable;
 import jakarta.persistence.Entity;

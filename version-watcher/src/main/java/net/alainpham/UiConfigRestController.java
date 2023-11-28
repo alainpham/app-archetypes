@@ -1,4 +1,4 @@
-package io.github.alainpham;
+package net.alainpham;
 
 import java.util.Map;
 import java.util.TreeMap;

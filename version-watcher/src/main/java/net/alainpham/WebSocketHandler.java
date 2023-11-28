@@ -1,4 +1,4 @@
-package io.github.alainpham;
+package net.alainpham;
 
 import java.util.Collections;
 import java.util.HashSet;
