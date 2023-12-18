@@ -202,7 +202,7 @@
                 <configuration>
                     <environmentVariables>
                         <JAVA_TOOL_OPTIONS>-javaagent:${user.home}/.m2/repository/io/opentelemetry/javaagent/opentelemetry-javaagent/${opentelemetry.version}/opentelemetry-javaagent-${opentelemetry.version}.jar</JAVA_TOOL_OPTIONS>
-                        <OTEL_SDK_DISABLED>true</OTEL_SDK_DISABLED>
+                        <OTEL_JAVAAGENT_ENABLED>false</OTEL_JAVAAGENT_ENABLED>
                         <OTEL_LOGS_EXPORTER>otlp</OTEL_LOGS_EXPORTER>
                         <OTEL_METRIC_EXPORT_INTERVAL>15000</OTEL_METRIC_EXPORT_INTERVAL>
                         <OTEL_EXPORTER_OTLP_TIMEOUT>10000</OTEL_EXPORTER_OTLP_TIMEOUT>

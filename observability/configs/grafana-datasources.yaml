@@ -11,8 +11,8 @@ datasources:
         - datasourceUid: grafanacloud-traces
           name: trace_id
       httpMethod: POST
-      prometheusType": "Prometheus"
-      prometheusVersion: "2.47.0"
+      prometheusType: "Prometheus"
+      prometheusVersion: "2.48.0"
     isDefault: true
     editable: true
 

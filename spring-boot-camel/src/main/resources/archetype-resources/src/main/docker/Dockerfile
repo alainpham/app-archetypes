@@ -28,7 +28,7 @@ ENV PROJECT_ARTIFACTID=${PROJECT_ARTIFACTID} \
 RUN curl https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v${OPENTELEMETRY_VERSION}/opentelemetry-javaagent.jar -Lo /opt/opentelemetry-javaagent.jar
 
 ENV JAVA_TOOL_OPTIONS=-javaagent:/opt/opentelemetry-javaagent.jar \
-    OTEL_SDK_DISABLED=true \
+    OTEL_JAVAAGENT_ENABLED=false \
     OTEL_EXPORTER_OTLP_ENDPOINT=http://o11y_otel:4317 \
     OTEL_LOGS_EXPORTER=otlp \
     OTEL_RESOURCE_ATTRIBUTES=service.name=${PROJECT_ARTIFACTID},service.namespace=${PROJECT_ARTIFACTID}-ns,service.instance.id=${PROJECT_ARTIFACTID}-cnt,service.version=${PROJECT_VERSION}

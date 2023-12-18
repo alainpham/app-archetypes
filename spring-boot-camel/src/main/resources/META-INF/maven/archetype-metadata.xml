@@ -15,7 +15,7 @@
       <defaultValue>4.3.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="spring-boot-version">
-      <defaultValue>3.1.6</defaultValue>
+      <defaultValue>3.2.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-codegen-version">
       <defaultValue>3.0.51</defaultValue>
@@ -36,7 +36,7 @@
       <defaultValue>17</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-compiler-plugin-version">
-      <defaultValue>3.11.0</defaultValue>
+      <defaultValue>3.12.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="temurin-image-version">
       <defaultValue>17.0.9_9-jre</defaultValue>
@@ -85,7 +85,7 @@
     <fileSet filtered="true" packaged="false" encoding="UTF-8">
       <directory>src/main/docker</directory>
       <includes>
-        <include>**/*.*</include>
+        <include>*</include>
       </includes>
     </fileSet>
     <fileSet filtered="true" packaged="false" encoding="UTF-8">
