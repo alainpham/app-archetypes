@@ -34,7 +34,7 @@ stringData:
 
     cxf.path=/services
 
-    camelrest.contextPath=/camel
+    camelrest.apiversion=${version}
 
     theme=main-dark-green
 
@@ -113,7 +113,7 @@ spec:
             scheme: "HTTP"
           initialDelaySeconds: 0
           successThreshold: 1
-          periodSeconds: 3
+          periodSeconds: 10
           failureThreshold: 40 
         readinessProbe:
           httpGet:
@@ -122,40 +122,38 @@ spec:
             scheme: "HTTP"
           initialDelaySeconds: 0
           successThreshold: 1
-          periodSeconds: 3
+          periodSeconds: 10
           failureThreshold: 40 
         resources:
-          limits:
-            cpu: "1.0"
-            memory: "1024Mi"
-          requests:
-            cpu: "0.2"
-            memory: "128Mi"
+          # limits:
+          #   cpu: "1.0"
+          #   memory: "1024Mi"
+          # requests:
+          #   cpu: "0.2"
+          #   memory: "128Mi"
         ports:
-        - containerPort: 8080
+          - containerPort: 8080
+          - containerPort: 8081
         volumeMounts:
-        - mountPath: "/deployments/tls"
-          name: "tls-secret-volume"
-          readOnly: true
-        - mountPath: "/deployments/config"
-          name: "prop-secret-volume"
-          readOnly: true
+          - mountPath: "/deployments/tls"
+            name: "tls-secret-volume"
+            readOnly: true
+          - mountPath: "/deployments/config"
+            name: "prop-secret-volume"
+            readOnly: true
       volumes:
-      - name: "tls-secret-volume"
-        secret:
-          defaultMode: 420
-          secretName: "${PROJECT_ARTIFACTID}-tls-secret"
-      - name: "prop-secret-volume"
-        secret:
-          defaultMode: 420
-          secretName: "${PROJECT_ARTIFACTID}-prop-secret"
+        - name: "tls-secret-volume"
+          secret:
+            defaultMode: 420
+            secretName: "${PROJECT_ARTIFACTID}-tls-secret"
+        - name: "prop-secret-volume"
+          secret:
+            defaultMode: 420
+            secretName: "${PROJECT_ARTIFACTID}-prop-secret"
 ---
 apiVersion: "v1"
 kind: "Service"
 metadata:
-  annotations:
-    prometheus.io/port: "8080"
-    prometheus.io/scrape: "true"
   labels:
     app.kubernetes.io/name: "${PROJECT_ARTIFACTID}"
     app.kubernetes.io/component: "${PROJECT_ARTIFACTID}"

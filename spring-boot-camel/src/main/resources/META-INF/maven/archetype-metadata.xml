@@ -12,7 +12,7 @@
       <defaultValue>.springboot</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>4.2.0</defaultValue>
+      <defaultValue>4.3.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="spring-boot-version">
       <defaultValue>3.1.6</defaultValue>
@@ -22,9 +22,6 @@
     </requiredProperty>
     <requiredProperty key="cxf-codegen-plugin-version">
       <defaultValue>4.0.3</defaultValue>
-    </requiredProperty>
-    <requiredProperty key="logstash-encoder-version">
-      <defaultValue>7.4</defaultValue>
     </requiredProperty>
     <requiredProperty key="project-reporting-outputEncoding">
       <defaultValue>UTF-8</defaultValue>
@@ -41,9 +38,6 @@
     <requiredProperty key="maven-compiler-plugin-version">
       <defaultValue>3.11.0</defaultValue>
     </requiredProperty>
-    <requiredProperty key="run-java-version">
-      <defaultValue>1.3.8</defaultValue>
-    </requiredProperty>
     <requiredProperty key="temurin-image-version">
       <defaultValue>17.0.9_9-jre</defaultValue>
     </requiredProperty>
@@ -51,7 +45,7 @@
       <defaultValue>1.32.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="springdoc-openapi-version">
-      <defaultValue>2.2.0</defaultValue>
+      <defaultValue>2.3.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="exec-maven-plugin-version">
       <defaultValue>3.1.1</defaultValue>
@@ -117,12 +111,6 @@
         <include>**/framework/**</include>
         <include>**/favicon.ico</include>
         <include>**/camel-spring.xsd</include>
-      </includes>
-    </fileSet>
-    <fileSet filtered="true" encoding="UTF-8">
-      <directory>src/main/fabric8</directory>
-      <includes>
-        <include>**/*</include>
       </includes>
     </fileSet>
     <fileSet filtered="true" packaged="true" encoding="UTF-8">

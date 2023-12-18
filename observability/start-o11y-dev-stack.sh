@@ -2,6 +2,18 @@
 # this script launches all observability backends for microcks
 # create docker network for mlt apps
 
+# Versions
+export PROMETHEUS_VERSION=v2.47.2
+export LOKI_VERSION=2.9.2
+export TEMPO_VERSION=2.3.0
+export OTEL_VERSION=0.91.0
+export GRAFANA_VERSION=10.2.2
+
+
+#Network name
+export NETWORK_NAME=o11y
+
+
 function readiness_check {
   name=$1
   url=$2
@@ -11,8 +23,6 @@ function readiness_check {
 ##############################
 ### Docker Network############
 ##############################
-
-NETWORK_NAME=o11y
 
 echo "Setting up dedicated network bridge.."
 
@@ -34,7 +44,7 @@ if ! docker ps -a --format '{{.Names}}' | grep -w $CONTAINER_NAME &> /dev/null; 
           -h $CONTAINER_NAME \
           --network=$NETWORK_NAME \
           -p 9080:9090 \
-          prom/prometheus:v2.47.2  --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver --enable-feature=exemplar-storage
+          prom/prometheus:${PROMETHEUS_VERSION}  --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver --enable-feature=exemplar-storage
 else
      docker start $CONTAINER_NAME
 fi
@@ -50,7 +60,7 @@ if ! docker ps -a --format '{{.Names}}' | grep -w $CONTAINER_NAME &> /dev/null; 
           -h $CONTAINER_NAME \
           --network=$NETWORK_NAME \
           -p 3100:3100 \
-          grafana/loki:2.9.2 -config.file=/etc/loki/local-config.yaml
+          grafana/loki:${LOKI_VERSION} -config.file=/etc/loki/local-config.yaml
 else
      docker start $CONTAINER_NAME
 fi
@@ -85,7 +95,7 @@ if ! docker ps -a --format '{{.Names}}' | grep -w $CONTAINER_NAME &> /dev/null; 
           -p 4317:4317 \
           -p 13133:13133 \
           -v $(pwd)/configs/otel-collector.yaml:/etc/otel-collector.yaml:ro \
-          otel/opentelemetry-collector-contrib:0.88.0 --config=/etc/otel-collector.yaml
+          otel/opentelemetry-collector-contrib:${OTEL_VERSION} --config=/etc/otel-collector.yaml
 else
      docker start $CONTAINER_NAME
 fi
@@ -106,7 +116,7 @@ if ! docker ps -a --format '{{.Names}}' | grep -w $CONTAINER_NAME &> /dev/null; 
           -e GF_AUTH_ANONYMOUS_ORG_ROLE=Admin \
           -v $(pwd)/configs/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml:ro \
           -v $(pwd)/dashboards/:/etc/grafana/provisioning/dashboards/:ro \
-          grafana/grafana:10.2.0
+          grafana/grafana:${GRAFANA_VERSION}
 
 else
      docker start $CONTAINER_NAME

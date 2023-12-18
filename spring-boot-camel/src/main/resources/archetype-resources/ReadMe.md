@@ -1,5 +1,17 @@
 #[[# Project]]# ${artifactId}
 
+#[[## All variables for build]]#
+
+```
+export PROJECT_ARTIFACTID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+export TEMURIN_IMAGE_VERSION=$(mvn help:evaluate -Dexpression=temurin.image.version -q -DforceStdout)
+export OPENTELEMETRY_VERSION=$(mvn help:evaluate -Dexpression=opentelemetry.version -q -DforceStdout)
+export CONTAINER_REGISTRY=$(mvn help:evaluate -Dexpression=container.registry -q -DforceStdout)
+export KUBE_INGRESS_ROOT_DOMAIN=$(mvn help:evaluate -Dexpression=kube.ingress.root.domain -q -DforceStdout)
+
+```
+
 #[[## Run in dev]]#
 
 ```
@@ -24,7 +36,6 @@ alternatively using raw docker commands
 export PROJECT_ARTIFACTID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
 export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
 export TEMURIN_IMAGE_VERSION=$(mvn help:evaluate -Dexpression=temurin.image.version -q -DforceStdout)
-export JAVA_RUN_VERSION=$(mvn help:evaluate -Dexpression=java.run.version -q -DforceStdout)
 export OPENTELEMETRY_VERSION=$(mvn help:evaluate -Dexpression=opentelemetry.version -q -DforceStdout)
 
 docker rmi -f ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
@@ -33,9 +44,8 @@ docker buildx build \
     --build-arg PROJECT_ARTIFACTID=${PROJECT_ARTIFACTID} \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg TEMURIN_IMAGE_VERSION=${TEMURIN_IMAGE_VERSION} \
-    --build-arg JAVA_RUN_VERSION=${JAVA_RUN_VERSION} \
     --build-arg OPENTELEMETRY_VERSION=${OPENTELEMETRY_VERSION} \
-    -f src/main/docker/Dockerfile.multiarch \
+    -f src/main/docker/Dockerfile \
     -t ${PROJECT_ARTIFACTID}:${PROJECT_VERSION} \
     .
 ```
@@ -100,6 +110,45 @@ docker push ${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 envsubst < src/main/kube/deploy.envsubst.yaml | kubectl delete -f -
 envsubst < src/main/kube/deploy.envsubst.yaml | kubectl apply -f -
 ```
+
+#[[## Multiarch build and push to registry]]#
+
+Multi arch build and push directly to remote registry. First create a builder in buildx
+to enable multi arch builds 
+
+```
+docker buildx create --name multibuilder --platform linux/amd64,linux/arm/v7,linux/arm64/v8 --use
+```
+
+Run the maven instruction
+
+```
+mvn exec:exec@buildpush
+```
+
+Alternative with pure commands
+
+```
+export PROJECT_ARTIFACTID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+export TEMURIN_IMAGE_VERSION=$(mvn help:evaluate -Dexpression=temurin.image.version -q -DforceStdout)
+export OPENTELEMETRY_VERSION=$(mvn help:evaluate -Dexpression=opentelemetry.version -q -DforceStdout)
+export CONTAINER_REGISTRY=$(mvn help:evaluate -Dexpression=container.registry -q -DforceStdout)
+
+docker buildx build \
+    --platform linux/amd64,linux/arm/v7,linux/arm64/v8 \
+    --push \
+    --progress=plain \
+    --build-arg PROJECT_ARTIFACTID=${PROJECT_ARTIFACTID} \
+    --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
+    --build-arg TEMURIN_IMAGE_VERSION=${TEMURIN_IMAGE_VERSION} \
+    --build-arg OPENTELEMETRY_VERSION=${OPENTELEMETRY_VERSION} \
+    -f src/main/docker/Dockerfile \
+    -t ${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION} \
+    .
+
+```
+
 
 #[[##Dealing with SSL/TLS]]#
 

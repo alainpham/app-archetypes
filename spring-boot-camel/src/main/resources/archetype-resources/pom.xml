@@ -16,7 +16,6 @@
         <cxf.codegen.plugin.version>${cxf-codegen-plugin-version}</cxf.codegen.plugin.version>
         <opentelemetry.version>${opentelemetry-version}</opentelemetry.version>
         <temurin.image.version>${temurin-image-version}</temurin.image.version>
-        <java.run.version>${run-java-version}</java.run.version>
         <project.reporting.outputEncoding>${project-reporting-outputEncoding}</project.reporting.outputEncoding>
         <project.build.sourceEncoding>${project-build-sourceEncoding}</project.build.sourceEncoding>
         <maven.compiler.target>${maven-compiler-target}</maven.compiler.target>
@@ -201,7 +200,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <profiles>dev</profiles>
                     <environmentVariables>
                         <JAVA_TOOL_OPTIONS>-javaagent:${user.home}/.m2/repository/io/opentelemetry/javaagent/opentelemetry-javaagent/${opentelemetry.version}/opentelemetry-javaagent-${opentelemetry.version}.jar</JAVA_TOOL_OPTIONS>
                         <OTEL_SDK_DISABLED>true</OTEL_SDK_DISABLED>
@@ -233,7 +231,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <!-- docker buildx build -f src/main/docker/Dockerfile.multiarch -t story:1.0-SNAPSHOT . -->
+                        <!-- docker buildx build -f src/main/docker/Dockerfile -t story:1.0-SNAPSHOT . -->
                         <id>build</id>
                         <goals>
                             <goal>exec</goal>
@@ -252,13 +250,11 @@
                                 <argument>--build-arg</argument>
                                 <argument>TEMURIN_IMAGE_VERSION=${temurin.image.version}</argument>
                                 <argument>--build-arg</argument>
-                                <argument>JAVA_RUN_VERSION=${java.run.version}</argument>
-                                <argument>--build-arg</argument>
                                 <argument>OPENTELEMETRY_VERSION=${opentelemetry.version}</argument>
                                 <argument>-f</argument>
-                                <argument>src/main/docker/Dockerfile.multiarch</argument>
+                                <argument>src/main/docker/Dockerfile</argument>
                                 <argument>-t</argument>
-                                <argument>${project.artifactId}:${project.version}</argument>
+                                <argument>${project.artifactId}:${project.version}-${os.arch}</argument>
                                 <argument>.</argument>
                             </arguments>
                         </configuration>
@@ -274,7 +270,7 @@
                             <arguments>
                                 <argument>tag</argument>
                                 <argument>${project.artifactId}:${project.version}</argument>
-                                <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
+                                <argument>${container.registry}/${project.artifactId}:${project.version}-${os.arch}</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -288,7 +284,38 @@
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>push</argument>
+                                <argument>${container.registry}/${project.artifactId}:${project.version}-${os.arch}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>buildpush</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>docker</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>buildx</argument>
+                                <argument>build</argument>
+                                <argument>--platform</argument>
+                                <argument>linux/amd64,linux/arm/v7,linux/arm64/v8</argument>
+                                <argument>--push</argument>
+                                <argument>--progress=plain</argument>
+                                <argument>--build-arg</argument>
+                                <argument>PROJECT_ARTIFACTID=${project.artifactId}</argument>
+                                <argument>--build-arg</argument>
+                                <argument>PROJECT_VERSION=${project.version}</argument>
+                                <argument>--build-arg</argument>
+                                <argument>TEMURIN_IMAGE_VERSION=${temurin.image.version}</argument>
+                                <argument>--build-arg</argument>
+                                <argument>OPENTELEMETRY_VERSION=${opentelemetry.version}</argument>
+                                <argument>-f</argument>
+                                <argument>src/main/docker/Dockerfile</argument>
+                                <argument>-t</argument>
                                 <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
+                                <argument>.</argument>
                             </arguments>
                         </configuration>
                     </execution>

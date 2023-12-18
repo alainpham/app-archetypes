@@ -64,14 +64,6 @@
     "latestVersionFilter": "^4.*"
   },
   {
-    "id": 205,
-    "project": "spring-boot-camel-archetype",
-    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
-    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='logstash-encoder-version']/*:defaultValue/text()",
-    "coordinates": "mvn:net.logstash.logback:logstash-logback-encoder",
-    "latestVersionFilter": "^7.*"
-  },
-  {
     "id": 206,
     "project": "spring-boot-camel-archetype",
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
@@ -94,14 +86,6 @@
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='exec-maven-plugin-version']/*:defaultValue/text()",
     "coordinates": "mvn:org.codehaus.mojo:exec-maven-plugin",
     "latestVersionFilter": "^3.*"
-  },
-  {
-    "id": 209,
-    "project": "spring-boot-camel-archetype",
-    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
-    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='run-java-version']/*:defaultValue/text()",
-    "coordinates": "mvn:io.fabric8:run-java-sh",
-    "latestVersionFilter": "^1.*"
   },
   {
     "id": 210,
