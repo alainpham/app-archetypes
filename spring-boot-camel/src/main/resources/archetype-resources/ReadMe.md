@@ -10,6 +10,8 @@ export OPENTELEMETRY_VERSION=$(mvn help:evaluate -Dexpression=opentelemetry.vers
 export CONTAINER_REGISTRY=$(mvn help:evaluate -Dexpression=container.registry -q -DforceStdout)
 export KUBE_INGRESS_ROOT_DOMAIN=$(mvn help:evaluate -Dexpression=kube.ingress.root.domain -q -DforceStdout)
 
+# with arch
+export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)-$(mvn help:evaluate -Dexpression=os.arch -q -DforceStdout)
 ```
 
 #[[## Run in dev]]#
@@ -46,7 +48,7 @@ docker buildx build \
     --build-arg TEMURIN_IMAGE_VERSION=${TEMURIN_IMAGE_VERSION} \
     --build-arg OPENTELEMETRY_VERSION=${OPENTELEMETRY_VERSION} \
     -f src/main/docker/Dockerfile \
-    -t ${PROJECT_ARTIFACTID}:${PROJECT_VERSION} \
+    -t ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}} \
     .
 ```
 
@@ -103,6 +105,8 @@ export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -Dfor
 
 export CONTAINER_REGISTRY=$(mvn help:evaluate -Dexpression=container.registry -q -DforceStdout)
 export KUBE_INGRESS_ROOT_DOMAIN=$(mvn help:evaluate -Dexpression=kube.ingress.root.domain -q -DforceStdout)
+
+
 
 docker tag ${PROJECT_ARTIFACTID}:${PROJECT_VERSION} ${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 docker push ${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION}

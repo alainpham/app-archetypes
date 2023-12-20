@@ -26,7 +26,9 @@
     <requiredProperty key="temurin-image-version">
       <defaultValue>17.0.9_9-jre</defaultValue>
     </requiredProperty>
-
+    <requiredProperty key="exec-maven-plugin-version">
+      <defaultValue>3.1.1</defaultValue>
+    </requiredProperty>
     <!-- app vars -->
     <requiredProperty key="svc-ping-path">
       <defaultValue>/ping</defaultValue>
@@ -55,7 +57,7 @@
     <fileSet filtered="true" packaged="false" encoding="UTF-8">
       <directory>src/main/docker</directory>
       <includes>
-        <include>**/*.*</include>
+        <include>*</include>
       </includes>
     </fileSet>
     <fileSet filtered="true" packaged="false" encoding="UTF-8">

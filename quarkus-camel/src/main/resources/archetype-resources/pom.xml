@@ -14,6 +14,10 @@
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>${quarkus-version}</quarkus.platform.version>
     <surefire-plugin.version>${surefire-plugin-version}</surefire-plugin.version>
+    <exec-maven-plugin.version>${exec-maven-plugin-version}</exec-maven-plugin.version>
+    
+    <container.registry>${container-registry}</container.registry>
+    <kube.ingress.root.domain>${kube-ingress-root-domain}</kube.ingress.root.domain>
     <skipITs>true</skipITs>
   </properties>
   <dependencyManagement>
@@ -83,17 +87,15 @@
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-micrometer</artifactId>
     </dependency>
-    
-    <!-- <dependency>
-      <groupId>org.apache.camel.quarkus</groupId>
-      <artifactId>camel-quarkus-microprofile-metrics</artifactId>
-    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-smallrye-metrics</artifactId>
-    </dependency> -->
-
-
+      <artifactId>quarkus-opentelemetry</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel.quarkus</groupId>
+      <artifactId>camel-quarkus-opentelemetry</artifactId>
+  </dependency>
+  
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-platform-http</artifactId>
@@ -191,6 +193,153 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${exec-maven-plugin.version}</version>
+        <executions>
+            <execution>
+                <id>rmi</id>
+                <goals>
+                    <goal>exec</goal>
+                </goals>
+                <configuration>
+                    <executable>docker</executable>
+                    <workingDirectory>${project.basedir}</workingDirectory>
+                    <arguments>
+                        <argument>rmi</argument>
+                        <argument>-f</argument>
+                        <argument>${project.artifactId}:${project.version}</argument>
+                    </arguments>
+                </configuration>
+            </execution>
+            <execution>
+                <!-- docker buildx build -f src/main/docker/Dockerfile -t story:1.0-SNAPSHOT . -->
+                <id>build</id>
+                <goals>
+                    <goal>exec</goal>
+                </goals>
+                <configuration>
+                    <executable>docker</executable>
+                    <workingDirectory>${project.basedir}</workingDirectory>
+                    <arguments>
+                        <argument>buildx</argument>
+                        <argument>build</argument>
+                        <argument>--progress=plain</argument>
+                        <argument>--build-arg</argument>
+                        <argument>PROJECT_ARTIFACTID=${project.artifactId}</argument>
+                        <argument>--build-arg</argument>
+                        <argument>PROJECT_VERSION=${project.version}</argument>
+                        <argument>--build-arg</argument>
+                        <argument>TEMURIN_IMAGE_VERSION=${temurin.image.version}</argument>
+                        <argument>-f</argument>
+                        <argument>src/main/docker/Dockerfile</argument>
+                        <argument>-t</argument>
+                        <argument>${project.artifactId}:${project.version}-${os.arch}</argument>
+                        <argument>.</argument>
+                    </arguments>
+                </configuration>
+            </execution>
+            <execution>
+                <id>tag</id>
+                <goals>
+                    <goal>exec</goal>
+                </goals>
+                <configuration>
+                    <executable>docker</executable>
+                    <workingDirectory>${project.basedir}</workingDirectory>
+                    <arguments>
+                        <argument>tag</argument>
+                        <argument>${project.artifactId}:${project.version}</argument>
+                        <argument>${container.registry}/${project.artifactId}:${project.version}-${os.arch}</argument>
+                    </arguments>
+                </configuration>
+            </execution>
+            <execution>
+                <id>push</id>
+                <goals>
+                    <goal>exec</goal>
+                </goals>
+                <configuration>
+                    <executable>docker</executable>
+                    <workingDirectory>${project.basedir}</workingDirectory>
+                    <arguments>
+                        <argument>push</argument>
+                        <argument>${container.registry}/${project.artifactId}:${project.version}-${os.arch}</argument>
+                    </arguments>
+                </configuration>
+            </execution>
+            <execution>
+                <id>buildpush</id>
+                <goals>
+                    <goal>exec</goal>
+                </goals>
+                <configuration>
+                    <executable>docker</executable>
+                    <workingDirectory>${project.basedir}</workingDirectory>
+                    <arguments>
+                        <argument>buildx</argument>
+                        <argument>build</argument>
+                        <argument>--platform</argument>
+                        <argument>linux/amd64,linux/arm/v7,linux/arm64/v8</argument>
+                        <argument>--push</argument>
+                        <argument>--progress=plain</argument>
+                        <argument>--build-arg</argument>
+                        <argument>PROJECT_ARTIFACTID=${project.artifactId}</argument>
+                        <argument>--build-arg</argument>
+                        <argument>PROJECT_VERSION=${project.version}</argument>
+                        <argument>--build-arg</argument>
+                        <argument>TEMURIN_IMAGE_VERSION=${temurin.image.version}</argument>
+                        <argument>-f</argument>
+                        <argument>src/main/docker/Dockerfile</argument>
+                        <argument>-t</argument>
+                        <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
+                        <argument>.</argument>
+                    </arguments>
+                </configuration>
+            </execution>
+            <execution>
+                <id>kdelete</id>
+                <goals>
+                    <goal>exec</goal>
+                </goals>
+                <configuration>
+                    <executable>bash</executable>
+                    <workingDirectory>${project.basedir}</workingDirectory>
+                    <arguments>
+                        <argument>-c</argument>
+                        <argument><![CDATA[envsubst < src/main/kube/deploy.envsubst.yaml | kubectl delete -f -]]></argument>
+                    </arguments>
+                    <environmentVariables>
+                        <PROJECT_ARTIFACTID>${project.artifactId}</PROJECT_ARTIFACTID>
+                        <PROJECT_VERSION>${project.version}</PROJECT_VERSION>
+                        <CONTAINER_REGISTRY>${container.registry}</CONTAINER_REGISTRY>
+                        <KUBE_INGRESS_ROOT_DOMAIN>${kube.ingress.root.domain}</KUBE_INGRESS_ROOT_DOMAIN>
+                    </environmentVariables>
+                </configuration>
+            </execution>
+            <execution>
+                <id>kdeploy</id>
+                <goals>
+                    <goal>exec</goal>
+                </goals>
+                <configuration>
+                    <executable>bash</executable>
+                    <workingDirectory>${project.basedir}</workingDirectory>
+                    <arguments>
+                        <argument>-c</argument>
+                        <argument><![CDATA[envsubst < src/main/kube/deploy.envsubst.yaml | kubectl apply -f -]]></argument>
+                    </arguments>
+                    <environmentVariables>
+                        <PROJECT_ARTIFACTID>${project.artifactId}</PROJECT_ARTIFACTID>
+                        <PROJECT_VERSION>${project.version}</PROJECT_VERSION>
+                        <CONTAINER_REGISTRY>${container.registry}</CONTAINER_REGISTRY>
+                        <KUBE_INGRESS_ROOT_DOMAIN>${kube.ingress.root.domain}</KUBE_INGRESS_ROOT_DOMAIN>
+                    </environmentVariables>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
     </plugins>
   </build>
   <profiles>
