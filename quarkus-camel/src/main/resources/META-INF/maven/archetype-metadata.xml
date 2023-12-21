@@ -46,6 +46,14 @@
       <defaultValue>/q/swagger-ui</defaultValue>
     </requiredProperty>
     
+    <!-- build vars -->
+    <requiredProperty key="container-registry">
+      <defaultValue>registry.lan</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="kube-ingress-root-domain">
+      <defaultValue>kube.lan</defaultValue>
+    </requiredProperty>
+
   </requiredProperties>
  <fileSets>
     <fileSet filtered="true" packaged="true" encoding="UTF-8">

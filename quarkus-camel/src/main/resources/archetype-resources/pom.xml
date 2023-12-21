@@ -15,7 +15,8 @@
     <quarkus.platform.version>${quarkus-version}</quarkus.platform.version>
     <surefire-plugin.version>${surefire-plugin-version}</surefire-plugin.version>
     <exec-maven-plugin.version>${exec-maven-plugin-version}</exec-maven-plugin.version>
-    
+    <temurin.image.version>${temurin-image-version}</temurin.image.version>
+
     <container.registry>${container-registry}</container.registry>
     <kube.ingress.root.domain>${kube-ingress-root-domain}</kube.ingress.root.domain>
     <skipITs>true</skipITs>
@@ -95,7 +96,7 @@
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-opentelemetry</artifactId>
   </dependency>
-  
+
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-platform-http</artifactId>

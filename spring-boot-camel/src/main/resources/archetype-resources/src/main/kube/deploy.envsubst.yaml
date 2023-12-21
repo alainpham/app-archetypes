@@ -13,11 +13,11 @@ metadata:
 type: Opaque
 stringData: 
   application.properties: |
-    spring.application.name=${artifactId}
+    spring.application.name=${PROJECT_ARTIFACTID}
     logging.config=classpath:logback.xml
 
     # the options from org.apache.camel.spring.boot.CamelConfigurationProperties can be configured here
-    camel.springboot.name=${artifactId}
+    camel.springboot.name=${PROJECT_ARTIFACTID}
 
     # lets listen on all ports to ensure we can be invoked from the pod IP
     server.address=0.0.0.0
@@ -98,14 +98,22 @@ spec:
         image: "${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION}"
         imagePullPolicy: "Always"
         env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
           - name: APPLICATION_NAME
             value: ${PROJECT_ARTIFACTID}
           - name: OTEL_EXPORTER_OTLP_ENDPOINT
             value: "http://otel-collector.agents.svc.cluster.local:4317"
-          - name: OTEL_SDK_DISABLED
-            value: "false"
+          - name: OTEL_JAVAAGENT_ENABLED
+            value: "true"
           - name: OTEL_RESOURCE_ATTRIBUTES
-            value: "service.name=${PROJECT_ARTIFACTID},service.namespace=${PROJECT_ARTIFACTID}-ns,service.instance.id=${PROJECT_ARTIFACTID}-main,service.version=${PROJECT_VERSION}"
+            value: "service.name=${PROJECT_ARTIFACTID},service.namespace=$(POD_NAMESPACE),service.instance.id=$(POD_NAME),service.version=${PROJECT_VERSION}"
         livenessProbe:
           httpGet:
             path: "/actuator/health"

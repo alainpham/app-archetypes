@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>ts=%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} traceId=%X{traceId:-} spanId=%X{spanId:-} level=%-5.5level logger=%-36.36logger{36} msg="%msg" thread="%thread"%n</pattern>
-        </encoder>
-    </appender>
 
-    <root level="INFO">
-        <appender-ref ref="STDOUT" />
-    </root>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{yyyy-MM-dd} | %d{HH:mm:ss.SSSZ} | %-15.15thread | %5p | %-15.15logger{25} | %-32.32X{trace_id} | %-16.16X{span_id} | %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <root level="info">
+    <appender-ref ref="STDOUT" />
+  </root>
+
 </configuration>
