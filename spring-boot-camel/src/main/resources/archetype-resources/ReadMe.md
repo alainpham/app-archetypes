@@ -10,8 +10,6 @@ export OPENTELEMETRY_VERSION=$(mvn help:evaluate -Dexpression=opentelemetry.vers
 export CONTAINER_REGISTRY=$(mvn help:evaluate -Dexpression=container.registry -q -DforceStdout)
 export KUBE_INGRESS_ROOT_DOMAIN=$(mvn help:evaluate -Dexpression=kube.ingress.root.domain -q -DforceStdout)
 
-# with arch
-export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)-$(mvn help:evaluate -Dexpression=os.arch -q -DforceStdout)
 ```
 
 #[[## Run in dev]]#

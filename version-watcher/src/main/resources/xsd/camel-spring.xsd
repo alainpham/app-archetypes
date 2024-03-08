@@ -89,6 +89,15 @@ Spring specific DefaultCamelBeanPostProcessor which uses Spring BeanPostProcesso
       </xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="beanio" type="tns:beanioDataFormat">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+<![CDATA[
+Marshal and unmarshal Java beans to and from flat files (such as CSV, delimited, or fixed length formats).
+]]>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="bearerToken" type="tns:bearerTokenDefinition">
     <xs:annotation>
       <xs:documentation xml:lang="en">
@@ -240,6 +249,15 @@ Converts the message body to another type
       <xs:documentation xml:lang="en">
 <![CDATA[
 Converts the message header to another type
+]]>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="convertVariableTo" type="tns:convertVariableDefinition">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+<![CDATA[
+Converts the variable to another type
 ]]>
       </xs:documentation>
     </xs:annotation>
@@ -1283,6 +1301,15 @@ Removes a named property from the message exchange
       </xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="removeVariable" type="tns:removeVariableDefinition">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+<![CDATA[
+Removes a named variable
+]]>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="resequence" type="tns:resequenceDefinition">
     <xs:annotation>
       <xs:documentation xml:lang="en">
@@ -1707,6 +1734,15 @@ Sets a named property on the message exchange
       </xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="setVariable" type="tns:setVariableDefinition">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+<![CDATA[
+Sets the value of a variable
+]]>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="simple" type="tns:simpleExpression">
     <xs:annotation>
       <xs:documentation xml:lang="en">
@@ -2126,6 +2162,24 @@ To configure validators.
       <xs:documentation xml:lang="en">
 <![CDATA[
 A single value
+]]>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="variable" type="tns:variableExpression">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+<![CDATA[
+Gets a variable
+]]>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="wasm" type="tns:wasmExpression">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+<![CDATA[
+Call a wasm (web assembly) function.
 ]]>
       </xs:documentation>
     </xs:annotation>
@@ -2820,6 +2874,15 @@ attributes. Default value: true
             </xs:documentation>
           </xs:annotation>
         </xs:attribute>
+        <xs:attribute name="updateRouteEnabled" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Sets whether updating routes via JMX is allowed (is default disabled). Default value: false
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -3058,6 +3121,17 @@ value: 1.0
 Whether to mark the route as unhealthy (down) when all restarting attempts (backoff) have failed and the route is not
 successfully started and the route manager is giving up. Setting this to true allows health checks to know about this
 and can report the Camel application as DOWN. Default value: false
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="unhealthyOnRestarting" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Whether to mark the route as unhealthy (down) when the route failed to initially start, and is being controlled for
+restarting (backoff). Setting this to true allows health checks to know about this and can report the Camel application
+as DOWN. Default value: false
 ]]>
             </xs:documentation>
           </xs:annotation>
@@ -3459,6 +3533,7 @@ will fallback to use the fixed value if the Expression result was null or 0.
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -3486,6 +3561,7 @@ will fallback to use the fixed value if the Expression result was null or 0.
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -3499,6 +3575,7 @@ will fallback to use the fixed value if the Expression result was null or 0.
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -3783,6 +3860,8 @@ complete all those exchanges before its stopped, when stopping CamelContext or t
       <xs:element ref="tns:simple"/>
       <xs:element ref="tns:spel"/>
       <xs:element ref="tns:tokenize"/>
+      <xs:element ref="tns:variable"/>
+      <xs:element ref="tns:wasm"/>
       <xs:element ref="tns:xtokenize"/>
       <xs:element ref="tns:xpath"/>
       <xs:element ref="tns:xquery"/>
@@ -4018,6 +4097,7 @@ controlling whether a thrown exception should be intercepted by this exception t
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -4045,6 +4125,7 @@ controlling whether a thrown exception should be intercepted by this exception t
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -4058,6 +4139,7 @@ controlling whether a thrown exception should be intercepted by this exception t
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -4106,6 +4188,8 @@ controlling whether a thrown exception should be intercepted by this exception t
             <xs:element ref="tns:simple"/>
             <xs:element ref="tns:spel"/>
             <xs:element ref="tns:tokenize"/>
+            <xs:element ref="tns:variable"/>
+            <xs:element ref="tns:wasm"/>
             <xs:element ref="tns:xtokenize"/>
             <xs:element ref="tns:xpath"/>
             <xs:element ref="tns:xquery"/>
@@ -4122,6 +4206,7 @@ controlling whether a thrown exception should be intercepted by this exception t
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -4149,6 +4234,7 @@ controlling whether a thrown exception should be intercepted by this exception t
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -4162,6 +4248,7 @@ controlling whether a thrown exception should be intercepted by this exception t
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -4219,6 +4306,7 @@ during startup to keep at runtime only the branch that matched. Default value: f
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -4246,6 +4334,7 @@ during startup to keep at runtime only the branch that matched. Default value: f
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -4259,6 +4348,7 @@ during startup to keep at runtime only the branch that matched. Default value: f
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -4299,6 +4389,7 @@ during startup to keep at runtime only the branch that matched. Default value: f
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -4326,6 +4417,7 @@ during startup to keep at runtime only the branch that matched. Default value: f
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -4339,6 +4431,7 @@ during startup to keep at runtime only the branch that matched. Default value: f
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -4746,6 +4839,7 @@ References to a custom thread pool to use when bulkhead is enabled.
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -4773,6 +4867,7 @@ References to a custom thread pool to use when bulkhead is enabled.
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -4786,6 +4881,7 @@ References to a custom thread pool to use when bulkhead is enabled.
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -4978,6 +5074,74 @@ The java type to convert to.
             </xs:documentation>
           </xs:annotation>
         </xs:attribute>
+        <xs:attribute name="toName" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use another header to store the result. By default, the result is stored in the same header. This option allows to
+use another header. The simple language can be used to define a dynamic evaluated header name to be used. Otherwise a
+constant name will be used.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="mandatory" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+When mandatory then the conversion must return a value (cannot be null), if this is not possible then
+NoTypeConversionAvailableException is thrown. Setting this to false could mean conversion is not possible and the value
+is null. Default value: true
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="charset" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use a specific charset when converting.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="convertVariableDefinition">
+    <xs:complexContent>
+      <xs:extension base="tns:noOutputDefinition">
+        <xs:sequence/>
+        <xs:attribute name="name" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Name of variable to convert its value The simple language can be used to define a dynamic evaluated header name to be
+used. Otherwise a constant name will be used.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="type" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+The java type to convert to.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="toName" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use another variable to store the result. By default, the result is stored in the same variable. This option allows
+to use another variable. The simple language can be used to define a dynamic evaluated variable name to be used.
+Otherwise a constant name will be used.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="mandatory" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
@@ -5034,6 +5198,8 @@ To use a specific charset when converting.
           <xs:element ref="tns:simple"/>
           <xs:element ref="tns:spel"/>
           <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
           <xs:element ref="tns:xtokenize"/>
           <xs:element ref="tns:xpath"/>
           <xs:element ref="tns:xquery"/>
@@ -5095,6 +5261,8 @@ To use a custom Thread Pool if asyncDelay has been enabled.
           <xs:element ref="tns:simple"/>
           <xs:element ref="tns:spel"/>
           <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
           <xs:element ref="tns:xtokenize"/>
           <xs:element ref="tns:xpath"/>
           <xs:element ref="tns:xquery"/>
@@ -5163,10 +5331,34 @@ reduce memory usage to avoid storing too many non frequent used producers.
           <xs:element ref="tns:simple"/>
           <xs:element ref="tns:spel"/>
           <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
           <xs:element ref="tns:xtokenize"/>
           <xs:element ref="tns:xpath"/>
           <xs:element ref="tns:xquery"/>
         </xs:choice>
+        <xs:attribute name="variableSend" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use a variable to store the received message body (only body, not headers). This is handy for easy access to the
+received message body via variables. Important: When using receive variable then the received body is stored only in
+this variable and not on the current org.apache.camel.Message .
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="variableReceive" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use a variable to store the received message body (only body, not headers). This is handy for easy access to the
+received message body via variables. Important: When using receive variable then the received body is stored only in
+this variable and not on the current org.apache.camel.Message .
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="aggregationStrategy" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
@@ -5250,6 +5442,15 @@ Ignore the invalidate endpoint exception when try to create a producer with that
             <xs:documentation xml:lang="en">
 <![CDATA[
 Whether to allow components to optimise enricher if they are org.apache.camel.spi.SendDynamicAware . Default value: true
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="autoStartComponents" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Whether to auto startup components when enricher is starting up. Default value: true
 ]]>
             </xs:documentation>
           </xs:annotation>
@@ -5771,6 +5972,8 @@ Sets the logging level to use for logging transactional rollback. This option is
             <xs:element ref="tns:simple"/>
             <xs:element ref="tns:spel"/>
             <xs:element ref="tns:tokenize"/>
+            <xs:element ref="tns:variable"/>
+            <xs:element ref="tns:wasm"/>
             <xs:element ref="tns:xtokenize"/>
             <xs:element ref="tns:xpath"/>
             <xs:element ref="tns:xquery"/>
@@ -5787,6 +5990,7 @@ Sets the logging level to use for logging transactional rollback. This option is
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -5814,6 +6018,7 @@ Sets the logging level to use for logging transactional rollback. This option is
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -5827,6 +6032,7 @@ Sets the logging level to use for logging transactional rollback. This option is
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -5874,6 +6080,7 @@ predicate evaluated as true or false.
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -5901,6 +6108,7 @@ predicate evaluated as true or false.
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -5914,6 +6122,7 @@ predicate evaluated as true or false.
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -5944,6 +6153,16 @@ predicate evaluated as true or false.
             <xs:documentation xml:lang="en">
 <![CDATA[
 Sets the URI of the endpoint to use.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="variableReceive" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use a variable to store a copy of the received message body (only body, not headers). This is handy for easy access
+to the received message body via variables.
 ]]>
             </xs:documentation>
           </xs:annotation>
@@ -6004,6 +6223,8 @@ Global option value.
             <xs:element ref="tns:simple"/>
             <xs:element ref="tns:spel"/>
             <xs:element ref="tns:tokenize"/>
+            <xs:element ref="tns:variable"/>
+            <xs:element ref="tns:wasm"/>
             <xs:element ref="tns:xtokenize"/>
             <xs:element ref="tns:xpath"/>
             <xs:element ref="tns:xquery"/>
@@ -6020,6 +6241,7 @@ Global option value.
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -6047,6 +6269,7 @@ Global option value.
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -6060,6 +6283,7 @@ Global option value.
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -6177,6 +6401,7 @@ Whether if validation is required for this input type. Default value: false
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -6204,6 +6429,7 @@ Whether if validation is required for this input type. Default value: false
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -6217,6 +6443,7 @@ Whether if validation is required for this input type. Default value: false
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -6271,6 +6498,7 @@ intercepted.
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -6298,6 +6526,7 @@ intercepted.
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -6311,6 +6540,7 @@ intercepted.
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -6376,6 +6606,7 @@ After sending to the endpoint then send the message to this uri which allows to 
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -6403,6 +6634,7 @@ After sending to the endpoint then send the message to this uri which allows to 
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -6416,6 +6648,7 @@ After sending to the endpoint then send the message to this uri which allows to 
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -6472,6 +6705,7 @@ mynamecount=4&type=gold.
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -6499,6 +6733,7 @@ mynamecount=4&type=gold.
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -6512,6 +6747,7 @@ mynamecount=4&type=gold.
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -6764,6 +7000,8 @@ To refer to a custom logger instance to lookup from the registry.
             <xs:element ref="tns:simple"/>
             <xs:element ref="tns:spel"/>
             <xs:element ref="tns:tokenize"/>
+            <xs:element ref="tns:variable"/>
+            <xs:element ref="tns:wasm"/>
             <xs:element ref="tns:xtokenize"/>
             <xs:element ref="tns:xpath"/>
             <xs:element ref="tns:xquery"/>
@@ -6780,6 +7018,7 @@ To refer to a custom logger instance to lookup from the registry.
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -6807,6 +7046,7 @@ To refer to a custom logger instance to lookup from the registry.
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -6820,6 +7060,7 @@ To refer to a custom logger instance to lookup from the registry.
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -6880,6 +7121,7 @@ down. Default value: false
             <xs:element ref="tns:avro"/>
             <xs:element ref="tns:barcode"/>
             <xs:element ref="tns:base64"/>
+            <xs:element ref="tns:beanio"/>
             <xs:element ref="tns:bindy"/>
             <xs:element ref="tns:cbor"/>
             <xs:element ref="tns:crypto"/>
@@ -6918,6 +7160,28 @@ down. Default value: false
             <xs:element ref="tns:zipFile"/>
           </xs:choice>
         </xs:sequence>
+        <xs:attribute name="variableSend" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use a variable to store the received message body (only body, not headers). This is handy for easy access to the
+received message body via variables. Important: When using receive variable then the received body is stored only in
+this variable and not on the current org.apache.camel.Message .
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="variableReceive" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use a variable to store the received message body (only body, not headers). This is handy for easy access to the
+received message body via variables. Important: When using receive variable then the received body is stored only in
+this variable and not on the current org.apache.camel.Message .
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -7219,6 +7483,90 @@ The line separators to use. Uses new line characters (CRLF) by default.
 <![CDATA[
 Instead of emitting '' and '/' we emit '-' and '_' respectively. urlSafe is only applied to encode operations. Decoding
 seamlessly handles both modes. Is by default false. Default value: false
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="beanioDataFormat">
+    <xs:complexContent>
+      <xs:extension base="tns:dataFormat">
+        <xs:sequence/>
+        <xs:attribute name="mapping" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+The BeanIO mapping file. Is by default loaded from the classpath. You can prefix with file:, http:, or classpath: to
+denote from where to load the mapping file.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="streamName" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+The name of the stream to use.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="ignoreUnidentifiedRecords" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Whether to ignore unidentified records. Default value: false
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="ignoreUnexpectedRecords" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Whether to ignore unexpected records. Default value: false
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="ignoreInvalidRecords" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Whether to ignore invalid records. Default value: false
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="encoding" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+The charset to use. Is by default the JVM platform default charset.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="beanReaderErrorHandlerType" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use a custom org.apache.camel.dataformat.beanio.BeanIOErrorHandler as error handler while parsing. Configure the
+fully qualified class name of the error handler. Notice the options ignoreUnidentifiedRecords, ignoreUnexpectedRecords,
+and ignoreInvalidRecords may not be in use when you use a custom error handler.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="unmarshalSingleObject" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+This options controls whether to unmarshal as a list of objects or as a single object only. The former is the default
+mode, and the latter is only intended in special use-cases where beanio maps the Camel message to a single POJO bean.
+Default value: false
 ]]>
             </xs:documentation>
           </xs:annotation>
@@ -10077,6 +10425,7 @@ maximum decompressed size. Default value: 1073741824
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -10104,6 +10453,7 @@ maximum decompressed size. Default value: 1073741824
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -10117,6 +10467,7 @@ maximum decompressed size. Default value: 1073741824
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -10297,6 +10648,7 @@ controlling whether a completion callback should be invoked or not.
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -10324,6 +10676,7 @@ controlling whether a completion callback should be invoked or not.
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -10337,6 +10690,7 @@ controlling whether a completion callback should be invoked or not.
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -10492,6 +10846,7 @@ its considered handled as well.
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -10519,6 +10874,7 @@ its considered handled as well.
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -10532,6 +10888,7 @@ its considered handled as well.
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -10747,6 +11104,7 @@ one of the available events. Implementations should not assume the predicate to 
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -10774,6 +11132,7 @@ one of the available events. Implementations should not assume the predicate to 
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -10787,6 +11146,7 @@ one of the available events. Implementations should not assume the predicate to 
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -10824,6 +11184,7 @@ one of the available events. Implementations should not assume the predicate to 
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -10851,6 +11212,7 @@ one of the available events. Implementations should not assume the predicate to 
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -10864,6 +11226,7 @@ one of the available events. Implementations should not assume the predicate to 
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -10920,10 +11283,23 @@ Sets a reference to use for lookup the policy in the registry.
           <xs:element ref="tns:simple"/>
           <xs:element ref="tns:spel"/>
           <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
           <xs:element ref="tns:xtokenize"/>
           <xs:element ref="tns:xpath"/>
           <xs:element ref="tns:xquery"/>
         </xs:choice>
+        <xs:attribute name="variableReceive" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use a variable to store the received message body (only body, not headers). This is handy for easy access to the
+received message body via variables. Important: When using receive variable then the received body is stored only in
+this variable and not on the current org.apache.camel.Message .
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="aggregationStrategy" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
@@ -11006,6 +11382,15 @@ Ignore the invalidate endpoint exception when try to create a producer with that
             </xs:documentation>
           </xs:annotation>
         </xs:attribute>
+        <xs:attribute name="autoStartComponents" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Whether to auto startup components when poll enricher is starting up. Default value: true
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -11056,6 +11441,8 @@ type in the registry by prefixing with #type: syntax, eg #type:com.foo.MyClassTy
       <xs:element ref="tns:simple"/>
       <xs:element ref="tns:spel"/>
       <xs:element ref="tns:tokenize"/>
+      <xs:element ref="tns:variable"/>
+      <xs:element ref="tns:wasm"/>
       <xs:element ref="tns:xtokenize"/>
       <xs:element ref="tns:xpath"/>
       <xs:element ref="tns:xquery"/>
@@ -11096,6 +11483,8 @@ Property key.
           <xs:element ref="tns:simple"/>
           <xs:element ref="tns:spel"/>
           <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
           <xs:element ref="tns:xtokenize"/>
           <xs:element ref="tns:xpath"/>
           <xs:element ref="tns:xquery"/>
@@ -11358,6 +11747,22 @@ Name of property to remove.
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="removeVariableDefinition">
+    <xs:complexContent>
+      <xs:extension base="tns:noOutputDefinition">
+        <xs:sequence/>
+        <xs:attribute name="name" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Name of variable to remove.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="resequenceDefinition">
     <xs:complexContent>
       <xs:extension base="tns:output">
@@ -11389,6 +11794,8 @@ Name of property to remove.
             <xs:element ref="tns:simple"/>
             <xs:element ref="tns:spel"/>
             <xs:element ref="tns:tokenize"/>
+            <xs:element ref="tns:variable"/>
+            <xs:element ref="tns:wasm"/>
             <xs:element ref="tns:xtokenize"/>
             <xs:element ref="tns:xpath"/>
             <xs:element ref="tns:xquery"/>
@@ -11405,6 +11812,7 @@ Name of property to remove.
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -11432,6 +11840,7 @@ Name of property to remove.
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -11445,6 +11854,7 @@ Name of property to remove.
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -11750,6 +12160,7 @@ Reference to the routes in the xml dsl.
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -11777,6 +12188,7 @@ Reference to the routes in the xml dsl.
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -11790,6 +12202,7 @@ Reference to the routes in the xml dsl.
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -12066,6 +12479,8 @@ Description of the parameter.
           <xs:element ref="tns:simple"/>
           <xs:element ref="tns:spel"/>
           <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
           <xs:element ref="tns:xtokenize"/>
           <xs:element ref="tns:xpath"/>
           <xs:element ref="tns:xquery"/>
@@ -12180,6 +12595,7 @@ actions. Option values will be transformed into input headers of the compensatio
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -12207,6 +12623,7 @@ actions. Option values will be transformed into input headers of the compensatio
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -12220,6 +12637,7 @@ actions. Option values will be transformed into input headers of the compensatio
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -12332,6 +12750,8 @@ Sets the sample message count which only a single Exchange will pass through aft
           <xs:element ref="tns:simple"/>
           <xs:element ref="tns:spel"/>
           <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
           <xs:element ref="tns:xtokenize"/>
           <xs:element ref="tns:xpath"/>
           <xs:element ref="tns:xquery"/>
@@ -12365,6 +12785,8 @@ Sets the sample message count which only a single Exchange will pass through aft
           <xs:element ref="tns:simple"/>
           <xs:element ref="tns:spel"/>
           <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
           <xs:element ref="tns:xtokenize"/>
           <xs:element ref="tns:xpath"/>
           <xs:element ref="tns:xquery"/>
@@ -12414,6 +12836,8 @@ Sets the new exchange pattern of the Exchange to be used from this point forward
           <xs:element ref="tns:simple"/>
           <xs:element ref="tns:spel"/>
           <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
           <xs:element ref="tns:xtokenize"/>
           <xs:element ref="tns:xpath"/>
           <xs:element ref="tns:xquery"/>
@@ -12466,6 +12890,8 @@ be used. Otherwise a constant name will be used.
           <xs:element ref="tns:simple"/>
           <xs:element ref="tns:spel"/>
           <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
           <xs:element ref="tns:xtokenize"/>
           <xs:element ref="tns:xpath"/>
           <xs:element ref="tns:xquery"/>
@@ -12476,6 +12902,51 @@ be used. Otherwise a constant name will be used.
 <![CDATA[
 Name of exchange property to set a new value. The simple language can be used to define a dynamic evaluated exchange
 property name to be used. Otherwise a constant name will be used.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="setVariableDefinition">
+    <xs:complexContent>
+      <xs:extension base="tns:processorDefinition">
+        <xs:choice>
+          <xs:element ref="tns:expressionDefinition"/>
+          <xs:element ref="tns:csimple"/>
+          <xs:element ref="tns:constant"/>
+          <xs:element ref="tns:datasonnet"/>
+          <xs:element ref="tns:exchangeProperty"/>
+          <xs:element ref="tns:groovy"/>
+          <xs:element ref="tns:header"/>
+          <xs:element ref="tns:hl7terser"/>
+          <xs:element ref="tns:java"/>
+          <xs:element ref="tns:js"/>
+          <xs:element ref="tns:joor"/>
+          <xs:element ref="tns:jq"/>
+          <xs:element ref="tns:jsonpath"/>
+          <xs:element ref="tns:language"/>
+          <xs:element ref="tns:method"/>
+          <xs:element ref="tns:mvel"/>
+          <xs:element ref="tns:ognl"/>
+          <xs:element ref="tns:python"/>
+          <xs:element ref="tns:ref"/>
+          <xs:element ref="tns:simple"/>
+          <xs:element ref="tns:spel"/>
+          <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
+          <xs:element ref="tns:xtokenize"/>
+          <xs:element ref="tns:xpath"/>
+          <xs:element ref="tns:xquery"/>
+        </xs:choice>
+        <xs:attribute name="name" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Name of variable to set a new value The simple language can be used to define a dynamic evaluated variable name to be
+used. Otherwise a constant name will be used.
 ]]>
             </xs:documentation>
           </xs:annotation>
@@ -12509,6 +12980,8 @@ property name to be used. Otherwise a constant name will be used.
           <xs:element ref="tns:simple"/>
           <xs:element ref="tns:spel"/>
           <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
           <xs:element ref="tns:xtokenize"/>
           <xs:element ref="tns:xpath"/>
           <xs:element ref="tns:xquery"/>
@@ -12552,6 +13025,8 @@ Sets the comparator to use for sorting.
             <xs:element ref="tns:simple"/>
             <xs:element ref="tns:spel"/>
             <xs:element ref="tns:tokenize"/>
+            <xs:element ref="tns:variable"/>
+            <xs:element ref="tns:wasm"/>
             <xs:element ref="tns:xtokenize"/>
             <xs:element ref="tns:xpath"/>
             <xs:element ref="tns:xquery"/>
@@ -12568,6 +13043,7 @@ Sets the comparator to use for sorting.
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -12595,6 +13071,7 @@ Sets the comparator to use for sorting.
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -12608,6 +13085,7 @@ Sets the comparator to use for sorting.
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -12630,7 +13108,9 @@ Sets the comparator to use for sorting.
           <xs:annotation>
             <xs:documentation xml:lang="en">
 <![CDATA[
-Delimiter used in splitting messages. Can be turned off using the value false. The default value is ,. Default value: ,
+Delimiter used in splitting messages. Can be turned off using the value false. To force not splitting then the delimiter
+can be set to single to use the value as a single list, this can be needed in some special situations. The default value
+is comma. Default value: ,
 ]]>
             </xs:documentation>
           </xs:annotation>
@@ -12793,6 +13273,7 @@ individual unit of work. Default value: false
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -12820,6 +13301,7 @@ individual unit of work. Default value: false
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -12833,6 +13315,7 @@ individual unit of work. Default value: false
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -13154,6 +13637,8 @@ handler. Is by default true. Default value: true
             <xs:element ref="tns:simple"/>
             <xs:element ref="tns:spel"/>
             <xs:element ref="tns:tokenize"/>
+            <xs:element ref="tns:variable"/>
+            <xs:element ref="tns:wasm"/>
             <xs:element ref="tns:xtokenize"/>
             <xs:element ref="tns:xpath"/>
             <xs:element ref="tns:xquery"/>
@@ -13169,6 +13654,15 @@ correlation key is throttled together.
             </xs:annotation>
           </xs:element>
         </xs:sequence>
+        <xs:attribute name="mode" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Sets the throttling mode to one of the available modes enumerated in ThrottlingMode. Default value: TotalRequests
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="executorService" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
@@ -13203,6 +13697,15 @@ value: true
 <![CDATA[
 Whether or not throttler throws the ThrottlerRejectedExecutionException when the exchange exceeds the request limit Is
 by default false. Default value: false
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="timePeriodMillis" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Sets the time period during which the maximum request count is valid for. Default value: 1000
 ]]>
             </xs:documentation>
           </xs:annotation>
@@ -13248,6 +13751,29 @@ Reference to the exception instance to lookup from the registry to throw.
     <xs:complexContent>
       <xs:extension base="tns:sendDefinition">
         <xs:sequence/>
+        <xs:attribute name="variableSend" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use a variable as the source for the message body to send. This makes it handy to use variables for user data and to
+easily control what data to use for sending and receiving. Important: When using send variable then the message body is
+taken from this variable instead of the current Message , however the headers from the Message will still be used as
+well. In other words, the variable is used instead of the message body, but everything else is as usual.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="variableReceive" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use a variable to store the received message body (only body, not headers). This is handy for easy access to the
+received message body via variables. Important: When using receive variable then the received body is stored only in
+this variable and not on the current org.apache.camel.Message .
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="pattern" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
@@ -13270,6 +13796,29 @@ Sets the optional ExchangePattern used to invoke this endpoint.
 <![CDATA[
 The uri of the endpoint to send to. The uri can be dynamic computed using the
 org.apache.camel.language.simple.SimpleLanguage expression.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="variableSend" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use a variable to store the received message body (only body, not headers). This is handy for easy access to the
+received message body via variables. Important: When using receive variable then the received body is stored only in
+this variable and not on the current org.apache.camel.Message .
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="variableReceive" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use a variable as the source for the message body to send. This makes it handy to use variables for user data and to
+easily control what data to use for sending and receiving. Important: When using send variable then the message body is
+taken from this variable instead of the current Message , however the headers from the Message will still be used as
+well. In other words, the variable is used instead of the message body, but everything else is as usual.
 ]]>
             </xs:documentation>
           </xs:annotation>
@@ -13346,6 +13895,7 @@ Whether to auto startup components when toD is starting up. Default value: true
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -13373,6 +13923,7 @@ Whether to auto startup components when toD is starting up. Default value: true
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -13386,6 +13937,7 @@ Whether to auto startup components when toD is starting up. Default value: true
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -13442,6 +13994,8 @@ Sets a reference to use for lookup the policy in the registry.
           <xs:element ref="tns:simple"/>
           <xs:element ref="tns:spel"/>
           <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
           <xs:element ref="tns:xtokenize"/>
           <xs:element ref="tns:xpath"/>
           <xs:element ref="tns:xquery"/>
@@ -13483,6 +14037,7 @@ To type used as a target data type in the transformation.
             <xs:element ref="tns:claimCheck"/>
             <xs:element ref="tns:convertBodyTo"/>
             <xs:element ref="tns:convertHeaderTo"/>
+            <xs:element ref="tns:convertVariableTo"/>
             <xs:element ref="tns:delay"/>
             <xs:element ref="tns:dynamicRouter"/>
             <xs:element ref="tns:enrich"/>
@@ -13510,6 +14065,7 @@ To type used as a target data type in the transformation.
             <xs:element ref="tns:removeHeaders"/>
             <xs:element ref="tns:removeProperties"/>
             <xs:element ref="tns:removeProperty"/>
+            <xs:element ref="tns:removeVariable"/>
             <xs:element ref="tns:resequence"/>
             <xs:element ref="tns:resumable"/>
             <xs:element ref="tns:rollback"/>
@@ -13523,6 +14079,7 @@ To type used as a target data type in the transformation.
             <xs:element ref="tns:setHeader"/>
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
+            <xs:element ref="tns:setVariable"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -13553,6 +14110,7 @@ To type used as a target data type in the transformation.
             <xs:element ref="tns:avro"/>
             <xs:element ref="tns:barcode"/>
             <xs:element ref="tns:base64"/>
+            <xs:element ref="tns:beanio"/>
             <xs:element ref="tns:bindy"/>
             <xs:element ref="tns:cbor"/>
             <xs:element ref="tns:crypto"/>
@@ -13591,6 +14149,28 @@ To type used as a target data type in the transformation.
             <xs:element ref="tns:zipFile"/>
           </xs:choice>
         </xs:sequence>
+        <xs:attribute name="variableSend" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use a variable to store the received message body (only body, not headers). This is handy for easy access to the
+received message body via variables. Important: When using receive variable then the received body is stored only in
+this variable and not on the current org.apache.camel.Message .
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="variableReceive" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+To use a variable to store the received message body (only body, not headers). This is handy for easy access to the
+received message body via variables. Important: When using receive variable then the received body is stored only in
+this variable and not on the current org.apache.camel.Message .
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="allowNullBody" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
@@ -13629,6 +14209,8 @@ Indicates whether null is allowed as value of a body to unmarshall. Default valu
           <xs:element ref="tns:simple"/>
           <xs:element ref="tns:spel"/>
           <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
           <xs:element ref="tns:xtokenize"/>
           <xs:element ref="tns:xpath"/>
           <xs:element ref="tns:xquery"/>
@@ -14378,6 +14960,8 @@ Set the base path to store in ZK.
             <xs:element ref="tns:simple"/>
             <xs:element ref="tns:spel"/>
             <xs:element ref="tns:tokenize"/>
+            <xs:element ref="tns:variable"/>
+            <xs:element ref="tns:wasm"/>
             <xs:element ref="tns:xtokenize"/>
             <xs:element ref="tns:xpath"/>
             <xs:element ref="tns:xquery"/>
@@ -14548,6 +15132,7 @@ Set a reference to a custom Expression to use.
         <xs:element ref="tns:avro"/>
         <xs:element ref="tns:barcode"/>
         <xs:element ref="tns:base64"/>
+        <xs:element ref="tns:beanio"/>
         <xs:element ref="tns:bindy"/>
         <xs:element ref="tns:cbor"/>
         <xs:element ref="tns:crypto"/>
@@ -14630,7 +15215,7 @@ Sets the class of the result type (type from output).
   </xs:complexType>
   <xs:complexType name="datasonnetExpression">
     <xs:simpleContent>
-      <xs:extension base="tns:typedExpressionDefinition">
+      <xs:extension base="tns:singleInputTypedExpressionDefinition">
         <xs:attribute name="bodyMediaType" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
@@ -14645,6 +15230,22 @@ The String representation of the message's body MediaType.
             <xs:documentation xml:lang="en">
 <![CDATA[
 The String representation of the MediaType to output.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType abstract="true" name="singleInputTypedExpressionDefinition">
+    <xs:simpleContent>
+      <xs:extension base="tns:typedExpressionDefinition">
+        <xs:attribute name="source" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Source to use, instead of message body. You can prefix with variable:, header:, or property: to specify kind of source.
+Otherwise, the source is assumed to be a variable. Use empty or null to use default source, which is the message body.
 ]]>
             </xs:documentation>
           </xs:annotation>
@@ -14670,32 +15271,6 @@ The String representation of the MediaType to output.
   <xs:complexType name="hl7TerserExpression">
     <xs:simpleContent>
       <xs:extension base="tns:singleInputTypedExpressionDefinition"/>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType abstract="true" name="singleInputTypedExpressionDefinition">
-    <xs:simpleContent>
-      <xs:extension base="tns:typedExpressionDefinition">
-        <xs:attribute name="headerName" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-<![CDATA[
-Name of header to use as input, instead of the message body It has as higher precedent than the propertyName if both are
-set.
-]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="propertyName" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-<![CDATA[
-Name of property to use as input, instead of the message body. It has a lower precedent than the headerName if both are
-set.
-]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
-      </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="javaExpression">
@@ -14902,33 +15477,7 @@ Whether to validate the bean has the configured method. Default value: true
   </xs:complexType>
   <xs:complexType abstract="true" name="namespaceAwareExpression">
     <xs:simpleContent>
-      <xs:extension base="tns:singleInputExpressionDefinition"/>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType abstract="true" name="singleInputExpressionDefinition">
-    <xs:simpleContent>
-      <xs:extension base="tns:expression">
-        <xs:attribute name="headerName" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-<![CDATA[
-Name of header to use as input, instead of the message body It has as higher precedent than the propertyName if both are
-set.
-]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="propertyName" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-<![CDATA[
-Name of property to use as input, instead of the message body. It has a lower precedent than the headerName if both are
-set.
-]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
-      </xs:extension>
+      <xs:extension base="tns:singleInputTypedExpressionDefinition"/>
     </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="ognlExpression">
@@ -14958,7 +15507,7 @@ set.
   </xs:complexType>
   <xs:complexType name="tokenizerExpression">
     <xs:simpleContent>
-      <xs:extension base="tns:singleInputExpressionDefinition">
+      <xs:extension base="tns:singleInputTypedExpressionDefinition">
         <xs:attribute name="token" type="xs:string" use="required">
           <xs:annotation>
             <xs:documentation xml:lang="en">
@@ -15048,6 +15597,27 @@ To skip the very first element. Default value: false
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:complexType name="variableExpression">
+    <xs:simpleContent>
+      <xs:extension base="tns:expression"/>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="wasmExpression">
+    <xs:simpleContent>
+      <xs:extension base="tns:typedExpressionDefinition">
+        <xs:attribute name="module" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Set the module (the distributable, loadable, and executable unit of code in WebAssembly) resource that provides the
+expression function.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
   <xs:complexType name="xmlTokenizerExpression">
     <xs:simpleContent>
       <xs:extension base="tns:namespaceAwareExpression">
@@ -15086,11 +15656,11 @@ Name of class for document type The default value is org.w3c.dom.Document.
             </xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="resultType" type="xs:string">
+        <xs:attribute name="resultQName" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
 <![CDATA[
-Sets the class name of the result type (type from output) The default result type is NodeSet. Default value: NODESET
+Sets the output type supported by XPath. Default value: NODESET
 ]]>
             </xs:documentation>
           </xs:annotation>
@@ -15163,24 +15733,6 @@ the built operating system, and not a JVM runtime. Default value: true
   <xs:complexType name="xQueryExpression">
     <xs:simpleContent>
       <xs:extension base="tns:namespaceAwareExpression">
-        <xs:attribute name="resultType" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-<![CDATA[
-Sets the class of the result type (type from output).
-]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="type" type="xs:string">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-<![CDATA[
-Sets the class name of the result type (type from output) The default result type is NodeSet.
-]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
         <xs:attribute name="configurationRef" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="en">
@@ -16420,6 +16972,7 @@ To configure a special tag for the operations within this rest definition.
             <xs:element ref="tns:avro"/>
             <xs:element ref="tns:barcode"/>
             <xs:element ref="tns:base64"/>
+            <xs:element ref="tns:beanio"/>
             <xs:element ref="tns:bindy"/>
             <xs:element ref="tns:cbor"/>
             <xs:element ref="tns:crypto"/>
@@ -16537,6 +17090,8 @@ To configure a special tag for the operations within this rest definition.
           <xs:element ref="tns:simple"/>
           <xs:element ref="tns:spel"/>
           <xs:element ref="tns:tokenize"/>
+          <xs:element ref="tns:variable"/>
+          <xs:element ref="tns:wasm"/>
           <xs:element ref="tns:xtokenize"/>
           <xs:element ref="tns:xpath"/>
           <xs:element ref="tns:xquery"/>
@@ -17361,6 +17916,12 @@ An optional certificate alias to use. This is useful when the keystore has multi
       <xs:enumeration value="SUPPORTS"/>
       <xs:enumeration value="NOT_SUPPORTED"/>
       <xs:enumeration value="NEVER"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="throttlingMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TotalRequests"/>
+      <xs:enumeration value="ConcurrentRequests"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="bindyType">
