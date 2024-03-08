@@ -56,18 +56,20 @@ docker buildx build \
 Optionally create a dedicated network
 
 ```
-docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 primenet 
+docker network create --driver=bridge --subnet=172.19.0.0/16 --gateway=172.19.0.1 mainnet 
 ```
 
 ```
 export PROJECT_ARTIFACTID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
 export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
 
-docker run --rm --net primenet \
-    -e 
+docker run --rm --net mainnet \
+    -e OTEL_JAVAAGENT_ENABLED="true" \
     --name ${PROJECT_ARTIFACTID} ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 
-docker run -d --rm --net primenet --name ${PROJECT_ARTIFACTID} ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
+docker run -d --rm --net mainnet \
+    -e OTEL_JAVAAGENT_ENABLED="true" \
+    --name ${PROJECT_ARTIFACTID} ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 ```
 
 Launch multiple instances
@@ -77,7 +79,9 @@ NB_CONTAINERS=2
 
 for (( i=0; i<$NB_CONTAINERS; i++ ))
 do
-    docker run -d --net primenet --name ${PROJECT_ARTIFACTID}-$i ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
+    docker run -d --rm --net mainnet \
+    -e OTEL_JAVAAGENT_ENABLED="true" \
+    --name ${PROJECT_ARTIFACTID}-$i ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 done
 
 for (( i=0; i<$NB_CONTAINERS; i++ ))
@@ -85,7 +89,6 @@ do
    docker stop ${PROJECT_ARTIFACTID}-$i
    docker rm ${PROJECT_ARTIFACTID}-$i
 done
-
 ```
 
 

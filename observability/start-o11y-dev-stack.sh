@@ -19,7 +19,7 @@ export GRAFANA_VERSION=10.3.4
 
 
 #Network name
-export NETWORK_NAME=o11y
+export NETWORK_NAME=mainnet
 
 
 function readiness_check {

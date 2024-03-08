@@ -109,7 +109,7 @@ spec:
           - name: APPLICATION_NAME
             value: ${PROJECT_ARTIFACTID}
           - name: OTEL_EXPORTER_OTLP_ENDPOINT
-            value: "http://otel-collector.agents.svc.cluster.local:4317"
+            value: "http://otel-collector.agents.svc.cluster.local:4318"
           - name: OTEL_JAVAAGENT_ENABLED
             value: "true"
           - name: OTEL_RESOURCE_ATTRIBUTES
