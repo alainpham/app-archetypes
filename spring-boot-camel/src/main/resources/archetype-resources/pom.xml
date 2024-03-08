@@ -231,7 +231,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <!-- docker buildx build -f src/main/docker/Dockerfile -t story:1.0-SNAPSHOT . -->
                         <id>build</id>
                         <goals>
                             <goal>exec</goal>
@@ -242,6 +241,7 @@
                             <arguments>
                                 <argument>buildx</argument>
                                 <argument>build</argument>
+                                <argument>--load</argument>
                                 <argument>--progress=plain</argument>
                                 <argument>--build-arg</argument>
                                 <argument>PROJECT_ARTIFACTID=${project.artifactId}</argument>
@@ -254,7 +254,7 @@
                                 <argument>-f</argument>
                                 <argument>src/main/docker/Dockerfile</argument>
                                 <argument>-t</argument>
-                                <argument>${project.artifactId}:${project.version}-${os.arch}</argument>
+                                <argument>${project.artifactId}:${project.version}</argument>
                                 <argument>.</argument>
                             </arguments>
                         </configuration>
@@ -270,7 +270,7 @@
                             <arguments>
                                 <argument>tag</argument>
                                 <argument>${project.artifactId}:${project.version}</argument>
-                                <argument>${container.registry}/${project.artifactId}:${project.version}-${os.arch}</argument>
+                                <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -284,7 +284,7 @@
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>push</argument>
-                                <argument>${container.registry}/${project.artifactId}:${project.version}-${os.arch}</argument>
+                                <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
                             </arguments>
                         </configuration>
                     </execution>

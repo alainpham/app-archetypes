@@ -41,12 +41,13 @@ export OPENTELEMETRY_VERSION=$(mvn help:evaluate -Dexpression=opentelemetry.vers
 docker rmi -f ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 
 docker buildx build \
+    --load \
     --build-arg PROJECT_ARTIFACTID=${PROJECT_ARTIFACTID} \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg TEMURIN_IMAGE_VERSION=${TEMURIN_IMAGE_VERSION} \
     --build-arg OPENTELEMETRY_VERSION=${OPENTELEMETRY_VERSION} \
     -f src/main/docker/Dockerfile \
-    -t ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}} \
+    -t ${PROJECT_ARTIFACTID}:${PROJECT_VERSION} \
     .
 ```
 

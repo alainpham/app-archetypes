@@ -3,19 +3,19 @@
 # create docker network for mlt apps
 
 # https://hub.docker.com/r/prom/prometheus/tags?page=1&name=2.
-export PROMETHEUS_VERSION=v2.48.1
+export PROMETHEUS_VERSION=v2.50.1
 
 # https://hub.docker.com/r/grafana/loki/tags?page=1&name=2.
-export LOKI_VERSION=2.9.3
+export LOKI_VERSION=2.9.5
 
 # https://hub.docker.com/r/grafana/tempo/tags?page=1&name=2.
-export TEMPO_VERSION=2.3.1
+export TEMPO_VERSION=2.4.0
 
 # https://hub.docker.com/r/otel/opentelemetry-collector-contrib/tags?page=1&name=0.
-export OTEL_VERSION=0.91.0
+export OTEL_VERSION=0.96.0
 
 # https://hub.docker.com/r/grafana/grafana/tags?page=1&name=10.
-export GRAFANA_VERSION=10.2.2
+export GRAFANA_VERSION=10.3.4
 
 
 #Network name
