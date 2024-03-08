@@ -64,10 +64,12 @@ export PROJECT_ARTIFACTID=$(mvn help:evaluate -Dexpression=project.artifactId -q
 export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
 
 docker run --rm --net mainnet \
+    -p 8080:8080 \
     -e OTEL_JAVAAGENT_ENABLED="true" \
     --name ${PROJECT_ARTIFACTID} ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 
 docker run -d --rm --net mainnet \
+    -p 8080:8080 \
     -e OTEL_JAVAAGENT_ENABLED="true" \
     --name ${PROJECT_ARTIFACTID} ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 ```
