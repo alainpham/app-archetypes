@@ -101,6 +101,7 @@ if ! docker ps -a --format '{{.Names}}' | grep -w $CONTAINER_NAME &> /dev/null; 
           -h $CONTAINER_NAME \
           --network=$NETWORK_NAME \
           -p 4317:4317 \
+          -p 4318:4318 \
           -p 13133:13133 \
           -v $(pwd)/configs/otel-collector.yaml:/etc/otel-collector.yaml:ro \
           otel/opentelemetry-collector-contrib:${OTEL_VERSION} --config=/etc/otel-collector.yaml

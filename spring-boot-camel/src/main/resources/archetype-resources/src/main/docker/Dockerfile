@@ -29,8 +29,7 @@ RUN curl https://github.com/open-telemetry/opentelemetry-java-instrumentation/re
 
 ENV JAVA_TOOL_OPTIONS=-javaagent:/opt/opentelemetry-javaagent.jar \
     OTEL_JAVAAGENT_ENABLED=false \
-    OTEL_EXPORTER_OTLP_ENDPOINT=http://o11y_otel:4317 \
-    OTEL_LOGS_EXPORTER=otlp \
+    OTEL_EXPORTER_OTLP_ENDPOINT=http://o11y_otel:4318 \
     OTEL_RESOURCE_ATTRIBUTES=service.name=${PROJECT_ARTIFACTID},service.namespace=${PROJECT_ARTIFACTID}-ns,service.instance.id=${PROJECT_ARTIFACTID}-cnt,service.version=${PROJECT_VERSION}
 
 COPY --from=builder /builds/dependencies/ /deployments/
@@ -42,4 +41,4 @@ USER 1000
 
 EXPOSE 8080 8081
 
-ENTRYPOINT ["java","org.springframework.boot.loader.JarLauncher"]
+ENTRYPOINT ["java","org.springframework.boot.loader.launch.JarLauncher"]

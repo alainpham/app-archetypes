@@ -63,12 +63,14 @@ docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.
 export PROJECT_ARTIFACTID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
 export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
 
-docker run --rm --net primenet --name ${PROJECT_ARTIFACTID} ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
+docker run --rm --net primenet \
+    -e 
+    --name ${PROJECT_ARTIFACTID} ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 
 docker run -d --rm --net primenet --name ${PROJECT_ARTIFACTID} ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 ```
 
-Launch multple instaces
+Launch multiple instances
 
 ```
 NB_CONTAINERS=2
