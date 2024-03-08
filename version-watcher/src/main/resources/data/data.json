@@ -69,7 +69,7 @@
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='opentelemetry-version']/*:defaultValue/text()",
     "coordinates": "mvn:io.opentelemetry.javaagent:opentelemetry-javaagent",
-    "latestVersionFilter": "^1.*"
+    "latestVersionFilter": "^2.*"
   },
   {
     "id": 207,
