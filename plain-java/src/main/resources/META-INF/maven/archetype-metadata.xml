@@ -30,7 +30,23 @@
     <requiredProperty key="logback-version">
       <defaultValue>1.5.3</defaultValue>
     </requiredProperty>
-    
+    <requiredProperty key="temurin-image-version">
+      <defaultValue>17.0.10_7-jre</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="opentelemetry-version">
+      <defaultValue>2.1.0</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="exec-maven-plugin-version">
+      <defaultValue>3.2.0</defaultValue>
+    </requiredProperty>
+
+    <!-- build vars -->
+    <requiredProperty key="container-registry">
+      <defaultValue>registry.lan</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="kube-ingress-root-domain">
+      <defaultValue>kube.lan</defaultValue>
+    </requiredProperty>
   </requiredProperties>
  <fileSets>
     <fileSet filtered="true" packaged="true" encoding="UTF-8">

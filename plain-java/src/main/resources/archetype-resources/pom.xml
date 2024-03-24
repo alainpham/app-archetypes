@@ -13,11 +13,18 @@
         <project.build.sourceEncoding>${project-build-sourceEncoding}</project.build.sourceEncoding>
         <maven.compiler.target>${maven-compiler-target}</maven.compiler.target>
         <maven.compiler.source>${maven-compiler-source}</maven.compiler.source>
+        
         <maven-compiler-plugin.version>${maven-compiler-plugin-version}</maven-compiler-plugin.version>
         <maven-dependency-plugin.version>${maven-dependency-plugin-version}</maven-dependency-plugin.version>
         <maven-jar-plugin.version>${maven-jar-plugin-version}</maven-jar-plugin.version>
         <camel.version>${camel-version}</camel.version>
         <logback.version>${logback-version}</logback.version>
+        <opentelemetry.version>${opentelemetry-version}</opentelemetry.version>
+        <temurin.image.version>${temurin-image-version}</temurin.image.version>
+        <exec-maven-plugin.version>${exec-maven-plugin-version}</exec-maven-plugin.version>
+
+        <container.registry>${container-registry}</container.registry>
+        <kube.ingress.root.domain>${kube-ingress-root-domain}</kube.ingress.root.domain>
     </properties>
     
     <dependencyManagement>
@@ -36,6 +43,10 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-main</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-platform-http-main</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -96,16 +107,6 @@
                             <mainClass>${package}.Application</mainClass>
                         </manifest>
                     </archive>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-maven-plugin</artifactId>
-                <version>${camel.version}</version>
-                <configuration>
-                    <logClasspath>false</logClasspath>
-                    <mainClass>${package}.Application</mainClass>
                 </configuration>
             </plugin>
         </plugins>
