@@ -141,7 +141,7 @@
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/plain-java/src/main/resources/META-INF/maven/archetype-metadata.xml",
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='logback-version']/*:defaultValue/text()",
     "coordinates": "mvn:ch.qos.logback:logback-classic",
-    "latestVersionFilter": "^1.4.*"
+    "latestVersionFilter": "^1.5.*"
   },
   {
     "id": 305,

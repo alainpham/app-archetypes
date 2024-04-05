@@ -16,7 +16,7 @@
       <defaultValue>17</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-compiler-plugin-version">
-      <defaultValue>3.12.1</defaultValue>
+      <defaultValue>3.13.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-dependency-plugin-version">
       <defaultValue>3.6.1</defaultValue>
@@ -25,7 +25,7 @@
       <defaultValue>3.3.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>4.4.0</defaultValue>
+      <defaultValue>4.5.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="logback-version">
       <defaultValue>1.5.3</defaultValue>
@@ -34,7 +34,7 @@
       <defaultValue>17.0.10_7-jre</defaultValue>
     </requiredProperty>
     <requiredProperty key="opentelemetry-version">
-      <defaultValue>2.1.0</defaultValue>
+      <defaultValue>2.2.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="exec-maven-plugin-version">
       <defaultValue>3.2.0</defaultValue>
