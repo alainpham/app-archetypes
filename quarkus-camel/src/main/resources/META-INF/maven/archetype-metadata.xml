@@ -13,10 +13,10 @@
       <defaultValue>17</defaultValue>
     </requiredProperty>
     <requiredProperty key="compiler-plugin-version">
-      <defaultValue>3.12.1</defaultValue>
+      <defaultValue>3.13.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="quarkus-version">
-      <defaultValue>3.8.2</defaultValue>
+      <defaultValue>3.9.2</defaultValue>
     </requiredProperty>
     
     <requiredProperty key="surefire-plugin-version">
@@ -48,7 +48,7 @@
     
     <!-- build vars -->
     <requiredProperty key="container-registry">
-      <defaultValue>registry.lan</defaultValue>
+      <defaultValue>alainpham</defaultValue>
     </requiredProperty>
     <requiredProperty key="kube-ingress-root-domain">
       <defaultValue>kube.lan</defaultValue>

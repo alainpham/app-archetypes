@@ -25,11 +25,11 @@ ENV JAVA_TOOL_OPTIONS=-javaagent:/opt/opentelemetry-javaagent.jar \
     OTEL_EXPORTER_OTLP_ENDPOINT=http://o11y_otel:4318 \
     OTEL_RESOURCE_ATTRIBUTES=service.name=${PROJECT_ARTIFACTID},service.namespace=${PROJECT_ARTIFACTID}-ns,service.instance.id=${PROJECT_ARTIFACTID}-cnt,service.version=${PROJECT_VERSION}
 
-COPY target/dependencies/lib/ /deployments/lib/
-COPY target/${PROJECT_ARTIFACTID}-${PROJECT_VERSION}.jar /deployments/${PROJECT_ARTIFACTID}-${PROJECT_VERSION}.jar
+COPY target/lib/ /deployments/lib/
+COPY target/${PROJECT_ARTIFACTID}-${PROJECT_VERSION}.jar /deployments/app.jar
 
 USER 1000
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","${PROJECT_ARTIFACTID}-${PROJECT_VERSION}.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]

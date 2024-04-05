@@ -12,16 +12,16 @@
       <defaultValue>.springboot</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>4.4.0</defaultValue>
+      <defaultValue>4.5.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="spring-boot-version">
-      <defaultValue>3.2.3</defaultValue>
+      <defaultValue>3.2.4</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-codegen-version">
       <defaultValue>3.0.54</defaultValue>
     </requiredProperty>
     <requiredProperty key="cxf-codegen-plugin-version">
-      <defaultValue>4.0.3</defaultValue>
+      <defaultValue>4.0.4</defaultValue>
     </requiredProperty>
     <requiredProperty key="project-reporting-outputEncoding">
       <defaultValue>UTF-8</defaultValue>
@@ -36,16 +36,16 @@
       <defaultValue>17</defaultValue>
     </requiredProperty>
     <requiredProperty key="maven-compiler-plugin-version">
-      <defaultValue>3.12.1</defaultValue>
+      <defaultValue>3.13.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="temurin-image-version">
       <defaultValue>17.0.10_7-jre</defaultValue>
     </requiredProperty>
     <requiredProperty key="opentelemetry-version">
-      <defaultValue>2.1.0</defaultValue>
+      <defaultValue>2.2.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="springdoc-openapi-version">
-      <defaultValue>2.3.0</defaultValue>
+      <defaultValue>2.5.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="exec-maven-plugin-version">
       <defaultValue>3.2.0</defaultValue>
@@ -69,7 +69,7 @@
     </requiredProperty>
     <!-- build vars -->
     <requiredProperty key="container-registry">
-      <defaultValue>registry.lan</defaultValue>
+      <defaultValue>alainpham</defaultValue>
     </requiredProperty>
     <requiredProperty key="kube-ingress-root-domain">
       <defaultValue>kube.lan</defaultValue>

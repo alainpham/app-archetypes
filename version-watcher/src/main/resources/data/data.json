@@ -142,5 +142,29 @@
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='logback-version']/*:defaultValue/text()",
     "coordinates": "mvn:ch.qos.logback:logback-classic",
     "latestVersionFilter": "^1.4.*"
+  },
+  {
+    "id": 305,
+    "project": "plain-java-archetype",
+    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/plain-java/src/main/resources/META-INF/maven/archetype-metadata.xml",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='temurin-image-version']/*:defaultValue/text()",
+    "coordinates": "docker:library/eclipse-temurin:17.",
+    "latestVersionFilter": "^17.*-jre$"
+  },
+  {
+    "id": 306,
+    "project": "plain-java-archetype",
+    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/plain-java/src/main/resources/META-INF/maven/archetype-metadata.xml",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='opentelemetry-version']/*:defaultValue/text()",
+    "coordinates": "mvn:io.opentelemetry.javaagent:opentelemetry-javaagent",
+    "latestVersionFilter": "^2.*"
+  },
+  {
+    "id": 307,
+    "project": "plain-java-archetype",
+    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/plain-java/src/main/resources/META-INF/maven/archetype-metadata.xml",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='exec-maven-plugin-version']/*:defaultValue/text()",
+    "coordinates": "mvn:org.codehaus.mojo:exec-maven-plugin",
+    "latestVersionFilter": "^3.*"
   }
 ]
