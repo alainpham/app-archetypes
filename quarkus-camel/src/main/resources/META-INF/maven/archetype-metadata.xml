@@ -16,7 +16,7 @@
       <defaultValue>3.13.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="quarkus-version">
-      <defaultValue>3.9.2</defaultValue>
+      <defaultValue>3.10.0</defaultValue>
     </requiredProperty>
     
     <requiredProperty key="surefire-plugin-version">
@@ -24,10 +24,10 @@
     </requiredProperty>
     
     <requiredProperty key="temurin-image-version">
-      <defaultValue>17.0.10_7-jre</defaultValue>
+      <defaultValue>17.0.11_9-jre</defaultValue>
     </requiredProperty>
     <requiredProperty key="exec-maven-plugin-version">
-      <defaultValue>3.1.1</defaultValue>
+      <defaultValue>3.2.0</defaultValue>
     </requiredProperty>
     <!-- app vars -->
     <requiredProperty key="svc-ping-path">

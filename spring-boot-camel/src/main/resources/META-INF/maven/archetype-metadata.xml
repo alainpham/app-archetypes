@@ -12,13 +12,13 @@
       <defaultValue>.springboot</defaultValue>
     </requiredProperty>
     <requiredProperty key="camel-version">
-      <defaultValue>4.4.1</defaultValue>
+      <defaultValue>4.4.2</defaultValue>
     </requiredProperty>
     <requiredProperty key="spring-boot-version">
-      <defaultValue>3.2.4</defaultValue>
+      <defaultValue>3.2.5</defaultValue>
     </requiredProperty>
     <requiredProperty key="swagger-codegen-version">
-      <defaultValue>3.0.54</defaultValue>
+      <defaultValue>3.0.55</defaultValue>
     </requiredProperty>
     <requiredProperty key="cxf-codegen-plugin-version">
       <defaultValue>4.0.4</defaultValue>
@@ -39,10 +39,10 @@
       <defaultValue>3.13.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="temurin-image-version">
-      <defaultValue>17.0.10_7-jre</defaultValue>
+      <defaultValue>17.0.11_9-jre</defaultValue>
     </requiredProperty>
     <requiredProperty key="opentelemetry-version">
-      <defaultValue>2.2.0</defaultValue>
+      <defaultValue>2.3.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="springdoc-openapi-version">
       <defaultValue>2.5.0</defaultValue>

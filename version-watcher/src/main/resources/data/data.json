@@ -32,12 +32,20 @@
     "latestVersionFilter": "^17.*-jre$"
   },
   {
+    "id": 107,
+    "project": "quarkus-camel-archetype",
+    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/quarkus-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='exec-maven-plugin-version']/*:defaultValue/text()",
+    "coordinates": "mvn:org.codehaus.mojo:exec-maven-plugin",
+    "latestVersionFilter": "^3.*"
+  },
+  {
     "id": 200,
     "project": "spring-boot-camel-archetype",
     "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot-camel/src/main/resources/META-INF/maven/archetype-metadata.xml",
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='camel-version']/*:defaultValue/text()",
     "coordinates": "mvn:org.apache.camel.springboot:camel-spring-boot-dependencies",
-    "latestVersionFilter": "^4.*"
+    "latestVersionFilter": "^4.4.*"
   },
   {
     "id": 201,
