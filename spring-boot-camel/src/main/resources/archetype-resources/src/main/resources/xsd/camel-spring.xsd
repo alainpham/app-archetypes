@@ -80,6 +80,15 @@ Calls a Java bean
       </xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="beanFactory" type="tns:beanFactoryDefinition">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+<![CDATA[
+Define custom beans that can be used in your Camel routes and in general.
+]]>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="beanPostProcessor" type="tns:camelBeanPostProcessor">
     <xs:annotation>
       <xs:documentation xml:lang="en">
@@ -859,7 +868,7 @@ Deprecated: null
     <xs:annotation>
       <xs:documentation xml:lang="en">
 <![CDATA[
-Logs the defined message to the logger
+Used for printing custom messages to the logger.
 ]]>
       </xs:documentation>
     </xs:annotation>
@@ -986,6 +995,15 @@ Route to be executed when an exception is thrown
       <xs:documentation xml:lang="en">
 <![CDATA[
 Route to be executed when Circuit Breaker EIP executes fallback
+]]>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="openApi" type="tns:openApiDefinition">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+<![CDATA[
+To use OpenApi as contract-first with Camel Rest DSL.
 ]]>
       </xs:documentation>
     </xs:annotation>
@@ -1743,6 +1761,15 @@ Sets the value of a variable
       </xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="setVariables" type="tns:setVariablesDefinition">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+<![CDATA[
+Allows setting multiple variables at the same time.
+]]>
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="simple" type="tns:simpleExpression">
     <xs:annotation>
       <xs:documentation xml:lang="en">
@@ -1905,15 +1932,6 @@ Configures a ProducerTemplate
       </xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="templateBean" type="tns:routeTemplateBeanDefinition">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">
-<![CDATA[
-A route template bean (local bean)
-]]>
-      </xs:documentation>
-    </xs:annotation>
-  </xs:element>
   <xs:element name="templateParameter" type="tns:routeTemplateParameterDefinition">
     <xs:annotation>
       <xs:documentation xml:lang="en">
@@ -1928,15 +1946,6 @@ A route template parameter
       <xs:documentation xml:lang="en">
 <![CDATA[
 Defines a templated route (a route built from a route template)
-]]>
-      </xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="templatedRouteBean" type="tns:templatedRouteBeanDefinition">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">
-<![CDATA[
-A bean as input of a route template (local bean)
 ]]>
       </xs:documentation>
     </xs:annotation>
@@ -3576,6 +3585,7 @@ will fallback to use the fixed value if the Expression result was null or 0.
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -3997,14 +4007,23 @@ implementation. Default value: Singleton
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType abstract="true" name="beanFactoryDefinition">
+  <xs:complexType name="beanFactoryDefinition">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:property"/>
+      <xs:element minOccurs="0" name="constructors" type="tns:beanConstructorsDefinition">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+<![CDATA[
+Optional constructor arguments for creating the bean. Arguments correspond to specific index of the constructor argument
+list, starting from zero.
+]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element minOccurs="0" name="properties" type="tns:beanPropertiesDefinition">
         <xs:annotation>
           <xs:documentation xml:lang="en">
 <![CDATA[
-Optional properties to set on the created local bean.
+Optional properties to set on the created bean.
 ]]>
           </xs:documentation>
         </xs:annotation>
@@ -4025,7 +4044,7 @@ resource.
       <xs:annotation>
         <xs:documentation xml:lang="en">
 <![CDATA[
-Bean name.
+The name of the bean (bean id).
 ]]>
         </xs:documentation>
       </xs:annotation>
@@ -4034,8 +4053,65 @@ Bean name.
       <xs:annotation>
         <xs:documentation xml:lang="en">
 <![CDATA[
-What type to use for creating the bean (FQN classname). Can be prefixed with: #class or #type #class or #type then the
-bean is created via the fully qualified classname, such as #class:com.foo.MyBean.
+The class name (fully qualified) of the bean.
+]]>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="initMethod" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+<![CDATA[
+The name of the custom initialization method to invoke after setting bean properties. The method must have no arguments,
+but may throw any exception.
+]]>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="destroyMethod" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+<![CDATA[
+The name of the custom destroy method to invoke on bean shutdown, such as when Camel is shutting down. The method must
+have no arguments, but may throw any exception.
+]]>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="factoryMethod" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+<![CDATA[
+Name of method to invoke when creating the bean via a factory bean.
+]]>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="factoryBean" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+<![CDATA[
+Name of factory bean (bean id) to use for creating the bean.
+]]>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="builderClass" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+<![CDATA[
+Fully qualified class name of builder class to use for creating and configuring the bean. The builder will use the
+properties values to configure the bean.
+]]>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="builderMethod" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+<![CDATA[
+Name of method when using builder class. This method is invoked after configuring to create the actual bean. This method
+is often named build (used by default). Default value: build
 ]]>
         </xs:documentation>
       </xs:annotation>
@@ -4049,6 +4125,16 @@ The script language to use when using inlined script for creating the bean, such
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="beanConstructorsDefinition">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="constructor" type="tns:beanConstructorDefinition"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="beanConstructorDefinition">
+    <xs:sequence/>
+    <xs:attribute name="index" type="xs:int"/>
+    <xs:attribute name="value" type="xs:string" use="required"/>
   </xs:complexType>
   <xs:complexType name="beanPropertiesDefinition">
     <xs:sequence>
@@ -4140,6 +4226,7 @@ controlling whether a thrown exception should be intercepted by this exception t
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -4249,6 +4336,7 @@ controlling whether a thrown exception should be intercepted by this exception t
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -4349,6 +4437,7 @@ during startup to keep at runtime only the branch that matched. Default value: f
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -4432,6 +4521,7 @@ during startup to keep at runtime only the branch that matched. Default value: f
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -4904,6 +4994,7 @@ References to a custom thread pool to use when bulkhead is enabled.
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -5488,6 +5579,7 @@ Whether to auto startup components when enricher is starting up. Default value: 
             <xs:element ref="tns:deadLetterChannel"/>
             <xs:element ref="tns:defaultErrorHandler"/>
             <xs:element ref="tns:noErrorHandler"/>
+            <xs:element ref="tns:refErrorHandler"/>
             <xs:element ref="tns:jtaTransactionErrorHandler"/>
             <xs:element ref="tns:springTransactionErrorHandler"/>
           </xs:choice>
@@ -5927,6 +6019,22 @@ Sets the reference of the instance of org.apache.camel.spi.ExchangeFormatter to 
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="refErrorHandlerDefinition">
+    <xs:complexContent>
+      <xs:extension base="tns:baseErrorHandlerDefinition">
+        <xs:sequence/>
+        <xs:attribute name="ref" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+References to an existing or custom error handler.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="jtaTransactionErrorHandlerDefinition">
     <xs:complexContent>
       <xs:extension base="tns:transactionErrorHandlerDefinition">
@@ -6055,6 +6163,7 @@ Sets the logging level to use for logging transactional rollback. This option is
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -6145,6 +6254,7 @@ predicate evaluated as true or false.
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -6306,6 +6416,7 @@ Global option value.
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -6466,6 +6577,7 @@ Whether if validation is required for this input type. Default value: false
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -6563,6 +6675,7 @@ intercepted.
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -6671,6 +6784,7 @@ After sending to the endpoint then send the message to this uri which allows to 
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -6770,6 +6884,7 @@ mynamecount=4&type=gold.
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -7083,6 +7198,7 @@ To refer to a custom logger instance to lookup from the registry.
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -10490,6 +10606,7 @@ maximum decompressed size. Default value: 1073741824
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -10713,6 +10830,7 @@ controlling whether a completion callback should be invoked or not.
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -10911,6 +11029,7 @@ its considered handled as well.
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -11169,6 +11288,7 @@ one of the available events. Implementations should not assume the predicate to 
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -11249,6 +11369,7 @@ one of the available events. Implementations should not assume the predicate to 
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -11877,6 +11998,7 @@ Name of variable to remove.
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -12167,6 +12289,7 @@ Reference to the routes in the xml dsl.
       <xs:extension base="tns:output">
         <xs:sequence>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="routeProperty" type="tns:propertyDefinition"/>
+          <xs:element minOccurs="0" ref="tns:errorHandler"/>
           <xs:element minOccurs="0" ref="tns:from"/>
           <xs:element minOccurs="0" ref="tns:inputType"/>
           <xs:element minOccurs="0" ref="tns:outputType"/>
@@ -12225,6 +12348,7 @@ Reference to the routes in the xml dsl.
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -12388,13 +12512,6 @@ Whether tracing is enabled on this route.
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="routeTemplateBeanDefinition">
-    <xs:complexContent>
-      <xs:extension base="tns:beanFactoryDefinition">
-        <xs:sequence/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="routeTemplateContextRefDefinition">
     <xs:sequence/>
     <xs:attribute name="ref" type="xs:string" use="required">
@@ -12412,7 +12529,15 @@ Reference to the route templates in the xml dsl.
       <xs:extension base="tns:optionalIdentifiedDefinition">
         <xs:sequence>
           <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:templateParameter"/>
-          <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:templateBean"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="templateBean" type="tns:beanFactoryDefinition">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">
+<![CDATA[
+Adds a local bean the route template uses.
+]]>
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
           <xs:element ref="tns:route"/>
         </xs:sequence>
       </xs:extension>
@@ -12661,6 +12786,7 @@ actions. Option values will be transformed into input headers of the compensatio
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -12977,6 +13103,15 @@ used. Otherwise a constant name will be used.
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="setVariablesDefinition">
+    <xs:complexContent>
+      <xs:extension base="tns:processorDefinition">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:setVariable"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="sortDefinition">
     <xs:complexContent>
       <xs:extension base="tns:processorDefinition">
@@ -13109,6 +13244,7 @@ Sets the comparator to use for sorting.
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -13339,6 +13475,7 @@ individual unit of work. Default value: false
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -13367,13 +13504,6 @@ individual unit of work. Default value: false
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="templatedRouteBeanDefinition">
-    <xs:complexContent>
-      <xs:extension base="tns:beanFactoryDefinition">
-        <xs:sequence/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="templatedRouteDefinition">
     <xs:sequence>
       <xs:element maxOccurs="unbounded" minOccurs="0" name="parameter" type="tns:templatedRouteParameterDefinition">
@@ -13385,7 +13515,7 @@ Adds an input parameter of the template to build the route.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="bean" type="tns:templatedRouteBeanDefinition">
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="bean" type="tns:beanFactoryDefinition">
         <xs:annotation>
           <xs:documentation xml:lang="en">
 <![CDATA[
@@ -13961,6 +14091,7 @@ Whether to auto startup components when toD is starting up. Default value: true
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -14103,6 +14234,7 @@ To type used as a target data type in the transformation.
             <xs:element ref="tns:setHeaders"/>
             <xs:element ref="tns:setProperty"/>
             <xs:element ref="tns:setVariable"/>
+            <xs:element ref="tns:setVariables"/>
             <xs:element ref="tns:sort"/>
             <xs:element ref="tns:split"/>
             <xs:element ref="tns:step"/>
@@ -15194,22 +15326,6 @@ Set a reference to a custom Expression to use.
         <xs:element ref="tns:zipFile"/>
       </xs:choice>
     </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="refErrorHandlerDefinition">
-    <xs:complexContent>
-      <xs:extension base="tns:baseErrorHandlerDefinition">
-        <xs:sequence/>
-        <xs:attribute name="ref" type="xs:string" use="required">
-          <xs:annotation>
-            <xs:documentation xml:lang="en">
-<![CDATA[
-References to an existing or custom error handler.
-]]>
-            </xs:documentation>
-          </xs:annotation>
-        </xs:attribute>
-      </xs:extension>
-    </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="cSimpleExpression">
     <xs:simpleContent>
@@ -16375,6 +16491,63 @@ The flow used by the OAuth2 security scheme. Valid values are implicit, password
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="openApiDefinition">
+    <xs:complexContent>
+      <xs:extension base="tns:optionalIdentifiedDefinition">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="apiContextPath" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="specification" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Path to the OpenApi specification file.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="routeId" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Sets the id of the route.
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="disabled" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Whether to disable all the REST services from the OpenAPI contract from the route during build time. Once an REST
+service has been disabled then it cannot be enabled later at runtime. Default value: false
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="missingOperation" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Whether to fail, ignore or return a mock response for OpenAPI operations that are not mapped to a corresponding route.
+Default value: fail
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="mockIncludePattern" type="xs:string">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+<![CDATA[
+Used for inclusive filtering of mock data from directories. The pattern is using Ant-path style pattern. Multiple
+patterns can be specified separated by comma. Default value: classpath:camel-mock/**
+]]>
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="openIdConnectDefinition">
     <xs:complexContent>
       <xs:extension base="tns:restSecurityDefinition">
@@ -16693,8 +16866,8 @@ or camel-netty-http that includes a HTTP server.
       <xs:annotation>
         <xs:documentation xml:lang="en">
 <![CDATA[
-Sets a leading API context-path the REST API services will be using. This can be used when using components such as
-camel-servlet where the deployed web application is deployed using a context-path.
+Sets a leading context-path the REST API will be using. This can be used when using components such as camel-servlet
+where the deployed web application is deployed using a context-path.
 ]]>
         </xs:documentation>
       </xs:annotation>
@@ -16735,6 +16908,16 @@ using. Default value: allLocalIp
         <xs:documentation xml:lang="en">
 <![CDATA[
 Sets the binding mode to use. The default value is off. Default value: off
+]]>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="bindingPackageScan" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+<![CDATA[
+Package name to use as base (offset) for classpath scanning of POJO classes are located when using binding mode is
+enabled for JSon or XML. Multiple package names can be separated by comma.
 ]]>
         </xs:documentation>
       </xs:annotation>
@@ -16819,6 +17002,7 @@ custom name of the data format, not to refer to an existing data format instance
     <xs:complexContent>
       <xs:extension base="tns:optionalIdentifiedDefinition">
         <xs:sequence>
+          <xs:element minOccurs="0" ref="tns:openApi"/>
           <xs:element minOccurs="0" ref="tns:securityDefinitions"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="securityRequirements" type="tns:securityDefinition">
             <xs:annotation>
