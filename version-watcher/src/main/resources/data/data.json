@@ -174,5 +174,54 @@
     "currentVersionExpression": "language:xpath://*:requiredProperty[@key='exec-maven-plugin-version']/*:defaultValue/text()",
     "coordinates": "mvn:org.codehaus.mojo:exec-maven-plugin",
     "latestVersionFilter": "^3.*"
+  },
+
+  {
+    "id": 400,
+    "project": "spring-boot-archetype",
+    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot/src/main/resources/META-INF/maven/archetype-metadata.xml",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='spring-boot-version']/*:defaultValue/text()",
+    "coordinates": "mvn:org.springframework.boot:spring-boot-dependencies",
+    "latestVersionFilter": "3.3.*"
+  },
+  {
+    "id": 401,
+    "project": "spring-boot-archetype",
+    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot/src/main/resources/META-INF/maven/archetype-metadata.xml",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='opentelemetry-version']/*:defaultValue/text()",
+    "coordinates": "mvn:io.opentelemetry.javaagent:opentelemetry-javaagent",
+    "latestVersionFilter": "^2.*"
+  },
+  {
+    "id": 402,
+    "project": "spring-boot-archetype",
+    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot/src/main/resources/META-INF/maven/archetype-metadata.xml",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='springdoc-openapi-version']/*:defaultValue/text()",
+    "coordinates": "mvn:org.springdoc:springdoc-openapi-starter-webmvc-ui",
+    "latestVersionFilter": "^2.*"
+  },
+  {
+    "id": 403,
+    "project": "spring-boot-archetype",
+    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot/src/main/resources/META-INF/maven/archetype-metadata.xml",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='exec-maven-plugin-version']/*:defaultValue/text()",
+    "coordinates": "mvn:org.codehaus.mojo:exec-maven-plugin",
+    "latestVersionFilter": "^3.*"
+  },
+  {
+    "id": 404,
+    "project": "spring-boot-archetype",
+    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot/src/main/resources/META-INF/maven/archetype-metadata.xml",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='maven-compiler-plugin-version']/*:defaultValue/text()",
+    "coordinates": "mvn:org.apache.maven.plugins:maven-compiler-plugin",
+    "latestVersionFilter": "^3.*"
+  },
+  {
+    "id": 405,
+    "project": "spring-boot-archetype",
+    "currentVersionResource": "https://raw.githubusercontent.com/alainpham/app-archetypes/master/spring-boot/src/main/resources/META-INF/maven/archetype-metadata.xml",
+    "currentVersionExpression": "language:xpath://*:requiredProperty[@key='temurin-image-version']/*:defaultValue/text()",
+    "coordinates": "docker:library/eclipse-temurin:17.",
+    "latestVersionFilter": "^17.*-jre$"
   }
 ]

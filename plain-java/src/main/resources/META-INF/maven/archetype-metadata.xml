@@ -34,10 +34,10 @@
       <defaultValue>17.0.11_9-jre</defaultValue>
     </requiredProperty>
     <requiredProperty key="opentelemetry-version">
-      <defaultValue>2.3.0</defaultValue>
+      <defaultValue>2.4.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="exec-maven-plugin-version">
-      <defaultValue>3.2.0</defaultValue>
+      <defaultValue>3.3.0</defaultValue>
     </requiredProperty>
 
     <!-- build vars -->

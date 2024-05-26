@@ -27,7 +27,7 @@
       <defaultValue>17.0.11_9-jre</defaultValue>
     </requiredProperty>
     <requiredProperty key="exec-maven-plugin-version">
-      <defaultValue>3.2.0</defaultValue>
+      <defaultValue>3.3.0</defaultValue>
     </requiredProperty>
     <!-- app vars -->
     <requiredProperty key="svc-ping-path">
