@@ -3,6 +3,7 @@
 - [Archetypes \& Monitoring Tools for Java/Apache Camel developers](#archetypes--monitoring-tools-for-javaapache-camel-developers)
   - [Install archetypes](#install-archetypes)
   - [Create a Spring Boot Camel Project](#create-a-spring-boot-camel-project)
+  - [Create a Spring Boot Project](#create-a-spring-boot-project)
   - [Create a Quarkus Camel Project](#create-a-quarkus-camel-project)
   - [Create a Plain Java Project](#create-a-plain-java-project)
   - [Observability Stack : Grafana Dashboard For Apache Camel](#observability-stack--grafana-dashboard-for-apache-camel)
@@ -32,6 +33,7 @@ It also contains the a comprehensive Grafana Dashboard for performance monitorin
 ```
 mvn -f quarkus-camel/pom.xml install
 mvn -f spring-boot-camel/pom.xml install
+mvn -f spring-boot/pom.xml install
 mvn -f plain-java/pom.xml install
 ```
 
@@ -43,6 +45,18 @@ The following is a Spring Boot archetype
 mvn archetype:generate \
     -DarchetypeGroupId=net.alainpham \
     -DarchetypeArtifactId=spring-boot-camel \
+    -DarchetypeCatalog=local \
+    -DarchetypeVersion=1.0.0
+```
+
+## Create a Spring Boot Project
+
+The following is a Spring Boot archetype
+
+```
+mvn archetype:generate \
+    -DarchetypeGroupId=net.alainpham \
+    -DarchetypeArtifactId=spring-boot \
     -DarchetypeCatalog=local \
     -DarchetypeVersion=1.0.0
 ```

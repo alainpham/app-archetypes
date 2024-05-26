@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
+  name="fuse-standard-archetype"
+  xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <requiredProperties>
+    <requiredProperty key="spring-boot-version">
+      <defaultValue>3.2.5</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="swagger-codegen-version">
+      <defaultValue>3.0.56</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="cxf-codegen-plugin-version">
+      <defaultValue>4.0.4</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="project-reporting-outputEncoding">
+      <defaultValue>UTF-8</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="project-build-sourceEncoding">
+      <defaultValue>UTF-8</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="maven-compiler-target">
+      <defaultValue>17</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="maven-compiler-source">
+      <defaultValue>17</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="maven-compiler-plugin-version">
+      <defaultValue>3.13.0</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="temurin-image-version">
+      <defaultValue>17.0.11_9-jre</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="opentelemetry-version">
+      <defaultValue>2.3.0</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="springdoc-openapi-version">
+      <defaultValue>2.5.0</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="exec-maven-plugin-version">
+      <defaultValue>3.2.0</defaultValue>
+    </requiredProperty>
+    
+    <!-- app vars -->
+    <requiredProperty key="svc-ping-path">
+      <defaultValue>/ping</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="svc-definition-path">
+      <defaultValue>/v3/api-docs</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="svc-camel-definition-path">
+      <defaultValue>/v3/api-docs</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="svc-send-msg-path">
+      <defaultValue>/send-msg</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="swagger-ui-path">
+      <defaultValue>/swagger-ui.html?url=/v3/api-docs</defaultValue>
+    </requiredProperty>
+    <!-- build vars -->
+    <requiredProperty key="otlp-endpoint">
+      <defaultValue>http://grafana-k8s-monitoring-grafana-agent.agents.svc.cluster.local:4318</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="container-registry">
+      <defaultValue>alainpham</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="kube-ingress-root-domain">
+      <defaultValue>kube.lan</defaultValue>
+    </requiredProperty>
+  </requiredProperties>
+  <fileSets>
+    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+      <directory>src/main/java</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" packaged="false" encoding="UTF-8">
+      <directory>src/main/docker</directory>
+      <includes>
+        <include>*</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" packaged="false" encoding="UTF-8">
+      <directory>src/main/kube</directory>
+      <includes>
+        <include>**/*.*</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+      <excludes>
+        <exclude>**/framework/**</exclude>
+        <exclude>**/favicon.ico</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet filtered="false" encoding="UTF-8">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/framework/**</include>
+        <include>**/favicon.ico</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+      <directory>src/test/java</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>src/test/resources</directory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory></directory>
+      <includes>
+        <include>ReadMe.md</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="false" encoding="UTF-8">
+      <directory></directory>
+      <includes>
+        <include>.gitignore</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</archetype-descriptor>

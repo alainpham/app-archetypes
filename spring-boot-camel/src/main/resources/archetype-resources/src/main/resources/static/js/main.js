@@ -84,6 +84,9 @@ if(path.startsWith("${")){
 fetch(window.location.protocol + "//" + window.location.host + path, {
     method: meth,
     credentials: 'include',
+    headers: {
+        'Content-Type': 'application/json'
+    },
     body: msg
   })
     .then(response => response.text())
