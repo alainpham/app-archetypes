@@ -16,9 +16,6 @@ stringData:
     spring.application.name=${PROJECT_ARTIFACTID}
     logging.config=classpath:logback.xml
 
-    # the options from org.apache.camel.spring.boot.CamelConfigurationProperties can be configured here
-    camel.springboot.name=${PROJECT_ARTIFACTID}
-
     # lets listen on all ports to ensure we can be invoked from the pod IP
     server.address=0.0.0.0
     management.server.address=0.0.0.0
@@ -32,14 +29,11 @@ stringData:
     management.endpoints.web.exposure.include=health,prometheus
     management.metrics.distribution.percentiles-histogram.http.server.requests=true
 
-    cxf.path=/services
-
-    camelrest.apiversion=${version}
-
     theme=main-dark-green
 
     spring.resources.cache.cachecontrol.cache-public=true
     spring.resources.cache.cachecontrol.max-age=0
+
 
 ---
 
