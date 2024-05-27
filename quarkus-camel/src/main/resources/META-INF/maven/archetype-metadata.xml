@@ -47,6 +47,9 @@
     </requiredProperty>
     
     <!-- build vars -->
+    <requiredProperty key="otlp-endpoint">
+      <defaultValue>http://grafana-k8s-monitoring-grafana-agent.agents.svc.cluster.local:4317</defaultValue>
+    </requiredProperty>
     <requiredProperty key="container-registry">
       <defaultValue>alainpham</defaultValue>
     </requiredProperty>
