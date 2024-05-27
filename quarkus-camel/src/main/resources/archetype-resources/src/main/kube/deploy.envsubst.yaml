@@ -110,7 +110,7 @@ spec:
           - name: APPLICATION_NAME
             value: ${PROJECT_ARTIFACTID}
           - name: QUARKUS_OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
-            value: "http://otel-collector.agents.svc.cluster.local:4317"
+            value: "${OTLP_ENDPOINT}"
           - name: QUARKUS_OTEL_SDK_DISABLED
             value: "false"
           - name: QUARKUS_OTEL_RESOURCE_ATTRIBUTES

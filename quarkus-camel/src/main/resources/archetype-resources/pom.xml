@@ -17,6 +17,7 @@
     <exec-maven-plugin.version>${exec-maven-plugin-version}</exec-maven-plugin.version>
     <temurin.image.version>${temurin-image-version}</temurin.image.version>
 
+    <otlp.endpoint>${otlp-endpoint}</otlp.endpoint>
     <container.registry>${container-registry}</container.registry>
     <kube.ingress.root.domain>${kube-ingress-root-domain}</kube.ingress.root.domain>
     <skipITs>true</skipITs>
@@ -315,6 +316,7 @@
                         <PROJECT_ARTIFACTID>${project.artifactId}</PROJECT_ARTIFACTID>
                         <PROJECT_VERSION>${project.version}</PROJECT_VERSION>
                         <CONTAINER_REGISTRY>${container.registry}</CONTAINER_REGISTRY>
+                        <OTLP_ENDPOINT>${otlp.endpoint}</OTLP_ENDPOINT>
                         <KUBE_INGRESS_ROOT_DOMAIN>${kube.ingress.root.domain}</KUBE_INGRESS_ROOT_DOMAIN>
                     </environmentVariables>
                 </configuration>
@@ -335,6 +337,7 @@
                         <PROJECT_ARTIFACTID>${project.artifactId}</PROJECT_ARTIFACTID>
                         <PROJECT_VERSION>${project.version}</PROJECT_VERSION>
                         <CONTAINER_REGISTRY>${container.registry}</CONTAINER_REGISTRY>
+                        <OTLP_ENDPOINT>${otlp.endpoint}</OTLP_ENDPOINT>
                         <KUBE_INGRESS_ROOT_DOMAIN>${kube.ingress.root.domain}</KUBE_INGRESS_ROOT_DOMAIN>
                     </environmentVariables>
                 </configuration>
