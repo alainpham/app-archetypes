@@ -1,28 +1,75 @@
 receivers:
   otlp:
     protocols:
-      grpc:
-      http:
+      grpc: 
+        endpoint: "0.0.0.0:4317"
+      http: 
+        endpoint: "0.0.0.0:4318"
+  # Self metrics on open telemetry collector
+  prometheus/collector:
+    config:
+      scrape_configs:
+        - job_name: 'opentelemetry-collector-ns/opentelemetry-collector'
+          static_configs:
+            - targets: ['localhost:8888']
 exporters:
-  otlp:
-    endpoint: o11y_tempo:4317
-    tls:
-      insecure: true
+  # native OTLP endpoints
+  otlphttp/metrics:
+    endpoint: http://o11y_prom:9090/api/v1/otlp
+  otlphttp/traces:
+    endpoint: http://o11y_tempo:4318
+  otlphttp/logs:
+    endpoint: http://o11y_loki:3100/otlp
+
+  # Loki Prom non OTLP native
   loki:
     endpoint: http://o11y_loki:3100/loki/api/v1/push
   prometheusremotewrite:
     endpoint: http://o11y_prom:9090/api/v1/write
+    resource_to_telemetry_conversion: 
+      enabled: true
+
 service:
   pipelines:
+
     traces:
       receivers: [otlp]
-      exporters: [otlp]
+      processors: [batch]
+      exporters: [otlphttp/traces]
+
+  # native OTLP for all signals
     metrics:
-      receivers: [otlp]
-      exporters: [prometheusremotewrite]
+      receivers: [otlp,prometheus/collector]
+      processors: [batch]
+      exporters: [otlphttp/metrics]
     logs:
       receivers: [otlp]
-      exporters: [loki]
+      processors: [batch]
+      exporters: [otlphttp/logs]
+
+  # loki & prometheus remotewrite
+    # metrics:
+    #   receivers: [otlp,prometheus/collector]
+    #   processors: [transform/service,batch]
+    #   exporters: [prometheusremotewrite]
+    # logs:
+    #   receivers: [otlp]
+    #   processors: [batch]
+    #   exporters: [loki]
+
   extensions: [health_check]
+processors:
+  batch:
+  transform/service:
+    error_mode: ignore
+    metric_statements:
+      - context: datapoint
+        statements: 
+          - set(attributes["service.name"], resource.attributes["service.name"])
+          - set(attributes["service.namespace"], resource.attributes["service.namespace"]) 
+          - set(attributes["service.instance.id"], resource.attributes["service.instance.id"])
+          - set(attributes["service.version"], resource.attributes["service.version"]) 
 extensions:
   health_check:
+    endpoint: "0.0.0.0:13133"
+  

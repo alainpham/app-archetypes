@@ -12,7 +12,6 @@ datasources:
           name: trace_id
       httpMethod: POST
       prometheusType: "Prometheus"
-      prometheusVersion: "2.48.0"
     isDefault: true
     editable: true
 
@@ -26,10 +25,14 @@ datasources:
     jsonData:
       derivedFields:
         - datasourceUid: grafanacloud-traces
-          matcherRegex: '[tT]race_?[iI][dD]"?[:=]"?(\w+)'
           name: traceId
+          matcherRegex: '[tT]race_?[iI][dD]"?[:=]"?(\w+)'
           url: '$${__value.raw}'
-
+        - datasourceUid: grafanacloud-traces
+          name: trace_id
+          matcherRegex: trace_id
+          matcherType: label
+          url: "${__value.raw}"
   - name: Tempo
     type: tempo
     access: proxy
@@ -39,12 +42,21 @@ datasources:
     jsonData:
       nodeGraph:
         enabled: true
+      serviceMap:
+        datasourceUid: grafanacloud-prom
       tracesToLogsV2:
         datasourceUid: grafanacloud-logs
         filterBySpanID: false
         filterByTraceID: false
-        spanEndTimeShift: "5m"
-        spanStartTimeShift: "-5m"
+        spanEndTimeShift: "10m"
+        spanStartTimeShift: "-10m"
         customQuery: true
         query: |
-          { job = "$${__span.tags['service.namespace']}/$${__span.tags['service.name']}"} |= "$${__trace.traceId}"
+          { service_namespace = "$${__span.tags['service.namespace']}", service_name = "$${__span.tags['service.name']}"} | trace_id="$${__trace.traceId}"
+
+  - name: Grafana Test Data
+    uid: grafana-test-data
+    type: grafana-testdata-datasource
+    typeLogoUrl: "public/app/plugins/datasource/grafana-testdata-datasource/img/testdata.svg"
+    access: proxy
+    editable: true

@@ -3,19 +3,19 @@
 # create docker network for mlt apps
 
 # https://hub.docker.com/r/prom/prometheus/tags?page=1&name=2.
-export PROMETHEUS_VERSION=v2.50.1
+export PROMETHEUS_VERSION=v2.53.1
 
-# https://hub.docker.com/r/grafana/loki/tags?page=1&name=2.
-export LOKI_VERSION=2.9.5
+# https://hub.docker.com/r/grafana/loki/tags?page=1&name=3.
+export LOKI_VERSION=3.1.0
 
 # https://hub.docker.com/r/grafana/tempo/tags?page=1&name=2.
-export TEMPO_VERSION=2.4.0
+export TEMPO_VERSION=2.5.0
 
 # https://hub.docker.com/r/otel/opentelemetry-collector-contrib/tags?page=1&name=0.
-export OTEL_VERSION=0.96.0
+export OTEL_VERSION=0.105.0
 
-# https://hub.docker.com/r/grafana/grafana/tags?page=1&name=10.
-export GRAFANA_VERSION=10.3.4
+# https://hub.docker.com/r/grafana/grafana/tags?page=1&name=11.
+export GRAFANA_VERSION=11.1.0
 
 
 #Network name
@@ -52,7 +52,13 @@ if ! docker ps -a --format '{{.Names}}' | grep -w $CONTAINER_NAME &> /dev/null; 
           -h $CONTAINER_NAME \
           --network=$NETWORK_NAME \
           -p 9080:9090 \
-          prom/prometheus:${PROMETHEUS_VERSION}  --config.file=/etc/prometheus/prometheus.yml --web.enable-remote-write-receiver --enable-feature=exemplar-storage
+          prom/prometheus:${PROMETHEUS_VERSION} \
+           --web.enable-remote-write-receiver \
+           --enable-feature=otlp-write-receiver \
+           --enable-feature=exemplar-storage \
+           --enable-feature=native-histograms \
+           --config.file=/etc/prometheus/prometheus.yml
+
 else
      docker start $CONTAINER_NAME
 fi
@@ -85,7 +91,7 @@ if ! docker ps -a --format '{{.Names}}' | grep -w $CONTAINER_NAME &> /dev/null; 
           --network=$NETWORK_NAME \
           -p 3200:3200 \
           -v $(pwd)/configs/tempo.yaml:/etc/tempo.yaml:ro \
-          grafana/tempo:2.3.0 -config.file=/etc/tempo.yaml
+          grafana/tempo:${TEMPO_VERSION} -config.file=/etc/tempo.yaml
 else
      docker start $CONTAINER_NAME
 fi
