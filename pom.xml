@@ -14,7 +14,8 @@
   <modules>
         
     <module>spring-boot-camel</module>
-        
+    <module>spring-boot</module>
+
     <module>quarkus-camel</module>
                 
     <module>plain-java</module>
