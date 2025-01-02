@@ -33,6 +33,7 @@ datasources:
           matcherRegex: trace_id
           matcherType: label
           url: "${__value.raw}"
+
   - name: Tempo
     type: tempo
     access: proxy

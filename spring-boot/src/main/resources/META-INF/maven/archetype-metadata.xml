@@ -6,7 +6,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <requiredProperties>
     <requiredProperty key="spring-boot-version">
-      <defaultValue>3.3.5</defaultValue>
+      <defaultValue>3.4.1</defaultValue>
     </requiredProperty>
     <requiredProperty key="project-reporting-outputEncoding">
       <defaultValue>UTF-8</defaultValue>
@@ -27,10 +27,10 @@
       <defaultValue>17.0.13_11-jre</defaultValue>
     </requiredProperty>
     <requiredProperty key="opentelemetry-version">
-      <defaultValue>2.10.0</defaultValue>
+      <defaultValue>2.11.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="springdoc-openapi-version">
-      <defaultValue>2.6.0</defaultValue>
+      <defaultValue>2.7.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="exec-maven-plugin-version">
       <defaultValue>3.5.0</defaultValue>
@@ -54,7 +54,7 @@
     </requiredProperty>
     <!-- build vars -->
     <requiredProperty key="otlp-endpoint">
-      <defaultValue>http://grafana-k8s-monitoring-grafana-agent.agents.svc.cluster.local:4318</defaultValue>
+      <defaultValue>http://grafana-k8s-monitoring-alloy.agents.svc.cluster.local:4318</defaultValue>
     </requiredProperty>
     <requiredProperty key="container-registry">
       <defaultValue>alainpham</defaultValue>

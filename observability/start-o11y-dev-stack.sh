@@ -2,20 +2,20 @@
 # this script launches all observability backends for microcks
 # create docker network for mlt apps
 
-# https://hub.docker.com/r/prom/prometheus/tags?page=1&name=2.
-export PROMETHEUS_VERSION=v3.0.0
+# https://hub.docker.com/r/prom/prometheus/tags?page=1&name=3.
+export PROMETHEUS_VERSION=v3.0.1
 
 # https://hub.docker.com/r/grafana/loki/tags?page=1&name=3.
-export LOKI_VERSION=3.1.2
+export LOKI_VERSION=3.3.0
 
 # https://hub.docker.com/r/grafana/tempo/tags?page=1&name=2.
 export TEMPO_VERSION=2.6.1
 
 # https://hub.docker.com/r/otel/opentelemetry-collector-contrib/tags?page=1&name=0.
-export OTEL_VERSION=0.113.0
+export OTEL_VERSION=0.114.0
 
 # https://hub.docker.com/r/grafana/grafana/tags?page=1&name=11.
-export GRAFANA_VERSION=11.3.0
+export GRAFANA_VERSION=11.3.1
 
 
 #Network name
