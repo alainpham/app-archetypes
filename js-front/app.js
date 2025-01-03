@@ -20,6 +20,7 @@ httpServer.listen(port, function(){
     console.log('Server running at http://127.0.0.1:'+port+'/');
 });
 
+
 app.get(encodeURI('/uiconfig').replace('$','\\$'), (request, response) => {
 
     config = {
@@ -29,7 +30,10 @@ app.get(encodeURI('/uiconfig').replace('$','\\$'), (request, response) => {
     response.send(config);
 });
 
+
+
 app.get(encodeURI('/${svc-ping-path}').replace('$','\\$'), (request, response) => {
+    console.log("ping");
     response.send("pong");
 });
 
@@ -43,34 +47,24 @@ app.post(encodeURI('/${svc-send-msg-path}').replace('$','\\$'), (request, respon
 
         body = JSON.parse(body);
         console.log(body);
-        wss.broadcast([body],'person',true,true,true,"upsert-data",["state-table"]);
-        wss.broadcast([body],'person',true,true,true,"append-data",["log-table"]);
+        result = {
+            metadata: {
+                type: 'person'
+            },
+            data: [body]
+        }
+        wss.broadcast(result);
 
         response.writeHead(200);
-        response.end(JSON.stringify(body));
+        response.end(JSON.stringify(result));
     })
 });
 
-
-
-// expects an object
-wss.broadcast =  function broadcastToView(data,type,notify,updateHeader,changeData,dataOperationType,targetTableId){
-    body={};
-    body.type=type;
-    body.elementIds=targetTableId;
-    body.actions=[];
-    if (notify){
-        body.actions.push('notify');
-    }
-    if (updateHeader){
-        body.actions.push('update-header');
-    }
-    if (changeData){
-        body.actions.push(dataOperationType);
-    }
-    body.data=data;
-    stringBody = JSON.stringify(body);
-    wss.clients.forEach(function each(client) {
-        client.send(stringBody);
-     });
+wss.broadcast = function broadcastToView(data){
+    stringBody = JSON.stringify(data);
+    wss.clients.forEach(
+        function each(client) {
+            client.send(stringBody);
+        }
+    );
  }
