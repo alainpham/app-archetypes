@@ -1,4 +1,4 @@
-package ${package};
+package ${package}.service;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import ${package}.model.Person;
-
+import ${package}.helper.View;
 
 @RestController
 public class Service {

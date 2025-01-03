@@ -1,4 +1,4 @@
-package ${package};
+package ${package}.helper;
 
 import java.util.List;
 
