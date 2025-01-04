@@ -39,5 +39,10 @@ public class Person {
         this.textArea = textArea;
     }
     
+    @Override
+    public String toString() {
+        return "Person [id=" + id + ", name=" + name + ", firstName=" + firstName + ", vote=" + vote + ", textArea="
+                + textArea + "]";
+    }
     
 }
