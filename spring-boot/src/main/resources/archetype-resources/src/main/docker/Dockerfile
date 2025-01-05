@@ -16,7 +16,7 @@ ARG PROJECT_ARTIFACTID
 ARG PROJECT_VERSION
 ARG OPENTELEMETRY_VERSION
 
-RUN useradd -u 1000 appuser
+# RUN useradd -u 1000 appuser
 
 WORKDIR /deployments
 
