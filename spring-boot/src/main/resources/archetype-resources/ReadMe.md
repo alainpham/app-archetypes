@@ -27,7 +27,7 @@ mvn clean package
 #[[## Packaging container]]#
 
 ```
-mvn exec:exec@rmi exec:exec@build
+mvn clean package exec:exec@rmi exec:exec@build
 ```
 
 alternatively using raw docker commands
