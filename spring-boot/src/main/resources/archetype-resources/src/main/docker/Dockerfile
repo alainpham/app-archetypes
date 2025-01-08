@@ -1,11 +1,11 @@
-ARG TEMURIN_IMAGE_VERSION
+ARG TEMURIN_IMAGE_VERSION=17-jre
 
-FROM eclipse-temurin:${TEMURIN_IMAGE_VERSION} as builder
+FROM eclipse-temurin:${TEMURIN_IMAGE_VERSION} AS builder
 WORKDIR /builds
 COPY target/*.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
-ARG TEMURIN_IMAGE_VERSION
+ARG TEMURIN_IMAGE_VERSION=17-jre
 
 FROM eclipse-temurin:${TEMURIN_IMAGE_VERSION}
 
