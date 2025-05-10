@@ -446,7 +446,7 @@
             "uid": "grafanacloud-prom"
           },
           "editorMode": "code",
-          "expr": "holt_winters(\r\n  avg( \r\n    sum by(http_route)(\r\n      rate(\r\n        http_server_request_duration_seconds_count{job=\"$job\",http_route=~\"$http_route\"}[$rateinterval]\r\n      )\r\n    )\r\n  )[$predictive_interval:] offset $predictive_offset,\r\n  0.5,\r\n  0.5\r\n) * 0.5",
+          "expr": "double_exponential_smoothing(\r\n  avg( \r\n    sum by(http_route)(\r\n      rate(\r\n        http_server_request_duration_seconds_count{job=\"$job\",http_route=~\"$http_route\"}[$rateinterval]\r\n      )\r\n    )\r\n  )[$predictive_interval:] offset $predictive_offset,\r\n  0.5,\r\n  0.5\r\n) * 0.5",
           "hide": false,
           "instant": false,
           "legendFormat": "predictive threshold",
@@ -1258,6 +1258,6 @@
   "timezone": "",
   "title": "OpenTelemetry for HTTP services",
   "uid": "otel-http",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

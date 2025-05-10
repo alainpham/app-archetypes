@@ -60,7 +60,16 @@
       <defaultValue>alainpham</defaultValue>
     </requiredProperty>
     <requiredProperty key="kube-ingress-root-domain">
-      <defaultValue>kube.lan</defaultValue>
+      <defaultValue>v8s.duckdns.org</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="docker-network">
+      <defaultValue>primenet</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="docker-root-domain">
+      <defaultValue>zez.duckdns.org</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="docker-otlp-endpoint">
+      <defaultValue>http://alloy:4318</defaultValue>
     </requiredProperty>
   </requiredProperties>
   <fileSets>

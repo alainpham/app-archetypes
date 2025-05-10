@@ -23,6 +23,9 @@
         <otlp.endpoint>${otlp-endpoint}</otlp.endpoint>
         <container.registry>${container-registry}</container.registry>
         <kube.ingress.root.domain>${kube-ingress-root-domain}</kube.ingress.root.domain>
+        <docker.network>${docker-network}</docker.network>
+        <docker.root.domain>${docker-root-domain}</docker.root.domain>
+        <docker.otlp.endpoint>${docker-otlp-endpoint}</docker.otlp.endpoint>
     </properties>
 
     <dependencyManagement>
@@ -66,6 +69,11 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc.openapi.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
 
     </dependencies>
@@ -133,7 +141,7 @@
                                 <argument>-f</argument>
                                 <argument>src/main/docker/Dockerfile</argument>
                                 <argument>-t</argument>
-                                <argument>${project.artifactId}:${project.version}</argument>
+                                <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
                                 <argument>.</argument>
                             </arguments>
                         </configuration>
@@ -195,6 +203,160 @@
                                 <argument>-t</argument>
                                 <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
                                 <argument>.</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>runotel</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>docker</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>--rm</argument>
+                                <argument>--name</argument>
+                                <argument>${project.artifactId}</argument>
+                                <argument>--hostname</argument>
+                                <argument>${project.artifactId}</argument>
+                                <argument>--network</argument>
+                                <argument>${docker.network}</argument>
+                                <argument>-e</argument>
+                                <argument>OTEL_JAVAAGENT_ENABLED=true</argument>
+                                <argument>-e</argument>
+                                <argument>OTEL_EXPORTER_OTLP_ENDPOINT=${docker.otlp.endpoint}</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.enable=true</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.services.${project.artifactId}.loadbalancer.server.port=8080</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.services.${project.artifactId}.loadbalancer.server.scheme=http</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.service=${project.artifactId}</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.entrypoints=http</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.tls=false</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.rule=Host(`${project.artifactId}.${docker.root.domain}`)</argument>
+                                <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>run</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>docker</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>--rm</argument>
+                                <argument>--name</argument>
+                                <argument>${project.artifactId}</argument>
+                                <argument>--hostname</argument>
+                                <argument>${project.artifactId}</argument>
+                                <argument>--network</argument>
+                                <argument>${docker.network}</argument>
+                                <argument>-e</argument>
+                                <argument>OTEL_JAVAAGENT_ENABLED=false</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.enable=true</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.services.${project.artifactId}.loadbalancer.server.port=8080</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.services.${project.artifactId}.loadbalancer.server.scheme=http</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.service=${project.artifactId}</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.entrypoints=http</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.tls=false</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.rule=Host(`${project.artifactId}.${docker.root.domain}`)</argument>
+                                <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>runoteld</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>docker</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>-d</argument>
+                                <argument>--rm</argument>
+                                <argument>--name</argument>
+                                <argument>${project.artifactId}</argument>
+                                <argument>--hostname</argument>
+                                <argument>${project.artifactId}</argument>
+                                <argument>--network</argument>
+                                <argument>${docker.network}</argument>
+                                <argument>-e</argument>
+                                <argument>OTEL_JAVAAGENT_ENABLED=true</argument>
+                                <argument>-e</argument>
+                                <argument>OTEL_EXPORTER_OTLP_ENDPOINT=${docker.otlp.endpoint}</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.enable=true</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.services.${project.artifactId}.loadbalancer.server.port=8080</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.services.${project.artifactId}.loadbalancer.server.scheme=http</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.service=${project.artifactId}</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.entrypoints=http</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.tls=false</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.rule=Host(`${project.artifactId}.${docker.root.domain}`)</argument>
+                                <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>rund</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>docker</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>-d</argument>
+                                <argument>--rm</argument>
+                                <argument>--name</argument>
+                                <argument>${project.artifactId}</argument>
+                                <argument>--hostname</argument>
+                                <argument>${project.artifactId}</argument>
+                                <argument>--network</argument>
+                                <argument>${docker.network}</argument>
+                                <argument>-e</argument>
+                                <argument>OTEL_JAVAAGENT_ENABLED=false</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.enable=true</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.services.${project.artifactId}.loadbalancer.server.port=8080</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.services.${project.artifactId}.loadbalancer.server.scheme=http</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.service=${project.artifactId}</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.entrypoints=http</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.tls=false</argument>
+                                <argument>-l</argument>
+                                <argument>traefik.http.routers.${project.artifactId}.rule=Host(`${project.artifactId}.${docker.root.domain}`)</argument>
+                                <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
                             </arguments>
                         </configuration>
                     </execution>
