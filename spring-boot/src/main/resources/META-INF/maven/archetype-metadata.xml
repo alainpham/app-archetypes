@@ -30,7 +30,7 @@
       <defaultValue>2.15.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="springdoc-openapi-version">
-      <defaultValue>2.8.6</defaultValue>
+      <defaultValue>2.8.8</defaultValue>
     </requiredProperty>
     <requiredProperty key="exec-maven-plugin-version">
       <defaultValue>3.5.0</defaultValue>
