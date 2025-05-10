@@ -15,17 +15,17 @@ receivers:
 exporters:
   # native OTLP endpoints
   otlphttp/metrics:
-    endpoint: http://o11y_prom:9090/api/v1/otlp
+    endpoint: http://prometheus:9090/api/v1/otlp
   otlphttp/traces:
-    endpoint: http://o11y_tempo:4318
+    endpoint: http://tempo:4418
   otlphttp/logs:
-    endpoint: http://o11y_loki:3100/otlp
+    endpoint: http://loki:3100/otlp
 
   # Loki Prom non OTLP native
   loki:
-    endpoint: http://o11y_loki:3100/loki/api/v1/push
+    endpoint: http://loki:3100/loki/api/v1/push
   prometheusremotewrite:
-    endpoint: http://o11y_prom:9090/api/v1/write
+    endpoint: http://prometheus:9090/api/v1/write
     resource_to_telemetry_conversion: 
       enabled: true
 

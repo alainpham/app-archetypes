@@ -53,7 +53,7 @@
       <defaultValue>/swagger-ui.html?url=/v3/api-docs</defaultValue>
     </requiredProperty>
     <!-- build vars -->
-    <requiredProperty key="otlp-endpoint">
+    <requiredProperty key="kube-otlp-endpoint">
       <defaultValue>http://grafana-k8s-monitoring-alloy.agents.svc.cluster.local:4318</defaultValue>
     </requiredProperty>
     <requiredProperty key="container-registry">
