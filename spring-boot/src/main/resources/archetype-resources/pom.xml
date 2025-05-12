@@ -113,7 +113,7 @@
                             <arguments>
                                 <argument>rmi</argument>
                                 <argument>-f</argument>
-                                <argument>${project.artifactId}:${project.version}</argument>
+                                <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -143,21 +143,6 @@
                                 <argument>-t</argument>
                                 <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
                                 <argument>.</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>tag</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>docker</executable>
-                            <workingDirectory>${project.basedir}</workingDirectory>
-                            <arguments>
-                                <argument>tag</argument>
-                                <argument>${project.artifactId}:${project.version}</argument>
-                                <argument>${container.registry}/${project.artifactId}:${project.version}</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -392,6 +377,27 @@
                             <arguments>
                                 <argument>-c</argument>
                                 <argument><![CDATA[envsubst < src/main/kube/deploy.envsubst.yaml | kubectl apply -f -]]></argument>
+                            </arguments>
+                            <environmentVariables>
+                                <PROJECT_ARTIFACTID>${project.artifactId}</PROJECT_ARTIFACTID>
+                                <PROJECT_VERSION>${project.version}</PROJECT_VERSION>
+                                <CONTAINER_REGISTRY>${container.registry}</CONTAINER_REGISTRY>
+                                <OTLP_ENDPOINT>${kube.otlp.endpoint}</OTLP_ENDPOINT>
+                                <KUBE_INGRESS_ROOT_DOMAIN>${kube.ingress.root.domain}</KUBE_INGRESS_ROOT_DOMAIN>
+                            </environmentVariables>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>kyml</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>bash</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>-c</argument>
+                                <argument><![CDATA[envsubst < src/main/kube/deploy.envsubst.yaml > ${project.build.directory}]]></argument>
                             </arguments>
                             <environmentVariables>
                                 <PROJECT_ARTIFACTID>${project.artifactId}</PROJECT_ARTIFACTID>
