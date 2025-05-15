@@ -2,43 +2,40 @@
 
 #[[## All variables for build]]#
 
-```
+```bash
 export PROJECT_ARTIFACTID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
 export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
 export TEMURIN_IMAGE_VERSION=$(mvn help:evaluate -Dexpression=temurin.image.version -q -DforceStdout)
 export OPENTELEMETRY_VERSION=$(mvn help:evaluate -Dexpression=opentelemetry.version -q -DforceStdout)
 export CONTAINER_REGISTRY=$(mvn help:evaluate -Dexpression=container.registry -q -DforceStdout)
 export KUBE_INGRESS_ROOT_DOMAIN=$(mvn help:evaluate -Dexpression=kube.ingress.root.domain -q -DforceStdout)
-
+export DOCKER_NETWORK=$(mvn help:evaluate -Dexpression=docker.network -q -DforceStdout)
+export DOCKER_ROOT_DOMAIN=$(mvn help:evaluate -Dexpression=docker.root.domain -q -DforceStdout)
+export DOCKER_OTLP_ENDPOINT=$(mvn help:evaluate -Dexpression=docker.otlp.endpoint -q -DforceStdout)
 ```
 
 #[[## Run in dev]]#
 
-```
+```bash
 mvn spring-boot:run
 ```
 
 #[[## Packaging jar file]]#
 
-```
+```bash
 mvn clean package
 ```
 
 #[[## Packaging container]]#
 
-```
+```bash
 mvn clean package exec:exec@rmi exec:exec@build
 ```
 
 alternatively using raw docker commands
 
-```
-export PROJECT_ARTIFACTID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
-export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-export TEMURIN_IMAGE_VERSION=$(mvn help:evaluate -Dexpression=temurin.image.version -q -DforceStdout)
-export OPENTELEMETRY_VERSION=$(mvn help:evaluate -Dexpression=opentelemetry.version -q -DforceStdout)
-
-docker rmi -f ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
+```bash
+docker rmi -f ${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 
 docker buildx build \
     --load \
@@ -47,31 +44,38 @@ docker buildx build \
     --build-arg TEMURIN_IMAGE_VERSION=${TEMURIN_IMAGE_VERSION} \
     --build-arg OPENTELEMETRY_VERSION=${OPENTELEMETRY_VERSION} \
     -f src/main/docker/Dockerfile \
-    -t ${PROJECT_ARTIFACTID}:${PROJECT_VERSION} \
+    -t ${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION} \
     .
 ```
 
 #[[## Running container with docker ]]#
 
-Optionally create a dedicated network
+With maven commands wrapping docker runs
+
+```bash
+# with otel activated
+mvn exec:exec@runotel
+# without otel
+mvn exec:exec@run
+
+# with otel in background
+mvn exec:exec@runotel
+# without otel in background
+mvn exec:exec@rund
+```
+
+Alternative with ports open on localhost
 
 ```
-docker network create --driver=bridge --subnet=172.19.0.0/16 --gateway=172.19.0.1 mainnet 
-```
-
-```
-export PROJECT_ARTIFACTID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
-export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-
-docker run --rm --net mainnet \
+docker run --rm --net ${DOCKER_NETWORK} \
     -p 8080:8080 \
     -e OTEL_JAVAAGENT_ENABLED="true" \
-    --name ${PROJECT_ARTIFACTID} ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
+    --name ${PROJECT_ARTIFACTID} ${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 
-docker run -d --rm --net mainnet \
+docker run -d --rm --net ${DOCKER_NETWORK} \
     -p 8080:8080 \
     -e OTEL_JAVAAGENT_ENABLED="true" \
-    --name ${PROJECT_ARTIFACTID} ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
+    --name ${PROJECT_ARTIFACTID} ${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 ```
 
 Launch multiple instances
@@ -81,9 +85,9 @@ NB_CONTAINERS=2
 
 for (( i=0; i<$NB_CONTAINERS; i++ ))
 do
-    docker run -d --rm --net mainnet \
+    docker run -d --rm --net ${DOCKER_NETWORK} \
     -e OTEL_JAVAAGENT_ENABLED="true" \
-    --name ${PROJECT_ARTIFACTID}-$i ${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
+    --name ${PROJECT_ARTIFACTID}-$i ${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 done
 
 for (( i=0; i<$NB_CONTAINERS; i++ ))
@@ -97,7 +101,6 @@ done
 #[[## Push on registry and deploy on kube]]#
 
 ```
-mvn exec:exec@tag
 mvn exec:exec@push 
 mvn exec:exec@kdelete
 mvn exec:exec@kdeploy
@@ -106,15 +109,6 @@ mvn exec:exec@kdeploy
 alternative with pure command line
 
 ```
-export PROJECT_ARTIFACTID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
-export PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-
-export CONTAINER_REGISTRY=$(mvn help:evaluate -Dexpression=container.registry -q -DforceStdout)
-export KUBE_INGRESS_ROOT_DOMAIN=$(mvn help:evaluate -Dexpression=kube.ingress.root.domain -q -DforceStdout)
-
-
-
-docker tag ${PROJECT_ARTIFACTID}:${PROJECT_VERSION} ${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 docker push ${CONTAINER_REGISTRY}/${PROJECT_ARTIFACTID}:${PROJECT_VERSION}
 
 envsubst < src/main/kube/deploy.envsubst.yaml | kubectl delete -f -
