@@ -6,7 +6,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <requiredProperties>
     <requiredProperty key="spring-boot-version">
-      <defaultValue>3.4.5</defaultValue>
+      <defaultValue>3.5.2</defaultValue>
     </requiredProperty>
     <requiredProperty key="project-reporting-outputEncoding">
       <defaultValue>UTF-8</defaultValue>
@@ -27,13 +27,13 @@
       <defaultValue>17.0.15_6-jre</defaultValue>
     </requiredProperty>
     <requiredProperty key="opentelemetry-version">
-      <defaultValue>2.15.0</defaultValue>
+      <defaultValue>2.16.0</defaultValue>
     </requiredProperty>
     <requiredProperty key="springdoc-openapi-version">
-      <defaultValue>2.8.8</defaultValue>
+      <defaultValue>2.8.9</defaultValue>
     </requiredProperty>
     <requiredProperty key="exec-maven-plugin-version">
-      <defaultValue>3.5.0</defaultValue>
+      <defaultValue>3.5.1</defaultValue>
     </requiredProperty>
     
     <!-- app vars -->
@@ -54,13 +54,13 @@
     </requiredProperty>
     <!-- build vars -->
     <requiredProperty key="kube-otlp-endpoint">
-      <defaultValue>http://grafana-k8s-monitoring-alloy.agents.svc.cluster.local:4318</defaultValue>
+      <defaultValue>http://grafana-k8s-monitoring-alloy.default.svc.cluster.local:4318</defaultValue>
     </requiredProperty>
     <requiredProperty key="container-registry">
       <defaultValue>alainpham</defaultValue>
     </requiredProperty>
     <requiredProperty key="kube-ingress-root-domain">
-      <defaultValue>v8s.duckdns.org</defaultValue>
+      <defaultValue>codersandbox.com</defaultValue>
     </requiredProperty>
     <requiredProperty key="docker-network">
       <defaultValue>primenet</defaultValue>
