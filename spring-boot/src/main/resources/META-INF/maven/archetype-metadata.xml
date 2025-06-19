@@ -54,7 +54,7 @@
     </requiredProperty>
     <!-- build vars -->
     <requiredProperty key="kube-otlp-endpoint">
-      <defaultValue>http://grafana-k8s-monitoring-alloy.default.svc.cluster.local:4318</defaultValue>
+      <defaultValue>http://grafana-k8s-monitoring-alloy-receiver.default.svc.cluster.local:4318</defaultValue>
     </requiredProperty>
     <requiredProperty key="container-registry">
       <defaultValue>alainpham</defaultValue>
